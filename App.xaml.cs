@@ -1,4 +1,9 @@
-﻿using Microsoft.UI.Xaml;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using KanBoard.Services.Classes;
+using KanBoard.Services.Interfaces;
+using KanBoard.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -33,6 +38,7 @@ namespace KanBoard
         public App()
         {
             this.InitializeComponent();
+            ConfigureServices();
         }
 
         /// <summary>
@@ -43,6 +49,17 @@ namespace KanBoard
         {
             m_window = new MainWindow();
             m_window.Activate();
+        }
+
+        private void ConfigureServices()
+        {
+            var services = new ServiceCollection();
+
+            services
+                .AddSingleton<ILogger, LogService>()
+                .AddSingleton<MainBoardViewModel>();
+            
+            Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
 
         private Window m_window;
