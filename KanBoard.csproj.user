@@ -8,5 +8,17 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="Themes\Colors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Light\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\HighContrast\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Dark\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>
