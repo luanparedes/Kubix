@@ -6,9 +6,22 @@
     xmlns:local="using:KanBoard"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton">Click Me</Button>
+    <StackPanel Orientation="Horizontal" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Height="500"
+                Width="500"
+                Background="{ThemeResource AppBackground}">
+        <Button x:Name="myButton"
+                Content="Settings"
+                Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                Background="{ThemeResource AppMainTexts}">
+            <Button.CommandParameter>
+                <xaml:ElementTheme>Light</xaml:ElementTheme>
+            </Button.CommandParameter>
+        </Button>
     </StackPanel>
 </Window>
