@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KanBoard (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "KanBoard (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
