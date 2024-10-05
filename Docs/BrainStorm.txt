@@ -1,0 +1,7 @@
+<<< KanBoard >>>
+
+The idea is to have a generic kanban board.
+The user can choose to have cards like a developer board with colums like "Todo", "In Progress", "Test", "Closed", etc.
+But we can have other options like week days, that the user can add cards by day with daily activities.
+Or we can have weekly boards, monthly, anual.
+The Idea is to do a multi task app, with a music and video reproducer, a web browser, a text editor, etc.

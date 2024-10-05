@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window
-    x:Class="KanBoard.MainWindow"
+<Page
+    x:Class="KanBoard.MainBoardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:KanBoard"
@@ -9,19 +9,23 @@
     xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                Height="500"
-                Width="500"
-                Background="{ThemeResource AppBackground}">
-        <Button x:Name="myButton"
-                Content="Settings"
-                Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                Background="{ThemeResource AppMainTexts}">
-            <Button.CommandParameter>
-                <xaml:ElementTheme>Light</xaml:ElementTheme>
-            </Button.CommandParameter>
-        </Button>
-    </StackPanel>
-</Window>
+    <Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch" 
+          Background="{ThemeResource AppBackground}">
+        <NavigationView
+            PaneDisplayMode="Left"
+            IsBackButtonVisible="Collapsed"
+            Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
+            SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="SettingsPage" Icon="Home" Tag="SettingsPage"/>
+                <NavigationViewItem Content="UserInfoPage" Icon="Library" Tag="UserInfoPage"/>
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="SettingsPage" Icon="Setting" Tag="SettingsPage"/>
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="ContentFrame"/>
+        </NavigationView>
+    </Grid>
+</Page>

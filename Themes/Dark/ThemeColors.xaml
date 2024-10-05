@@ -5,7 +5,9 @@
 
     <!-- Dark Themes XAML -->
 
-    <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource Black}"/>
-    <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource White}"/>
+    <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource AppDarkBackgroungColor}"/>
+    <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource AppLightBackgroungColor}"/>
+
+    <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource Gray40}"/>
 
 </ResourceDictionary>
