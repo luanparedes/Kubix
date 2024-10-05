@@ -2,8 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using KanBoard.Helpers;
 using KanBoard.Services.Interfaces;
+using KanBoard.View;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using System;
 using System.Diagnostics;
@@ -17,7 +20,7 @@ namespace KanBoard.ViewModel
     {
         #region Fields & Properties
 
-        private readonly IThemeService _themeService = Ioc.Default.GetService<IThemeService>();
+        private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
 
         #endregion
@@ -33,45 +36,27 @@ namespace KanBoard.ViewModel
 
         #region Event Handlers
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        public void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
-
+            _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
         }
 
-        #endregion
-
-        //CODE THAT NEEDS TO MIGRATE TO SETTINGS PAGE
-        //CODE THAT NEEDS TO MIGRATE TO SETTINGS PAGE
-        //CODE THAT NEEDS TO MIGRATE TO SETTINGS PAGE
-
-        #region Fields & Properties
-
-        private ElementTheme _themeElement = ElementTheme.Dark;
-        public ElementTheme ThemeElement
-
+        public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            get { return _themeElement; }
-            set
+            Frame frame = (sender.Content) as Frame;
+
+            var selectedItem = args.SelectedItem as NavigationViewItem;
+            var tag = (string)selectedItem.Tag;
+
+            switch(tag)
             {
-                SetProperty(ref _themeElement, value);
+                case "SettingsPage":
+                    _navigationService.GoToNavigationView(typeof(SettingsPage));
+                    break;
+                case "UserInfoPage":
+                    _navigationService.GoToNavigationView(typeof(UserInfoPage));
+                    break;
             }
-        }
-
-        private void UpdateThemeColor()
-        {
-
-        }
-
-        #endregion
-
-        #region Commands
-
-        private ICommand _switchThemeCommand;
-        public ICommand SwitchThemeCommand { get => _switchThemeCommand ?? (_switchThemeCommand = new RelayCommand<ElementTheme>(ChangeAppTheme)); }
-
-        private void ChangeAppTheme(ElementTheme theme)
-        {
-            _themeService.LightTheme();
         }
 
         #endregion

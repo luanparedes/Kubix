@@ -8,4 +8,6 @@
     <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource White}"/>
     <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource Black}"/>
 
+    <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource Gray40}"/>
+
 </ResourceDictionary>

@@ -1,0 +1,13 @@
+<<< KanBoard >>>
+
+Done:
+	- MVVM Architecture implemented
+	- Dependency Injection implemented (must follow rules when add service).
+	- Theme change service.
+	- Navigation service.
+	- AppInfo service (Get info from project, like Name, version, etc.).
+	
+To Do:
+	- Finish Settings Page.
+	- Work on User Info Page.
+	- Work on Board.

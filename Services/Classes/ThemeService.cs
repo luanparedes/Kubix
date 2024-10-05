@@ -25,6 +25,7 @@ namespace KanBoard.Services.Classes
             var dispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
 
             dispatcherQueue.TryEnqueue(
+
                 Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal,
                 () =>
                 {
