@@ -18,11 +18,11 @@
             Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
             SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="SettingsPage" Icon="Home" Tag="SettingsPage"/>
-                <NavigationViewItem Content="UserInfoPage" Icon="Library" Tag="UserInfoPage"/>
+                <NavigationViewItem Content="Kanban Board" Icon="Home" Tag="SettingsPage"/>
+                <NavigationViewItem Content="Spotify" Icon="Library" Tag="UserInfoPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="SettingsPage" Icon="Setting" Tag="SettingsPage"/>
+                <NavigationViewItem Content="Settings" Icon="Setting" Tag="SettingsPage"/>
             </NavigationView.FooterMenuItems>
 
             <Frame x:Name="ContentFrame"/>
