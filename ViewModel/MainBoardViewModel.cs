@@ -56,6 +56,12 @@ namespace KanBoard.ViewModel
                 case "UserInfoPage":
                     _navigationService.GoToNavigationView(typeof(UserInfoPage));
                     break;
+                case "SpotifyPage":
+                    _navigationService.GoToNavigationView(typeof(SpotifyPage));
+                    break;
+                case "BrowserPage":
+                    _navigationService.GoToNavigationView(typeof(BrowserPage));
+                    break;
             }
         }
 

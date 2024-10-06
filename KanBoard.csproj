@@ -17,7 +17,9 @@
     <None Remove="Themes\Dark\ThemeColors.xaml" />
     <None Remove="Themes\HighContrast\ThemeColors.xaml" />
     <None Remove="Themes\Light\ThemeColors.xaml" />
+    <None Remove="View\BrowserPage.xaml" />
     <None Remove="View\SettingsPage.xaml" />
+    <None Remove="View\SpotifyPage.xaml" />
     <None Remove="View\UserInfoPage.xaml" />
   </ItemGroup>
 
@@ -46,6 +48,16 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\BrowserPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\SpotifyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\UserInfoPage.xaml">
