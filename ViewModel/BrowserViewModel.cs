@@ -66,9 +66,9 @@ namespace KanBoard.ViewModel
             GoToWebsite(searchWebPage.Text);
         }
 
-        public void WebView2_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        public void WebView2_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
-            searchWebPage.Text = webView.Source.ToString();
+            searchWebPage.Text = args.Uri;
         }
 
         #endregion

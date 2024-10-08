@@ -1,18 +1,11 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
 using KanBoard.Helpers;
 using KanBoard.Services.Interfaces;
 using KanBoard.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.Security.Cryptography.Core;
 
 namespace KanBoard.ViewModel
 {
@@ -56,8 +49,8 @@ namespace KanBoard.ViewModel
                 case "UserInfoPage":
                     _navigationService.GoToNavigationView(typeof(UserInfoPage));
                     break;
-                case "SpotifyPage":
-                    _navigationService.GoToNavigationView(typeof(SpotifyPage));
+                case "AppMusicPage":
+                    _navigationService.GoToNavigationView(typeof(AppMusicPage));
                     break;
                 case "BrowserPage":
                     _navigationService.GoToNavigationView(typeof(BrowserPage));

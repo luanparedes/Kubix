@@ -19,7 +19,7 @@
             SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>
-                <NavigationViewItem Content="Spotify" Icon="MusicInfo" Tag="SpotifyPage"/>
+                <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
                 <NavigationViewItem Content="Web Browser" Icon="World" Tag="BrowserPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
