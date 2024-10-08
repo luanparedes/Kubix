@@ -36,7 +36,7 @@
             <WebView2 Grid.Row="1"
                       Source="{x:Bind ViewModel.WebsiteURL, Mode=TwoWay}"
                       Loaded="{x:Bind ViewModel.WebView2_Loaded}"
-                      NavigationCompleted="{x:Bind ViewModel.WebView2_NavigationCompleted}"/>
+                      NavigationStarting="{x:Bind ViewModel.WebView2_NavigationStarting}"/>
         </Grid>
     </Grid>
 </Page>

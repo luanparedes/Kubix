@@ -50,7 +50,7 @@ namespace KanBoard
                 .AddSingleton<MainBoardViewModel>()
                 .AddSingleton<SettingsViewModel>()
                 .AddSingleton<UserInfoViewModel>()
-                .AddSingleton<SpotifyViewModel>()
+                .AddSingleton<AppMusicViewModel>()
                 .AddSingleton<BrowserViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());

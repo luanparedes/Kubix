@@ -11,7 +11,7 @@
     <Page Update="View\BrowserPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\SpotifyPage.xaml">
+    <Page Update="View\AppMusicPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserInfoPage.xaml">
