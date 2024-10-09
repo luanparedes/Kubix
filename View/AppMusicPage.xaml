@@ -10,73 +10,126 @@
     NavigationCacheMode="Required"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <UserControl x:Name="PageControl" Loaded="{x:Bind ViewModel.PageControl_Loaded}">
+        <Grid>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="PageState">
+                    <VisualState x:Name="ChoiceAppState">
+                        <VisualState.Setters>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
+                            <Setter Target="SpotifyButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeezerButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="BackButton.Visibility" Value="Collapsed"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="SpotifyAppState">
+                        <VisualState.Setters>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="SpotifyButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeezerButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="DeezerAppState">
+                        <VisualState.Setters>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="SpotifyButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="DeezerButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Padding="20,0,0,0">
-            <Button x:Name="SpotifyButtonBar"
-                    Width="40" 
-                    Height="40"
-                    Padding="0"
-                    CornerRadius="18"
-                    Visibility="Collapsed"
-                    Tag="SpotifyBtn"
-                    Loaded="{x:Bind ViewModel.SpotifyButtonBar_Loaded}"
-                    Click="{x:Bind ViewModel.Button_Click}">
-                <Button.Content>
-                    <Image Source="/Assets/spotify_logo.png" Height="40" Width="40" />
-                </Button.Content>
-            </Button>
-            <Button x:Name="DeezerButtonBar"
-                    Width="40"
-                    Height="40"
-                    Padding="0"
-                    CornerRadius="18"
-                    Visibility="Collapsed"
-                    Tag="DeezerBtn"
-                    Loaded="{x:Bind ViewModel.DeezerButtonBar_Loaded}"
-                    Click="{x:Bind ViewModel.Button_Click}">
-                <Button.Content>
-                    <Image Source="/Assets/deezer_logo.jpg" Height="28" Width="28" />
-                </Button.Content>
-            </Button>
-        </StackPanel>
-        
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    Height="700"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Loaded="{x:Bind ViewModel.StackPanel_Loaded}">
-            <Button x:Name="SpotifyButton"
-                    Width="250" 
-                    Height="250"
-                    CornerRadius="180"
-                    Margin="0,0,50,0"
-                    Tag="SpotifyBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
-                <Button.Content>
-                    <Image Source="/Assets/spotify_logo.png" />
-                </Button.Content>
-            </Button>
-            <Button x:Name="DeezerButton"
-                    Width="250" 
-                    Height="250"
-                    CornerRadius="20"
-                    Tag="DeezerBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
-                <Button.Content>
-                    <Image Source="/Assets/deezer_logo.jpg" />
-                </Button.Content>
-            </Button>
-        </StackPanel>
-        
-        <WebView2 Grid.Row="1"
-                  Visibility="Collapsed"
-                  Source="{x:Bind ViewModel.SpotifyURL}"
-                  Loaded="{x:Bind ViewModel.WebView2_Loaded}"/>
-    </Grid>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BackButton" 
+                        Grid.Column="0" 
+                        Padding="1"
+                        Width="35" CornerRadius="20"
+                        Height="35"
+                        Margin="5,0,10,0"
+                        Tag="BackButton"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <FontIcon Glyph="&#xE72B;"
+                              FontFamily="Segoe MDL2 Assets" 
+                              HorizontalAlignment="Center" 
+                              FontSize="16"/>
+                </Button>
+                
+                <Button x:Name="SpotifyButtonBar"
+                        Width="40" 
+                        Height="40"
+                        Padding="0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="SpotifyBtn"
+                        Loaded="{x:Bind ViewModel.SpotifyButtonBar_Loaded}"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/spotify_logo.png" 
+                               Height="40" 
+                               Width="40" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="DeezerButtonBar"
+                        Width="40"
+                        Height="40"
+                        Padding="0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="DeezerBtn"
+                        Loaded="{x:Bind ViewModel.DeezerButtonBar_Loaded}"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/deezer_logo.jpg" 
+                               Height="28" 
+                               Width="28" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <StackPanel x:Name="ChoiceAppPanel" 
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Height="700"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Loaded="{x:Bind ViewModel.StackPanel_Loaded}">
+                <Button x:Name="SpotifyButton"
+                        Width="250" 
+                        Height="250"
+                        CornerRadius="180"
+                        Margin="0,0,50,0"
+                        Tag="SpotifyBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/spotify_logo.png" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="DeezerButton"
+                        Width="250" 
+                        Height="250"
+                        CornerRadius="20"
+                        Tag="DeezerBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/deezer_logo.jpg" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <WebView2 x:Name="MusicAppWeb" Grid.Row="1"
+                      Visibility="Collapsed"
+                      Source="{x:Bind ViewModel.SpotifyURL}"
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"/>
+        </Grid>
+    </UserControl>
 </Page>

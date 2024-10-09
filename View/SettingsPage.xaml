@@ -19,23 +19,12 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" 
-                    Padding="1"
-                    Width="35" CornerRadius="20"
-                    Height="35"
-                    Margin="12,2,0,0"
-                    Click="{x:Bind ViewModel.BackButton_Click}">
-                <FontIcon Glyph="&#xE72B;"
-                          FontFamily="Segoe MDL2 Assets" 
-                          HorizontalAlignment="Center" 
-                          FontSize="16"/>
-            </Button>
-            <TextBlock Text="&lt;Settings&gt;" Grid.Column="1" 
+
+            <TextBlock Text="&lt;Settings&gt;" Grid.Column="0" 
                        Foreground="{ThemeResource AppMainTexts}"
                        FontSize="18"
                        Margin="10,0"
