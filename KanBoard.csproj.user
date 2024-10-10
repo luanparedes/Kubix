@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Source>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</Source>
+    <SmallTileSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</SmallTileSource>
+    <MediumTileSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</MediumTileSource>
+    <WideTileSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</WideTileSource>
+    <LargeTileSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</LargeTileSource>
+    <AppIconSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</AppIconSource>
+    <SplashScreenSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</SplashScreenSource>
+    <BadgeLogoSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</BadgeLogoSource>
+    <PackageLogoSource>D:\01_Desktop\Developer\Softwares\C#\KanBoard\Assets\Kanboard_K_512x512.png</PackageLogoSource>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="App.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Update="View\BrowserPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AppMusicPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserInfoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Colors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Light\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\HighContrast\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Dark\ThemeColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

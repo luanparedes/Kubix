@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="KanBoard.View.BrowserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KanBoard.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Width="600" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Width="500" 
+                         PlaceholderText="www.google.com" 
+                         HorizontalAlignment="Center"
+                         Loaded="{x:Bind ViewModel.TextBox_Loaded}"/>
+                <Button Grid.Column="1" 
+                        Margin="10,0"
+                        Click="{x:Bind ViewModel.SearchWebPage_Click}">
+                    <FontIcon Glyph="&#xE721;"
+                              FontFamily="Segoe MDL2 Assets" 
+                              HorizontalAlignment="Center" 
+                              FontSize="16"/>
+                </Button>
+            </Grid>
+            <WebView2 Grid.Row="1"
+                      Source="{x:Bind ViewModel.WebsiteURL, Mode=TwoWay}"
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
+                      NavigationStarting="{x:Bind ViewModel.WebView2_NavigationStarting}"/>
+        </Grid>
+    </Grid>
+</Page>
