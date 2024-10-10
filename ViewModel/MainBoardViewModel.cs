@@ -32,6 +32,7 @@ namespace KanBoard.ViewModel
         public void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
             _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
+            _navigationService.GoToNavigationView(typeof(BrowserPage));
         }
 
         public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

@@ -65,33 +65,31 @@
                 </Button>
                 
                 <Button x:Name="SpotifyButtonBar"
-                        Width="40" 
-                        Height="40"
+                        Width="32" 
+                        Height="32"
                         Padding="0"
                         CornerRadius="18"
                         Visibility="Collapsed"
                         Tag="SpotifyBtn"
-                        Loaded="{x:Bind ViewModel.SpotifyButtonBar_Loaded}"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/spotify_logo.png" 
-                               Height="40" 
-                               Width="40" />
+                               Height="30" 
+                               Width="30" />
                     </Button.Content>
                 </Button>
                 <Button x:Name="DeezerButtonBar"
-                        Width="40"
-                        Height="40"
+                        Width="32"
+                        Height="32"
                         Padding="0"
                         CornerRadius="18"
                         Visibility="Collapsed"
                         Tag="DeezerBtn"
-                        Loaded="{x:Bind ViewModel.DeezerButtonBar_Loaded}"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/deezer_logo.jpg" 
-                               Height="28" 
-                               Width="28" />
+                        <Image Source="/Assets/deezer_logo.png" 
+                               Height="30" 
+                               Width="30" />
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -101,35 +99,39 @@
                         Orientation="Horizontal"
                         Height="700"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Loaded="{x:Bind ViewModel.StackPanel_Loaded}">
+                        VerticalAlignment="Center">
                 <Button x:Name="SpotifyButton"
                         Width="250" 
-                        Height="250"
+                        Height="250" Padding="1"
                         CornerRadius="180"
                         Margin="0,0,50,0"
                         Tag="SpotifyBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/spotify_logo.png" />
+                        <Image Source="/Assets/spotify_logo.png" 
+                               Height="280" 
+                               Width="280"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="DeezerButton"
                         Width="250" 
-                        Height="250"
-                        CornerRadius="20"
+                        Height="250" 
+                        Padding="28"
+                        CornerRadius="180"
                         Tag="DeezerBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/deezer_logo.jpg" />
+                        <Image Source="/Assets/deezer_logo.png" />
                     </Button.Content>
                 </Button>
             </StackPanel>
 
-            <WebView2 x:Name="MusicAppWeb" Grid.Row="1"
+            <WebView2 x:Name="MusicAppWeb" 
+                      Grid.Row="1"
                       Visibility="Collapsed"
-                      Source="{x:Bind ViewModel.SpotifyURL}"
-                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"/>
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
+                      NavigationCompleted="{x:Bind ViewModel.MusicAppWeb_NavigationCompleted}"/>
         </Grid>
     </UserControl>
 </Page>

@@ -18,9 +18,9 @@
             Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
             SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>
-                <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
+                <!--<NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>-->
                 <NavigationViewItem Content="Web Browser" Icon="World" Tag="BrowserPage"/>
+                <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="Settings" Icon="Setting" Tag="SettingsPage"/>

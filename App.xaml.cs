@@ -2,7 +2,6 @@
 using KanBoard.Helpers;
 using KanBoard.Services.Classes;
 using KanBoard.Services.Interfaces;
-using KanBoard.View;
 using KanBoard.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
