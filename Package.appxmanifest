@@ -9,14 +9,14 @@
 
   <Identity
     Name="db2f8bdf-ee93-47a3-b193-8bd9a1a5df69"
-    Publisher="CN=luansp"
-    Version="1.0.0.0" />
+    Publisher="CN=Sunnymoon"
+    Version="1.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="db2f8bdf-ee93-47a3-b193-8bd9a1a5df69" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>KanBoard</DisplayName>
-    <PublisherDisplayName>luansp</PublisherDisplayName>
+    <PublisherDisplayName>Sunnymoon</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

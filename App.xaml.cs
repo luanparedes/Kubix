@@ -2,10 +2,12 @@
 using KanBoard.Helpers;
 using KanBoard.Services.Classes;
 using KanBoard.Services.Interfaces;
+using KanBoard.View;
 using KanBoard.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Threading.Tasks;
 
 namespace KanBoard
 {
@@ -78,7 +80,7 @@ namespace KanBoard
 
         #region Event Handlers
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             _appInfo = Ioc.Default.GetService<IAppInfo>();
             _navigationService = Ioc.Default.GetService<INavigationService>();
@@ -86,6 +88,8 @@ namespace KanBoard
             ConfigureMainWindow();
      
             _navigationService.SetFrame(MainWindow.Content as Frame, FrameTypeEnum.MainFrame);
+            _navigationService.GoToPage(typeof(SplashScreenPage));
+            await Task.Delay(3000);
             _navigationService.BackToBoard();
         }
 
