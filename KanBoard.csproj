@@ -33,6 +33,7 @@
     <None Remove="View\BrowserPage.xaml" />
     <None Remove="View\SettingsPage.xaml" />
     <None Remove="View\SplashScreenPage.xaml" />
+    <None Remove="View\StreamingsPage.xaml" />
     <None Remove="View\UserInfoPage.xaml" />
     <None Remove="View\YoutubePage.xaml" />
   </ItemGroup>
@@ -61,6 +62,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\StreamingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\YoutubePage.xaml">

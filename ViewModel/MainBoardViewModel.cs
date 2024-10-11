@@ -59,6 +59,9 @@ namespace KanBoard.ViewModel
                 case "YoutubePage":
                     _navigationService.GoToNavigationView(typeof(YoutubePage));
                     break;
+                case "StreamingsPage":
+                    _navigationService.GoToNavigationView(typeof(StreamingsPage));
+                    break;
             }
         }
 

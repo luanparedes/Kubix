@@ -22,6 +22,9 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="View\StreamingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\YoutubePage.xaml">
       <SubType>Designer</SubType>
     </Page>
