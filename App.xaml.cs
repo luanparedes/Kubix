@@ -54,7 +54,8 @@ namespace KanBoard
                 .AddSingleton<AppMusicViewModel>()
                 .AddSingleton<BrowserViewModel>()
                 .AddSingleton<YoutubeViewModel>()
-                .AddSingleton<StreamingsViewModel>();
+                .AddSingleton<StreamingsViewModel>()
+                .AddSingleton<NotepadViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
