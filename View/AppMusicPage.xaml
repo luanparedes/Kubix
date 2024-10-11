@@ -55,7 +55,7 @@
                         Padding="1"
                         Width="35" CornerRadius="20"
                         Height="35"
-                        Margin="5,0,10,0"
+                        Margin="5,0,20,0"
                         Tag="BackButton"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <FontIcon Glyph="&#xE72B;"

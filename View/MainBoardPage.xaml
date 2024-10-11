@@ -22,6 +22,7 @@
                 <NavigationViewItem Content="Web Browser" Icon="World" Tag="BrowserPage"/>
                 <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
                 <NavigationViewItem Content="Youtube" Icon="Video" Tag="YoutubePage"/>
+                <NavigationViewItem Content="Streamings" Icon="WebCam" Tag="StreamingsPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="Settings" Icon="Setting" Tag="SettingsPage"/>
