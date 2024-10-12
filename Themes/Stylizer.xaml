@@ -2,12 +2,51 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:KanBoard.Controls"
     xmlns:local="using:KanBoard.Themes">
 
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
+    <Style TargetType="controls:NotepadControl">
+        <Setter Property="Background" Value="{ThemeResource AppBackground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NotepadControl">
+                    <Grid>
+                        <TabView x:Name="TabViewCustom" VerticalAlignment="Stretch"/>
+
+                        <!--<TextBox x:Name="TextBoxCustom"
+                                 Grid.Row="1"
+                                 PlaceholderText="Type your text here"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 Style="{StaticResource NotepadTextBox}"/>-->
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Name="TabViewNotepad" TargetType="TabViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabViewItem">
+                    <Grid>
+                        <TextBox x:Name="TextBoxCustom"
+                                 Grid.Row="1"
+                                 PlaceholderText="Type your text here"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 Style="{StaticResource NotepadTextBox}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+    </Style>
+    
     <Style x:Key="NotepadTextBox" TargetType="TextBox">
         <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />
         <Setter Property="Background" Value="{ThemeResource TextControlBackground}" />
@@ -29,6 +68,9 @@
         <Setter Property="SelectionFlyout" Value="{StaticResource TextControlCommandBarSelectionFlyout}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="BackgroundSizing" Value="InnerBorderEdge" />
+        <Setter Property="PlaceholderText" Value="Type your text here"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -115,14 +157,70 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <ContentPresenter x:Name="HeaderContentPresenter" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" FontWeight="Normal" Foreground="{ThemeResource TextControlHeaderForeground}" Margin="{ThemeResource TextBoxTopHeaderMargin}" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Collapsed" x:DeferLoadStrategy="Lazy" />
-                        <Border x:Name="BorderElement" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" Control.IsTemplateFocusTarget="True" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" />
-                        <ScrollViewer x:Name="ContentElement" Grid.Row="1" Grid.Column="0" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}" IsTabStop="False" AutomationProperties.AccessibilityView="Raw" ZoomMode="Disabled" />
-                        <TextBlock x:Name="PlaceholderTextContentPresenter" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Foreground="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForeground}}" Margin="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Text="{TemplateBinding PlaceholderText}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="{TemplateBinding TextWrapping}" IsHitTestVisible="False" />
-                        <ContentPresenter x:Name="DescriptionPresenter" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="{TemplateBinding Description}" Foreground="{ThemeResource SystemControlDescriptionTextForegroundBrush}" AutomationProperties.AccessibilityView="Raw" x:Load="False" />
+                        <ContentPresenter x:Name="HeaderContentPresenter" 
+                                          Grid.Row="0" 
+                                          Grid.Column="0" 
+                                          Grid.ColumnSpan="2" 
+                                          Content="{TemplateBinding Header}" 
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}" 
+                                          FontWeight="Normal" 
+                                          Foreground="{ThemeResource TextControlHeaderForeground}" 
+                                          Margin="{ThemeResource TextBoxTopHeaderMargin}" 
+                                          TextWrapping="Wrap" 
+                                          VerticalAlignment="Top" 
+                                          Visibility="Collapsed" 
+                                          x:DeferLoadStrategy="Lazy" />
+                        <Border x:Name="BorderElement" 
+                                Grid.Row="1" 
+                                Grid.Column="0" 
+                                Grid.RowSpan="1" 
+                                Grid.ColumnSpan="2" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="{TemplateBinding CornerRadius}" 
+                                Control.IsTemplateFocusTarget="True" 
+                                MinWidth="{TemplateBinding MinWidth}" 
+                                MinHeight="{TemplateBinding MinHeight}" />
+                        <ScrollViewer x:Name="ContentElement" 
+                                      Grid.Row="1" 
+                                      Grid.Column="0" 
+                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" 
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
+                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" 
+                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" 
+                                      IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" 
+                                      Margin="{TemplateBinding BorderThickness}" 
+                                      Padding="{TemplateBinding Padding}" 
+                                      Foreground="{TemplateBinding Foreground}" 
+                                      IsTabStop="False" 
+                                      AutomationProperties.AccessibilityView="Raw" 
+                                      ZoomMode="Disabled" />
+                        <TextBlock x:Name="PlaceholderTextContentPresenter" 
+                                   Grid.Row="1" 
+                                   Grid.Column="0" 
+                                   Grid.ColumnSpan="2" 
+                                   Foreground="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForeground}}" 
+                                   Margin="{TemplateBinding BorderThickness}" 
+                                   Padding="{TemplateBinding Padding}" 
+                                   Text="{TemplateBinding PlaceholderText}" 
+                                   TextAlignment="{TemplateBinding TextAlignment}" 
+                                   TextWrapping="{TemplateBinding TextWrapping}" 
+                                   IsHitTestVisible="False" />
+                        <ContentPresenter x:Name="DescriptionPresenter" 
+                                          Grid.Row="2" 
+                                          Grid.Column="0" 
+                                          Grid.ColumnSpan="2" 
+                                          Content="{TemplateBinding Description}"
+                                          Foreground="{ThemeResource SystemControlDescriptionTextForegroundBrush}"
+                                          AutomationProperties.AccessibilityView="Raw" 
+                                          x:Load="False" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>
