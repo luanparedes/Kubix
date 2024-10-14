@@ -1,6 +1,9 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
+using Windows.Storage.Pickers;
+using Windows.Storage;
 
 namespace KanBoard.Controls
 {
@@ -9,45 +12,121 @@ namespace KanBoard.Controls
         #region Fields & Properties
 
         private TabView customTabView;
+        private Button openButton;
+        private Button saveButton;
 
-        public event EventHandler<SelectionChangedEventArgs> NoteSelectionChange;
-        public event EventHandler<TabViewItem> NoteTextChanged;
+        private CustomTabViewItem ActualTabItem { get; set; }
 
         #endregion
 
         #region Methods
 
-        private TabViewItem AddNewtab()
+        private void CreateTab(string header = null, string text = null)
         {
-            TextBox textBox = new TextBox();
-            textBox.Style = (Style)App.Current.Resources["NotepadTextBox"];
-            textBox.TextChanged += TextBox_TextChanged;
+            CustomTabViewItem newTabItem;
 
-            TabViewItem tabItem = new TabViewItem();
-            tabItem.Header = "New";
-            tabItem.Content = textBox;
+            if (header != null && text != null)
+                newTabItem = new(header, text);
+            else
+                newTabItem = new();
 
-            return tabItem;
+            newTabItem.HasChangesChanged += CustomTabView_IsTextChanged;
+            newTabItem.CloseTab += NewTabItem_CloseTab;
+
+            customTabView.TabItems.Add(newTabItem);
+            customTabView.SelectedItem = newTabItem;
+        }
+
+        private async void OpenFile()
+        {
+            var openPicker = new FileOpenPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            openPicker.FileTypeFilter.Add(".txt");
+
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hwnd);
+
+            StorageFile file = await openPicker.PickSingleFileAsync();
+
+            if (file != null)
+            {
+                CreateTab(file.Name, await FileIO.ReadTextAsync(file));
+            }
+        }
+
+        private async void SaveFile()
+        {
+            if (ActualTabItem.TabFile != null)
+            {
+                await FileIO.WriteTextAsync(ActualTabItem.TabFile, (ActualTabItem.Content as TextBox).Text);
+            }
+            else
+            {
+                var savePicker = new FileSavePicker();
+
+                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt" });
+                savePicker.SuggestedFileName = "New Document";
+
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
+                WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
+
+                ActualTabItem.TabFile = await savePicker.PickSaveFileAsync();
+            }
+
+            ActualTabItem.InitialText = (ActualTabItem.Content as TextBox).Text;
+            ActualTabItem.Header = ActualTabItem.TabFile.Name;
+            saveButton.IsEnabled = ActualTabItem.HasChanges;
         }
 
         #endregion
 
         #region Event Handlers
 
-        private void CustomTabView_AddTabButtonClick(TabView sender, object args)
-        {
-            customTabView.TabItems.Add(AddNewtab());
-        }
-
         private void CustomTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            NoteSelectionChange?.Invoke(this, e);
+            ActualTabItem = customTabView.SelectedItem as CustomTabViewItem;
+            saveButton.IsEnabled = ActualTabItem.HasChanges;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void CustomTabView_AddTabButtonClick(TabView sender, object args)
         {
-            TabViewItem tabItem = (sender as TextBox).Parent as TabViewItem;
-            NoteTextChanged?.Invoke(sender, tabItem);
+            CreateTab();
+        }
+
+        private void CustomTabView_IsTextChanged(object sender, EventArgs e)
+        {
+            saveButton.IsEnabled = ActualTabItem.HasChanges;
+        }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFile();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile();
+        }
+
+        private void NewTabItem_CloseTab(object sender, Button e)
+        {
+            //TODO o problema aqui é que o selected item não é o mesmo que excluimos, porque podemos
+            // excluir um item que não estamos selecionando.
+
+            CustomTabViewItem tabItem = sender as CustomTabViewItem;
+            int removedTabIndex = customTabView.SelectedIndex;
+
+            if ((removedTabIndex - 1) < 0)
+            {
+                CreateTab();
+            }
+            else
+            {
+                customTabView.SelectedIndex = removedTabIndex - 1;
+            }
+
+            customTabView.TabItems.Remove(tabItem);
         }
 
         #endregion
@@ -59,14 +138,26 @@ namespace KanBoard.Controls
             base.OnApplyTemplate();
 
             customTabView = GetTemplateChild("TabViewCustom") as TabView;
+            openButton = GetTemplateChild("OpenButton") as Button;
+            saveButton = GetTemplateChild("SaveButton") as Button;
 
             if (customTabView != null)
             {
                 customTabView.SelectionChanged += CustomTabView_SelectionChanged;
                 customTabView.AddTabButtonClick += CustomTabView_AddTabButtonClick;
 
-                customTabView.TabItems.Add(AddNewtab());
-                customTabView.SelectedIndex = 0;
+                CreateTab();
+            }
+
+            if (openButton != null)
+            {
+                openButton.Click += OpenButton_Click;
+            }
+
+            if (saveButton != null)
+            {
+                saveButton.Click += SaveButton_Click;
+                saveButton.IsEnabled = false;
             }
         }
 
