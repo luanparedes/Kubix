@@ -58,7 +58,8 @@ namespace KanBoard
                 .AddSingleton<KNoteViewModel>()
                 .AddSingleton<AIViewModel>()
                 .AddSingleton<Office365ViewModel>()
-                .AddSingleton<GooglePhotosViewModel>();
+                .AddSingleton<GooglePhotosViewModel>()
+                .AddSingleton<GoogleMapsViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }

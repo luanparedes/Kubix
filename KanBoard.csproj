@@ -33,6 +33,7 @@
     <None Remove="View\AIPage.xaml" />
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
+    <None Remove="View\GoogleMapsPage.xaml" />
     <None Remove="View\GooglePhotosPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
@@ -67,6 +68,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\GoogleMapsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\GooglePhotosPage.xaml">
