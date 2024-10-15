@@ -29,8 +29,10 @@
     <None Remove="Themes\Dark\ThemeColors.xaml" />
     <None Remove="Themes\HighContrast\ThemeColors.xaml" />
     <None Remove="Themes\Light\ThemeColors.xaml" />
+    <None Remove="Themes\Stylizer.xaml" />
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
+    <None Remove="View\KNotePage.xaml" />
     <None Remove="View\SettingsPage.xaml" />
     <None Remove="View\SplashScreenPage.xaml" />
     <None Remove="View\StreamingsPage.xaml" />
@@ -62,6 +64,16 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Stylizer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\KNotePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\StreamingsPage.xaml">

@@ -9,17 +9,18 @@
     mc:Ignorable="d"
     Background="{ThemeResource AppBackground}">
 
-    <Grid Background="{ThemeResource AppBackground}"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center">
+    <StackPanel Background="{ThemeResource AppBackground}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Stretch">
         <Image Source="/Assets/Kanboard_Icon_512x512.png"
-               Width="350"
-               Height="350"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <TextBlock Text="KanBoard" 
-                   FontSize="160" 
+               Width="280"
+               Height="280"
+               HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1"
+                   Text="KanBoard" 
+                   FontSize="50" 
                    FontFamily="Comic Sans MS"
-                   Foreground="{ThemeResource AppMainTexts}"/>
-    </Grid>
+                   Foreground="{ThemeResource AppMainTexts}"
+                   HorizontalAlignment="Center"/>
+    </StackPanel>
 </Page>

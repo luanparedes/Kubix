@@ -62,6 +62,9 @@ namespace KanBoard.ViewModel
                 case "StreamingsPage":
                     _navigationService.GoToNavigationView(typeof(StreamingsPage));
                     break;
+                case "NotepadPage":
+                    _navigationService.GoToNavigationView(typeof(KNotePage));
+                    break;
             }
         }
 

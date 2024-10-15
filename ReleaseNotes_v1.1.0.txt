@@ -2,3 +2,4 @@ Release notes v.1.1.0.0
 
 - Splash Screen implemented
 - Youtube page implemented
+- Streamings implemented (Netflix, Max, Disney, Prime Video)
