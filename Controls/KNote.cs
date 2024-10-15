@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using Windows.Storage.Pickers;
 using Windows.Storage;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace KanBoard.Controls
 {
-    class NotepadControl : Control
+    class KNote : Control
     {
         #region Fields & Properties
 
@@ -21,12 +22,15 @@ namespace KanBoard.Controls
 
         #region Methods
 
-        private void CreateTab(string header = null, string text = null)
+        private async void CreateTab(StorageFile file = null)
         {
             CustomTabViewItem newTabItem;
 
-            if (header != null && text != null)
-                newTabItem = new(header, text);
+            if (file != null)
+            {
+                newTabItem = new(file.Name, await FileIO.ReadTextAsync(file));
+                newTabItem.TabFile = file;
+            }
             else
                 newTabItem = new();
 
@@ -50,7 +54,7 @@ namespace KanBoard.Controls
 
             if (file != null)
             {
-                CreateTab(file.Name, await FileIO.ReadTextAsync(file));
+                CreateTab(file);
             }
         }
 
@@ -85,8 +89,11 @@ namespace KanBoard.Controls
 
         private void CustomTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ActualTabItem = customTabView.SelectedItem as CustomTabViewItem;
-            saveButton.IsEnabled = ActualTabItem.HasChanges;
+            if(customTabView.SelectedItem != null) 
+            {
+                ActualTabItem = customTabView.SelectedItem as CustomTabViewItem;
+                saveButton.IsEnabled = ActualTabItem.HasChanges;
+            }
         }
 
         private void CustomTabView_AddTabButtonClick(TabView sender, object args)
@@ -111,22 +118,12 @@ namespace KanBoard.Controls
 
         private void NewTabItem_CloseTab(object sender, Button e)
         {
-            //TODO o problema aqui é que o selected item não é o mesmo que excluimos, porque podemos
-            // excluir um item que não estamos selecionando.
-
             CustomTabViewItem tabItem = sender as CustomTabViewItem;
-            int removedTabIndex = customTabView.SelectedIndex;
-
-            if ((removedTabIndex - 1) < 0)
-            {
-                CreateTab();
-            }
-            else
-            {
-                customTabView.SelectedIndex = removedTabIndex - 1;
-            }
 
             customTabView.TabItems.Remove(tabItem);
+
+            if (customTabView.TabItems.Count == 0)
+                CreateTab();
         }
 
         #endregion

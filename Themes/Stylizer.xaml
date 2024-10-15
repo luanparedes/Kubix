@@ -9,15 +9,16 @@
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
-    <Style TargetType="controls:NotepadControl">
+    <Style TargetType="controls:KNote">
         <Setter Property="Background" Value="{ThemeResource AppBackground}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controls:NotepadControl">
+                <ControlTemplate TargetType="controls:KNote">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
                         <StackPanel Orientation="Horizontal">
@@ -35,6 +36,10 @@
                         <TabView x:Name="TabViewCustom" 
                                  Grid.Row="1" 
                                  VerticalAlignment="Stretch"/>
+                        <StackPanel Grid.Row="2"
+                                    Background="{ThemeResource AppBackground}">
+                            
+                        </StackPanel>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -25,7 +25,7 @@
     <Page Update="Themes\Stylizer.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\NotepadPage.xaml">
+    <Page Update="View\KNotePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\StreamingsPage.xaml">

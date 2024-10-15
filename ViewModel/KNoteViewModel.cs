@@ -8,7 +8,7 @@ using Windows.Storage.Pickers;
 
 namespace KanBoard.ViewModel
 {
-    public class NotepadViewModel : ObservableObject
+    public class KNoteViewModel : ObservableObject
     {
 
     }

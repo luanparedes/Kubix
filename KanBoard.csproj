@@ -32,7 +32,7 @@
     <None Remove="Themes\Stylizer.xaml" />
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
-    <None Remove="View\NotepadPage.xaml" />
+    <None Remove="View\KNotePage.xaml" />
     <None Remove="View\SettingsPage.xaml" />
     <None Remove="View\SplashScreenPage.xaml" />
     <None Remove="View\StreamingsPage.xaml" />
@@ -71,7 +71,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="View\NotepadPage.xaml">
+    <Page Update="View\KNotePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

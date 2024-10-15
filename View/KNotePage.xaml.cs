@@ -4,14 +4,14 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace KanBoard.View
 {
-    public sealed partial class NotepadPage : Page
+    public sealed partial class KNotePage : Page
     {
-        NotepadViewModel ViewModel { get; }
+        KNoteViewModel ViewModel { get; }
 
-        public NotepadPage()
+        public KNotePage()
         {
             this.InitializeComponent();
-            ViewModel = Ioc.Default.GetService<NotepadViewModel>();
+            ViewModel = Ioc.Default.GetService<KNoteViewModel>();
         }
     }
 }
