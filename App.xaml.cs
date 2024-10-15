@@ -57,7 +57,8 @@ namespace KanBoard
                 .AddSingleton<StreamingsViewModel>()
                 .AddSingleton<KNoteViewModel>()
                 .AddSingleton<AIViewModel>()
-                .AddSingleton<Office365ViewModel>();
+                .AddSingleton<Office365ViewModel>()
+                .AddSingleton<GooglePhotosViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
