@@ -86,9 +86,10 @@
                     Tag="ChatGptBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/netflix_logo.png" 
-                           Height="22" 
-                           Width="22" />
+                        <Image Source="/Assets/chatgpt_logo.png" 
+                               Height="22" 
+                               Width="22"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="CopilotButtonBar"
@@ -101,9 +102,10 @@
                     Tag="CopilotBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/max_logo.png" 
-                           Height="30" 
-                           Width="30" />
+                        <Image Source="/Assets/copilot_logo.png" 
+                               Height="35" 
+                               Width="35" 
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="GeminiButtonBar"
@@ -113,12 +115,13 @@
                     Margin="0,0,7,0"
                     CornerRadius="18"
                     Visibility="Collapsed"
-                    Tag="DisneyBtn"
+                    Tag="GeminiBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/disney-plus_logo.png" 
-                           Height="32"
-                           Width="32" />
+                        <Image Source="/Assets/gemini_logo.png" 
+                               Height="25"
+                               Width="25"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
             </StackPanel>
@@ -142,7 +145,7 @@
                     Tag="ChatGptBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/netflix_logo.png" 
+                        <Image Source="/Assets/chatgpt_logo.png" 
                            Height="100" 
                            Width="100"
                            HorizontalAlignment="Center"/>
@@ -156,9 +159,9 @@
                     Tag="CopilotBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/max_logo.png"
-                           Height="120" 
-                           Width="120"
+                        <Image Source="/Assets/copilot_logo.png"
+                           Height="150" 
+                           Width="150"
                            HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
@@ -170,9 +173,9 @@
                     Tag="GeminiBtn"
                     Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/disney-plus_logo.png"
-                           Height="130" 
-                           Width="130"
+                        <Image Source="/Assets/gemini_logo.png"
+                           Height="110" 
+                           Width="110"
                            HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
