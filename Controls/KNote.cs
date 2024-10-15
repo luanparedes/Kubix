@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.UI.Input;
+using Windows.System;
+using Windows.UI.Core;
 
 namespace KanBoard.Controls
 {
@@ -17,6 +20,15 @@ namespace KanBoard.Controls
         private Button saveButton;
 
         private CustomTabViewItem ActualTabItem { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public KNote()
+        {
+            KeyUp += KNote_KeyUp;
+        }
 
         #endregion
 
@@ -76,7 +88,12 @@ namespace KanBoard.Controls
                 WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
 
                 ActualTabItem.TabFile = await savePicker.PickSaveFileAsync();
+                await FileIO.WriteTextAsync(ActualTabItem.TabFile, (ActualTabItem.Content as TextBox).Text);
+
             }
+
+            if (ActualTabItem.TabFile == null)
+                return;
 
             ActualTabItem.InitialText = (ActualTabItem.Content as TextBox).Text;
             ActualTabItem.Header = ActualTabItem.TabFile.Name;
@@ -124,6 +141,16 @@ namespace KanBoard.Controls
 
             if (customTabView.TabItems.Count == 0)
                 CreateTab();
+        }
+
+        private void KNote_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            bool isCtrlPressed = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+
+            if (isCtrlPressed && e.Key == VirtualKey.S && ActualTabItem.HasChanges)
+            {
+                SaveFile();
+            }
         }
 
         #endregion
