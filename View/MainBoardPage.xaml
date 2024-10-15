@@ -22,6 +22,7 @@
             <NavigationView.MenuItems>
                 <!--<NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>-->
                 <NavigationViewItem Content="Web Browser" Icon="World" Tag="BrowserPage"/>
+                <NavigationViewItem Content="AI" Icon="People" Tag="AIPage"/>
                 <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
                 <NavigationViewItem Content="Youtube" Icon="Video" Tag="YoutubePage"/>
                 <NavigationViewItem Content="Streamings" Icon="WebCam" Tag="StreamingsPage"/>
