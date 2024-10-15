@@ -65,6 +65,9 @@ namespace KanBoard.ViewModel
                 case "NotepadPage":
                     _navigationService.GoToNavigationView(typeof(KNotePage));
                     break;
+                case "AIPage":
+                    _navigationService.GoToNavigationView(typeof(AIPage));
+                    break;
             }
         }
 
