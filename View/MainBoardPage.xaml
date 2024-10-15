@@ -27,6 +27,7 @@
                 <NavigationViewItem Content="Youtube" Icon="Video" Tag="YoutubePage"/>
                 <NavigationViewItem Content="Streamings" Icon="WebCam" Tag="StreamingsPage"/>
                 <NavigationViewItem Content="K-Note" Icon="Page2" Tag="NotepadPage"/>
+                <NavigationViewItem Content="Office 365" Icon="ContactPresence" Tag="Office365Page"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="Settings" Icon="Setting" Tag="SettingsPage"/>
