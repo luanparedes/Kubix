@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
-using Windows.Storage;
-using Windows.UI.WebUI;
+using System.Linq;
+using Windows.Globalization;
 
 namespace KanBoard.Controls
 {
@@ -37,6 +37,8 @@ namespace KanBoard.Controls
         private void CreateTab(string website)
         {
             BrowserTabViewItem newTabItem = new BrowserTabViewItem();
+            (newTabItem.Content as WebView2).NavigationCompleted += KBrowser_NavigationCompleted;
+
             (newTabItem.Content as WebView2).Source = new Uri($"{website}");
             newTabItem.Header = (newTabItem.Content as WebView2).Source.Host;
             newTabItem.CloseTab += NewTabItem_CloseTab;
@@ -44,6 +46,12 @@ namespace KanBoard.Controls
             customTabView.TabItems.Add(newTabItem);
             customTabView.SelectedItem = newTabItem;
             ActualTabItem = newTabItem;
+        }
+
+        private async void KBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        {
+            string currentLanguage = ApplicationLanguages.Languages.FirstOrDefault() ?? "en-US";
+            await (ActualTabItem.Content as WebView2).CoreWebView2.ExecuteScriptAsync($"document.documentElement.lang = '{currentLanguage}';");
         }
 
         private void GoToWebsite(string website)
@@ -85,6 +93,14 @@ namespace KanBoard.Controls
             GoToWebsite(searchTextBox.Text);
         }
 
+        private void SearchTextBox_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                GoToWebsite(searchTextBox.Text);
+            }
+        }
+
         #endregion
 
         #region OnApplyTemplate
@@ -103,6 +119,11 @@ namespace KanBoard.Controls
                 customTabView.SelectionChanged += CustomTabView_SelectionChanged;
 
                 CreateTab(GoogleURL);
+            }
+
+            if (searchTextBox != null)
+            {
+                searchTextBox.KeyUp += SearchTextBox_KeyUp;
             }
 
             if (searchButton != null)

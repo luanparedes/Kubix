@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource AppBackground}">
 
     <UserControl x:Name="PageControl" Loaded="{x:Bind ViewModel.PageControl_Loaded}">
         <Grid>
