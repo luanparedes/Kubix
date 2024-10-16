@@ -8,13 +8,20 @@ namespace KanBoard.Controls
 {
     public class CustomTabViewItem : TabViewItem
     {
+        #region Fields & Properties
+
+        public bool HasChanges => InitialText != (Content as TextBox).Text;
+
         private Button closeButton;
         public string InitialText {  get; set; }
         public StorageFile TabFile { get; set; }
-        public bool HasChanges => InitialText != (Content as TextBox).Text;
 
         public event EventHandler HasChangesChanged;
         public event EventHandler<Button> CloseTab;
+
+        #endregion
+
+        #region Constructor
 
         public CustomTabViewItem()
         {
@@ -39,15 +46,23 @@ namespace KanBoard.Controls
             InitialText = (Content as TextBox).Text;
         }
 
-        public bool HasTextChanged()
-        {
-            return InitialText != (Content as TextBox).Text;
-        }
+        #endregion
+
+        #region Event Handlers
 
         private void CustomTabViewItem_TextChanged(object sender, TextChangedEventArgs e)
         {
             HasChangesChanged?.Invoke(this, null);
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseTab?.Invoke(this, closeButton);
+        }
+
+        #endregion
+
+        #region OnApplyTemplate
 
         protected override void OnApplyTemplate()
         {
@@ -55,12 +70,8 @@ namespace KanBoard.Controls
 
             closeButton = GetTemplateChild("CloseButton") as Button;
             closeButton.Click += CloseButton_Click;
-
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            CloseTab?.Invoke(this, closeButton);
-        }
+        #endregion
     }
 }

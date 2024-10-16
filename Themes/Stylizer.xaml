@@ -46,6 +46,46 @@
         </Setter>
     </Style>
 
+    <Style TargetType="controls:KBrowser">
+        <Setter Property="Background" Value="{ThemeResource AppBackground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:KBrowser">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Width="600" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="70"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TextBoxCustom"
+                                     Width="500"
+                                     Height="30"
+                                     PlaceholderText="www.google.com" 
+                                     HorizontalAlignment="Center"/>
+                            <Button x:Name="SearchPageButton"
+                                    Grid.Column="1" 
+                                    Margin="10,0">
+                                <FontIcon Glyph="&#xE721;"
+                                          FontFamily="Segoe MDL2 Assets" 
+                                          HorizontalAlignment="Center" 
+                                          FontSize="16"/>
+                            </Button>
+                        </Grid>
+
+                        <TabView x:Name="TabViewCustom" 
+                                 Grid.Row="1" 
+                                 VerticalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="NotepadTextBox" TargetType="TextBox">
         <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />
         <Setter Property="Background" Value="{ThemeResource TextControlBackground}" />
@@ -222,7 +262,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="controls:CustomTabViewItem">
+    <Style x:Key="CustomTabViewItemStyle" TargetType="TabViewItem">
         <Setter Property="Background" Value="{ThemeResource TabViewItemHeaderBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
@@ -232,7 +272,7 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TabViewItemBorderBrush}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controls:CustomTabViewItem">
+                <ControlTemplate TargetType="TabViewItem">
                     <Grid x:Name="LayoutRoot" Padding="{TemplateBinding Padding}" UseLayoutRounding="False">
 
                         <Grid.ColumnDefinitions>
@@ -571,14 +611,14 @@
                                     HighContrastAdjustment="None">
                                 <FontIcon Glyph="&#xE711;" FontSize="12"/>
                             </Button>
-
                         </Grid>
-
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="controls:CustomTabViewItem" BasedOn="{StaticResource CustomTabViewItemStyle}"/>
+    <Style TargetType="controls:BrowserTabViewItem" BasedOn="{StaticResource CustomTabViewItemStyle}"/>
 
 </ResourceDictionary>
