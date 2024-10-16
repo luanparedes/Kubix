@@ -6,12 +6,14 @@
     xmlns:local="using:KanBoard.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:KanBoard.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid>
+        <controls:KBrowser/>
+        <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
@@ -38,6 +40,6 @@
                       Source="{x:Bind ViewModel.WebsiteURL, Mode=TwoWay}"
                       Loaded="{x:Bind ViewModel.WebView2_Loaded}"
                       NavigationStarting="{x:Bind ViewModel.WebView2_NavigationStarting}"/>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>
