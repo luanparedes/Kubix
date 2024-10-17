@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource PageBackground}">
 
     <UserControl x:Name="PageControl" Loaded="{x:Bind ViewModel.PageControl_Loaded}">
         <Grid>
@@ -55,7 +55,7 @@
                         Padding="1"
                         Width="35" CornerRadius="20"
                         Height="35"
-                        Margin="5,0,10,0"
+                        Margin="5,0,20,0"
                         Tag="BackButton"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <FontIcon Glyph="&#xE72B;"
@@ -101,28 +101,31 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <Button x:Name="SpotifyButton"
-                        Width="250" 
-                        Height="250" Padding="1"
+                        Width="150" 
+                        Height="150" 
+                        Padding="1"
                         CornerRadius="180"
                         Margin="0,0,50,0"
                         Tag="SpotifyBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/spotify_logo.png" 
-                               Height="280" 
-                               Width="280"
+                               Height="150" 
+                               Width="150"
                                HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="DeezerButton"
-                        Width="250" 
-                        Height="250" 
-                        Padding="28"
+                        Width="150" 
+                        Height="150" 
+                        Padding="1"
                         CornerRadius="180"
                         Tag="DeezerBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/deezer_logo.png" />
+                        <Image Source="/Assets/deezer_logo.png"
+                               Width="112"
+                               Height="112"/>
                     </Button.Content>
                 </Button>
             </StackPanel>

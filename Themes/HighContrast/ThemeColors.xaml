@@ -6,8 +6,13 @@
     <!-- HighContrast Themes XAML -->
 
     <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource SystemColorBackgroundColor}"/>
+    <SolidColorBrush x:Key="PageBackground" Color="{ThemeResource SystemColorActiveCaptionColor}"/>
+
     <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource SystemColorActiveCaptionColor}"/>
 
     <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource SystemColorBackgroundColor}"/>
+
+    <!-- Browser Page -->
+    <SolidColorBrush x:Key="TabItemBackground" Color="{ThemeResource SystemColorBackgroundColor}"/>
 
 </ResourceDictionary>

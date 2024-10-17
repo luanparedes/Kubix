@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:h="using:KanBoard.Helpers"
     mc:Ignorable="d">
 
     <Grid HorizontalAlignment="Stretch"
@@ -15,15 +16,44 @@
         <NavigationView
             PaneDisplayMode="Left"
             IsBackButtonVisible="Collapsed"
+            OpenPaneLength="230"
+            Background="{ThemeResource AppBackground}"
             Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
             SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
                 <!--<NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>-->
-                <NavigationViewItem Content="Web Browser" Icon="World" Tag="BrowserPage"/>
-                <NavigationViewItem Content="Music App" Icon="MusicInfo" Tag="AppMusicPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_WebBrowserText')}" 
+                                    Icon="World" 
+                                    Tag="BrowserPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_AIText')}" 
+                                    Icon="People" 
+                                    Tag="AIPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_MusicText')}" 
+                                    Icon="MusicInfo" 
+                                    Tag="AppMusicPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_YoutubeText')}" 
+                                    Icon="Video" 
+                                    Tag="YoutubePage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_StreamingText')}" 
+                                    Icon="WebCam" 
+                                    Tag="StreamingsPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_KNoteText')}" 
+                                    Icon="Page2" 
+                                    Tag="NotepadPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
+                                    Icon="ContactPresence"
+                                    Tag="Office365Page"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GooglePhotosText')}" 
+                                    Icon="Library" 
+                                    Tag="GooglePhotosPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GoogleMapsText')}" 
+                                    Icon="World"
+                                    Tag="GoogleMapsPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Settings" Icon="Setting" Tag="SettingsPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SettingsText')}" 
+                                    Icon="Setting" 
+                                    Tag="SettingsPage"/>
             </NavigationView.FooterMenuItems>
 
             <Frame x:Name="ContentFrame"/>

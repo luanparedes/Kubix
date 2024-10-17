@@ -56,6 +56,28 @@ namespace KanBoard.ViewModel
                 case "BrowserPage":
                     _navigationService.GoToNavigationView(typeof(BrowserPage));
                     break;
+                case "YoutubePage":
+                    _navigationService.GoToNavigationView(typeof(YoutubePage));
+                    break;
+                case "StreamingsPage":
+                    _navigationService.GoToNavigationView(typeof(StreamingsPage));
+                    break;
+                case "NotepadPage":
+                    _navigationService.GoToNavigationView(typeof(KNotePage));
+                    break;
+                case "AIPage":
+                    _navigationService.GoToNavigationView(typeof(AIPage));
+                    break;
+                case "Office365Page":
+                    _navigationService.GoToNavigationView(typeof(Office365Page));
+                    break;
+                case "GooglePhotosPage":
+                    _navigationService.GoToNavigationView(typeof(GooglePhotosPage));
+                    break;
+                case "GoogleMapsPage":
+                    _navigationService.GoToNavigationView(typeof(GoogleMapsPage));
+                    break;
+
             }
         }
 

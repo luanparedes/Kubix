@@ -5,9 +5,14 @@
     
     <!-- Light Themes XAML -->
 
-    <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource White}"/>
+    <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource AppLightBackgroungColor}"/>
+    <SolidColorBrush x:Key="PageBackground" Color="{ThemeResource PageLightBackgroungColor}"/>
+
     <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource Black}"/>
 
     <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource Gray40}"/>
+
+    <!-- Browser Page -->
+    <SolidColorBrush x:Key="TabItemBackground" Color="{ThemeResource BrowserLightTabBackgroundColor}"/>
 
 </ResourceDictionary>
