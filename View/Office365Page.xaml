@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    Background="{ThemeResource AppBackground}">
+    Background="{ThemeResource PageBackground}">
 
     <Grid>
         <Grid.RowDefinitions>

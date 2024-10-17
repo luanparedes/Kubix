@@ -10,13 +10,13 @@
     xmlns:h="using:KanBoard.Helpers"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource AppBackground}">
+    <Grid Background="{ThemeResource PageBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <CommandBar Background="{ThemeResource AppBackground}"/>
+        <CommandBar Background="{ThemeResource PageBackground}"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{x:Bind h:Stringer.GetString('KB_SettingsPageNameText')}" 
+            <TextBlock Text="{x:Bind h:Stringer.GetString('KB_PageHeader_Settings')}" 
                        Grid.Column="0" 
                        Foreground="{ThemeResource AppMainTexts}"
                        FontSize="18"
@@ -36,7 +36,7 @@
         <Grid Grid.Row="1" Padding="12" VerticalAlignment="Stretch">
             <StackPanel Orientation="Vertical"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource Gray40}"
+                        Background="{ThemeResource AppBackground}"
                         CornerRadius="16"
                         Padding="12"
                         Height="200">
