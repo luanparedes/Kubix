@@ -9,7 +9,7 @@
     xmlns:controls="using:KanBoard.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
-    Background="{ThemeResource AppBackground}">
+    Background="{ThemeResource PageBackground}">
 
     <Grid>
         <controls:KBrowser/>

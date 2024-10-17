@@ -5,7 +5,11 @@
 
     <!-- Main Colors -->
     <Color x:Key="AppDarkBackgroungColor">#1d1c1c</Color>
-    <Color x:Key="AppLightBackgroungColor">#e7e6e6</Color>
+    <Color x:Key="PageDarkBackgroungColor">#232222</Color>
+    <Color x:Key="AppLightBackgroungColor">#bcc6ea</Color>
+    <Color x:Key="PageLightBackgroungColor">#cdd3eb</Color>
+    <Color x:Key="BrowserDarkTabBackgroundColor">#1e1e1e</Color>
+    <Color x:Key="BrowserLightTabBackgroundColor">#bbc2df</Color>
     
     <!-- Basic Colors -->
     <Color x:Key="White">#fcfcfc</Color>

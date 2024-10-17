@@ -6,8 +6,14 @@
     <!-- Dark Themes XAML -->
 
     <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource AppDarkBackgroungColor}"/>
+    <SolidColorBrush x:Key="PageBackground" Color="{ThemeResource PageDarkBackgroungColor}"/>
+
     <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource AppLightBackgroungColor}"/>
 
     <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource Gray40}"/>
+    
+    <!-- Browser Page -->
+    <SolidColorBrush x:Key="TabItemBackground" Color="{ThemeResource BrowserDarkTabBackgroundColor}"/>
+    
 
 </ResourceDictionary>

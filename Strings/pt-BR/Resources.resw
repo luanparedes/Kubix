@@ -141,7 +141,10 @@
   <data name="KB_Office365Text" xml:space="preserve">
     <value>Office 365</value>
   </data>
-  <data name="KB_SettingsPageNameText" xml:space="preserve">
+  <data name="KB_PageHeader_KNote" xml:space="preserve">
+    <value>&lt; K-Note &gt;</value>
+  </data>
+  <data name="KB_PageHeader_Settings" xml:space="preserve">
     <value>&lt; Configurações &gt;</value>
   </data>
   <data name="KB_SettingsText" xml:space="preserve">
