@@ -18,12 +18,10 @@ namespace KanBoard.ViewModel
         public readonly string ChatGptURL = "https://chatgpt.com/";
         public readonly string CopilotURL = "https://copilot.microsoft.com/";
         public readonly string GeminiURL = "https://gemini.google.com/app";
-        public readonly string NullURL = "http://null.com";
 
         #endregion
 
         private Control pageControl;
-        private WebView2 webView;
 
         AIApp ActualAIApp;
 
@@ -36,22 +34,21 @@ namespace KanBoard.ViewModel
             switch (button.Tag)
             {
                 case "ChatGptBtn":
-                    webView.Source = new Uri(ChatGptURL);
                     ActualAIApp = AIApp.ChatGpt;
                     CurrentState = STATE_CHAT_GPT;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "CopilotBtn":
-                    webView.Source = new Uri(CopilotURL);
                     ActualAIApp = AIApp.Copilot;
                     CurrentState = STATE_COPILOT;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "GeminiBtn":
-                    webView.Source = new Uri(GeminiURL);
                     ActualAIApp = AIApp.Gemini;
                     CurrentState = STATE_GEMINI;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "BackButton":
-                    webView.Source = new Uri(NullURL);
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
@@ -61,16 +58,6 @@ namespace KanBoard.ViewModel
         public void PageControl_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             pageControl = sender as UserControl;
-            VisualStateManager.GoToState(pageControl, CurrentState, true);
-        }
-
-        public void WebView2_Loaded(object sender, RoutedEventArgs e)
-        {
-            webView = sender as WebView2;
-        }
-
-        public void StreamAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
-        {
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
     }

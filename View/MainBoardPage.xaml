@@ -43,12 +43,9 @@
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
                                     Icon="ContactPresence"
                                     Tag="Office365Page"/>
-                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GooglePhotosText')}" 
-                                    Icon="Library" 
-                                    Tag="GooglePhotosPage"/>
-                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GoogleMapsText')}" 
-                                    Icon="World"
-                                    Tag="GoogleMapsPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GoogleText')}" 
+                                    Icon="Admin" 
+                                    Tag="GooglePage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SettingsText')}" 

@@ -16,7 +16,9 @@
                 <VisualStateGroup x:Name="PageState">
                     <VisualState x:Name="StateChoiceApp">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
@@ -26,8 +28,9 @@
                     </VisualState>
                     <VisualState x:Name="StateChatGpt">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
-                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Visible"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
@@ -36,8 +39,9 @@
                     </VisualState>
                     <VisualState x:Name="StateCopilot">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
-                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Visible"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
@@ -46,8 +50,9 @@
                     </VisualState>
                     <VisualState x:Name="StateGemini">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
-                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Visible"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Collapsed"/>
@@ -182,11 +187,20 @@
                 </Button>
             </Grid>
 
-            <WebView2 x:Name="AIApp" 
+            <WebView2 x:Name="ChatGptApp" 
                       Grid.Row="1"
-                      Visibility="Collapsed"
-                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
-                      NavigationCompleted="{x:Bind ViewModel.StreamAppWeb_NavigationCompleted}"/>
+                      Source="{x:Bind ViewModel.ChatGptURL}"
+                      Visibility="Collapsed"/>
+
+            <WebView2 x:Name="CopilotApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.CopilotURL}"
+                      Visibility="Collapsed"/>
+
+            <WebView2 x:Name="GeminiApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.GeminiURL}"
+                      Visibility="Collapsed"/>
         </Grid>
     </UserControl>
 </Page>
