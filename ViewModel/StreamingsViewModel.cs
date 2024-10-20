@@ -28,6 +28,7 @@ namespace KanBoard.ViewModel
         #region Fields & Properties
 
         private Control pageControl;
+        private WebView2 webView;
 
         StreamingApp ActualStreamingApp;
 
@@ -43,6 +44,11 @@ namespace KanBoard.ViewModel
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
+        public void WebView2_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            webView = sender as WebView2;
+        }
+
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -52,28 +58,33 @@ namespace KanBoard.ViewModel
                 case "NetflixBtn":
                     ActualStreamingApp = StreamingApp.Netflix;
                     CurrentState = STATE_NETFLIX;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(NetflixURL);
                     break;
                 case "MaxBtn":
                     ActualStreamingApp = StreamingApp.Max;
                     CurrentState = STATE_MAX;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(MaxURL);
                     break;
                 case "DisneyBtn":
                     ActualStreamingApp = StreamingApp.Disney;
                     CurrentState = STATE_DISNEY;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(DisneyURL);
                     break;
                 case "PrimeVideoBtn":
                     ActualStreamingApp = StreamingApp.PrimeVideo;
                     CurrentState = STATE_PRIME_VIDEO;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(PrimeVideoURL);
                     break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
             }
+        }
+
+        public void StreamAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        {
+            VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
         #endregion

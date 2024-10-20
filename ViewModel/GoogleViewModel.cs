@@ -38,17 +38,7 @@ namespace KanBoard.ViewModel
 
         public GoogleApp ActualGoogleApp;
 
-        private GoogleAuthentication auth;
         public string CurrentState { get; set; } = STATE_CHOICE_APP;
-
-        #endregion
-
-        #region Constructors
-
-        public GoogleViewModel()
-        {
-            auth = new GoogleAuthentication();
-        }
 
         #endregion
 
