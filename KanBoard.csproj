@@ -34,6 +34,7 @@
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
     <None Remove="View\GoogleMapsPage.xaml" />
+    <None Remove="View\GooglePage.xaml" />
     <None Remove="View\GooglePhotosPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
@@ -55,9 +56,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -68,6 +71,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\GooglePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\GoogleMapsPage.xaml">

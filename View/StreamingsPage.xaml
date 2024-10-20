@@ -16,7 +16,7 @@
                 <VisualStateGroup x:Name="PageState">
                     <VisualState x:Name="StateChoiceApp">
                         <VisualState.Setters>
-                            <Setter Target="MusicAppWeb.Visibility" Value="Collapsed"/>
+                            <Setter Target="StreamingAppWeb.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
                             <Setter Target="NetflixButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="MaxButtonBar.Visibility" Value="Collapsed"/>
@@ -27,7 +27,7 @@
                     </VisualState>
                     <VisualState x:Name="StateNetflix">
                         <VisualState.Setters>
-                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="StreamingAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="NetflixButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="MaxButtonBar.Visibility" Value="Visible"/>
@@ -38,7 +38,7 @@
                     </VisualState>
                     <VisualState x:Name="StateMax">
                         <VisualState.Setters>
-                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="StreamingAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="NetflixButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MaxButtonBar.Visibility" Value="Collapsed"/>
@@ -49,7 +49,7 @@
                     </VisualState>
                     <VisualState x:Name="StateDisney">
                         <VisualState.Setters>
-                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="StreamingAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="NetflixButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MaxButtonBar.Visibility" Value="Visible"/>
@@ -60,7 +60,7 @@
                     </VisualState>
                     <VisualState x:Name="StatePrimeVideo">
                         <VisualState.Setters>
-                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="StreamingAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="NetflixButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MaxButtonBar.Visibility" Value="Visible"/>
@@ -230,7 +230,7 @@
                 </Button>
             </Grid>
 
-            <WebView2 x:Name="MusicAppWeb" 
+            <WebView2 x:Name="StreamingAppWeb" 
                   Grid.Row="1"
                   Visibility="Collapsed"
                   Loaded="{x:Bind ViewModel.WebView2_Loaded}"
