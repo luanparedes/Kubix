@@ -132,9 +132,10 @@
 
             <WebView2 x:Name="MusicAppWeb" 
                       Grid.Row="1"
+                      Source="{x:Bind ViewModel.SpotifyURL}"
                       Visibility="Collapsed"
                       Loaded="{x:Bind ViewModel.WebView2_Loaded}"
-                      NavigationCompleted="{x:Bind ViewModel.MusicAppWeb_NavigationCompleted}"/>
+                      NavigationCompleted="{x:Bind ViewModel.GoogleAppWeb_NavigationCompleted}"/>
         </Grid>
     </UserControl>
 </Page>

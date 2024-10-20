@@ -129,11 +129,17 @@
   <data name="KB_GooglePhotosText" xml:space="preserve">
     <value>Google Photos</value>
   </data>
+  <data name="KB_GoogleText" xml:space="preserve">
+    <value>Google</value>
+  </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
     <value>* The High Contrast theme is setted automatically with Windows.</value>
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
+  </data>
+  <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
+    <value>Sign in with Google to get all features.</value>
   </data>
   <data name="KB_MusicText" xml:space="preserve">
     <value>Music</value>
