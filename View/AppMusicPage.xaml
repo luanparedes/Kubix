@@ -16,8 +16,7 @@
                 <VisualStateGroup x:Name="PageState">
                     <VisualState x:Name="ChoiceAppState">
                         <VisualState.Setters>
-                            <Setter Target="SpotifyWeb.Visibility" Value="Collapsed"/>
-                            <Setter Target="DeezerWeb.Visibility" Value="Collapsed"/>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
                             <Setter Target="SpotifyButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="DeezerButtonBar.Visibility" Value="Collapsed"/>
@@ -26,8 +25,7 @@
                     </VisualState>
                     <VisualState x:Name="SpotifyAppState">
                         <VisualState.Setters>
-                            <Setter Target="SpotifyWeb.Visibility" Value="Visible"/>
-                            <Setter Target="DeezerWeb.Visibility" Value="Collapsed"/>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="SpotifyButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="DeezerButtonBar.Visibility" Value="Visible"/>
@@ -36,8 +34,7 @@
                     </VisualState>
                     <VisualState x:Name="DeezerAppState">
                         <VisualState.Setters>
-                            <Setter Target="SpotifyWeb.Visibility" Value="Collapsed"/>
-                            <Setter Target="DeezerWeb.Visibility" Value="Visible"/>
+                            <Setter Target="MusicAppWeb.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="SpotifyButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="DeezerButtonBar.Visibility" Value="Collapsed"/>
@@ -133,15 +130,12 @@
                 </Button>
             </StackPanel>
 
-            <WebView2 x:Name="SpotifyWeb" 
+            <WebView2 x:Name="MusicAppWeb" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.SpotifyURL}"
-                      Visibility="Collapsed"/>
-
-            <WebView2 x:Name="DeezerWeb" 
-                      Grid.Row="1"
-                      Source="{x:Bind ViewModel.DeezerURL}"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
+                      NavigationCompleted="{x:Bind ViewModel.GoogleAppWeb_NavigationCompleted}"/>
         </Grid>
     </UserControl>
 </Page>

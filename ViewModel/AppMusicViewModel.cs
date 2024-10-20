@@ -21,6 +21,7 @@ namespace KanBoard.ViewModel
         #region Fields & Properties
 
         private Control pageControl;
+        private WebView2 webView;
 
         public MusicApp ActualMusicApp;
 
@@ -36,6 +37,11 @@ namespace KanBoard.ViewModel
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
+        public void WebView2_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            webView = sender as WebView2;
+        }
+
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -45,18 +51,23 @@ namespace KanBoard.ViewModel
                 case "SpotifyBtn":
                     ActualMusicApp = MusicApp.Spotify;
                     CurrentState = STATE_SPOTIFY_APP;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(SpotifyURL);
                     break;
                 case "DeezerBtn":
                     ActualMusicApp = MusicApp.Deezer;
                     CurrentState = STATE_DEEZER_APP;
-                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    webView.Source = new Uri(DeezerURL);
                     break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
             }
+        }
+
+        public void GoogleAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        {
+            VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
         #endregion
