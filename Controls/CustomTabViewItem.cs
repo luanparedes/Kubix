@@ -10,7 +10,7 @@ namespace KanBoard.Controls
     {
         #region Fields & Properties
 
-        public bool HasChanges => InitialText != (Content as TextBox).Text;
+        public bool HasChanges => InitialText != string.Empty;
 
         private Button closeButton;
         public string InitialText {  get; set; }
@@ -25,25 +25,26 @@ namespace KanBoard.Controls
 
         public CustomTabViewItem()
         {
-            Content = new TextBox();
-            (Content as TextBox).Style = (Style)App.Current.Resources["NotepadTextBox"];
+            Content = new RichEditBox();
+            (Content as RichEditBox).Style = (Style)App.Current.Resources["RichEditTextBox"];
 
-            (Content as TextBox).TextChanged += CustomTabViewItem_TextChanged;
+            //(Content as RichEditBox).TextChanged += CustomTabViewItem_TextChanged;
             
             Header = "New file";
-            InitialText = (Content as TextBox).Text;
+            //InitialText = (Content as RichEditBox).Text;
         }
 
         public CustomTabViewItem(string header, string text)
         {
-            Content = new TextBox();
-            (Content as TextBox).Style = (Style)App.Current.Resources["NotepadTextBox"];
-            (Content as TextBox).Text = text;
-
-            (Content as TextBox).TextChanged += CustomTabViewItem_TextChanged;
+            Content = new RichEditBox();
+            (Content as RichEditBox).Style = (Style)App.Current.Resources["RichEditTextBox"];
+            (Content as RichEditBox).Document.SetText(Microsoft.UI.Text.TextSetOptions.None, text);
+            //TODO Change to RichEditBox
+            //(Content as RichEditBox).TextChanged += CustomTabViewItem_TextChanged;
 
             Header = header;
-            InitialText = (Content as TextBox).Text;
+            string teste = text;
+            (Content as RichEditBox).Document.GetText(Microsoft.UI.Text.TextGetOptions.None, out text);
         }
 
         #endregion

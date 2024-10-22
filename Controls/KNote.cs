@@ -4,21 +4,26 @@ using System;
 using System.Collections.Generic;
 using Windows.Storage.Pickers;
 using Windows.Storage;
-using static System.Net.Mime.MediaTypeNames;
 using Microsoft.UI.Input;
 using Windows.System;
 using Windows.UI.Core;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Text;
+using System.IO;
+using KanBoard.Helpers;
 
 namespace KanBoard.Controls
 {
-    class KNote : Control
+    public class KNote : Control
     {
         #region Fields & Properties
 
-        private TabView customTabView;
-        private Button openButton;
+        private TabView customTabView; // TODO sorking open and save but save IsEnabled stop working
+        private Button openButton;     // and events.
         private Button saveButton;
+        private FormatTextControl formatTextControl;
 
+        private string Text {  get; set; }
         private CustomTabViewItem ActualTabItem { get; set; }
 
         #endregion
@@ -58,6 +63,7 @@ namespace KanBoard.Controls
             var openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
             openPicker.FileTypeFilter.Add(".txt");
+            openPicker.FileTypeFilter.Add(".rtf");
 
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
             WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hwnd);
@@ -67,35 +73,63 @@ namespace KanBoard.Controls
             if (file != null)
             {
                 CreateTab(file);
+
+                switch (file.FileType)
+                {
+                    case ".txt":
+                        string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+                        (ActualTabItem.Content as RichEditBox).Document.SetText(TextSetOptions.None, text);
+                        break;
+
+                    case ".rtf":
+                        using (var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                        {
+                            (ActualTabItem.Content as RichEditBox).Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
+                        }
+                        break;
+                }
             }
         }
 
         private async void SaveFile()
         {
+            string text = string.Empty;
+
             if (ActualTabItem.TabFile != null)
             {
-                await FileIO.WriteTextAsync(ActualTabItem.TabFile, (ActualTabItem.Content as TextBox).Text);
+                (ActualTabItem.Content as RichEditBox).Document.GetText(TextGetOptions.FormatRtf, out text);
+                await FileIO.WriteTextAsync(ActualTabItem.TabFile, text);
             }
             else
             {
                 var savePicker = new FileSavePicker();
 
                 savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt" });
-                savePicker.SuggestedFileName = "New Document";
+                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt", ".rtf" });
+                savePicker.SuggestedFileName = Stringer.GetString("KB_NewDocumentText");
 
                 var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
                 WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
 
                 ActualTabItem.TabFile = await savePicker.PickSaveFileAsync();
-                await FileIO.WriteTextAsync(ActualTabItem.TabFile, (ActualTabItem.Content as TextBox).Text);
 
+                switch (ActualTabItem.TabFile.FileType)
+                {
+                    case ".txt":
+                        (ActualTabItem.Content as RichEditBox).Document.GetText(TextGetOptions.None, out text);
+                        break;
+                    case ".rtf":
+                        (ActualTabItem.Content as RichEditBox).Document.GetText(TextGetOptions.FormatRtf, out text);
+                        break;
+                }
+
+                await FileIO.WriteTextAsync(ActualTabItem.TabFile, text);
             }
 
             if (ActualTabItem.TabFile == null)
                 return;
 
-            ActualTabItem.InitialText = (ActualTabItem.Content as TextBox).Text;
+            ActualTabItem.InitialText = (ActualTabItem.Content as RichEditBox).Document.ToString();
             ActualTabItem.Header = ActualTabItem.TabFile.Name;
             saveButton.IsEnabled = ActualTabItem.HasChanges;
         }
@@ -164,6 +198,7 @@ namespace KanBoard.Controls
             customTabView = GetTemplateChild("TabViewCustom") as TabView;
             openButton = GetTemplateChild("OpenButton") as Button;
             saveButton = GetTemplateChild("SaveButton") as Button;
+            formatTextControl = GetTemplateChild("FormatControl") as FormatTextControl;
 
             if (customTabView != null)
             {
@@ -183,6 +218,16 @@ namespace KanBoard.Controls
                 saveButton.Click += SaveButton_Click;
                 saveButton.IsEnabled = false;
             }
+
+            if(formatTextControl != null)
+            {
+                formatTextControl.KFamilyFontChanged += FormatTextControl_KFamilyFontChanged;
+            }
+        }
+
+        private void FormatTextControl_KFamilyFontChanged(object sender, FontFamily e)
+        {
+            (ActualTabItem.Content as RichEditBox).FontFamily = e;
         }
 
         #endregion
