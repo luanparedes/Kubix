@@ -1,22 +1,6 @@
-Release notes v.1.9.4.0
-
-Features:
-
-- Splash Screen implemented
-- Google Maps implemented
-- Google Photos implemented
-- Youtube page implemented
-- AI implementation (Chat GPT, Copilot, Gemini)
-- Streamings implemented (Netflix, Max, Disney, Prime Video)
-- Office 365 implemented
-- K-Note implemented (Notepad)
-- Localization implemented
+Release notes v.1.10.1.0
 
 Improvements:
-- Improve Browser to have tabs when navigating
-- Theme Colors part 1
-
-
-Bug fixes:
-- WebView blinks everytime it loads.
-- App tabs always loading when selected.
+- K-Note fotmat
+- Google pages unified
+- Ai page cache for every page
