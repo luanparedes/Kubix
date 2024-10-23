@@ -1,8 +1,12 @@
-﻿using Microsoft.UI;
+﻿using KanBoard.View;
+using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media;
 using System;
+using Windows.UI;
 
 namespace KanBoard.Controls
 {
@@ -10,15 +14,26 @@ namespace KanBoard.Controls
     {
         #region Fields & Properties
 
-        ComboBox comboBox;
+        public RichEditBox EditBox = new RichEditBox();
+
+        private ComboBox fontFamilyComboBox;
+        private ComboBox fontSizeComboBox;
+        private Button kForegroundButton;
+        private ToggleButton kBoldButton;
+        private ToggleButton kItalicButton;
+        private ToggleButton kUnderlineButton;
+        private ToggleButton kStrikethroughButton;
+
+        public bool HasChanges => InitialText != GetActualText();
+        public string InitialText { get; set; }
 
         public event EventHandler<FontFamily> KFamilyFontChanged;
-        public event EventHandler KFontSizeChanged;
-        public event EventHandler KForegroundChanged;
-        public event EventHandler KBoldChanged;
-        public event EventHandler KItalicChanged;
-        public event EventHandler KUnderlineChanged;
-        public event EventHandler KStrikethroughChanged;
+        public event EventHandler<int> KFontSizeChanged;
+        public event EventHandler<Color> KForegroundChanged;
+        public event EventHandler<ToggleButton> KBoldChanged;
+        public event EventHandler<bool> KItalicChanged;
+        public event EventHandler<bool> KUnderlineChanged;
+        public event EventHandler<bool> KStrikethroughChanged;
 
         #endregion
 
@@ -33,32 +48,23 @@ namespace KanBoard.Controls
         public static readonly DependencyProperty KFontFamilyProperty =
             DependencyProperty.Register(nameof(KFontFamily), typeof(FontFamily), typeof(FormatTextControl), new PropertyMetadata(FontFamily.XamlAutoFontFamily, OnFamilyFontChanged));
 
-        private static void OnFamilyFontChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public int KFontSize
         {
-            if (d is FormatTextControl self)
-            {
-                //self.FontFamily = new FontFamily("Comic Sans MS");
-                self.KFamilyFontChanged?.Invoke(self, e.NewValue as FontFamily);
-            }
-        }
-
-        public string KFontSize
-        {
-            get { return (string)GetValue(KFontSizeProperty); }
+            get { return (int)GetValue(KFontSizeProperty); }
             set { SetValue(KFontSizeProperty, value); }
         }
 
         public static readonly DependencyProperty KFontSizeProperty =
-            DependencyProperty.Register(nameof(KFontSize), typeof(string), typeof(FormatTextControl), new PropertyMetadata("12"));
+            DependencyProperty.Register(nameof(KFontSize), typeof(int), typeof(FormatTextControl), new PropertyMetadata(12, OnFontSizeChanged));
 
-        public Brush KForeground
+        public Color KForeground
         {
-            get { return (Brush)GetValue(KForegroundProperty); }
+            get { return (Color)GetValue(KForegroundProperty); }
             set { SetValue(KForegroundProperty, value); }
         }
 
         public static readonly DependencyProperty KForegroundProperty =
-            DependencyProperty.Register(nameof(KForeground), typeof(Brush), typeof(FormatTextControl), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+            DependencyProperty.Register(nameof(KForeground), typeof(Color), typeof(FormatTextControl), new PropertyMetadata(Colors.Black, OnForegroundChanged));
 
         public bool KBold
         {
@@ -67,7 +73,7 @@ namespace KanBoard.Controls
         }
 
         public static readonly DependencyProperty KBoldProperty =
-            DependencyProperty.Register(nameof(KBold), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(KBold), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false, OnBoldChanged));
 
         public bool KItalic
         {
@@ -76,7 +82,7 @@ namespace KanBoard.Controls
         }
 
         public static readonly DependencyProperty KItalicProperty =
-            DependencyProperty.Register(nameof(KItalic), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(KItalic), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false, OnItalicChanged));
 
         public bool KUnderline
         {
@@ -85,7 +91,7 @@ namespace KanBoard.Controls
         }
 
         public static readonly DependencyProperty KUnderlineProperty =
-            DependencyProperty.Register(nameof(KUnderline), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(KUnderline), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false, OnUnderlineChanged));
 
         public bool KStrikethrough
         {
@@ -94,14 +100,120 @@ namespace KanBoard.Controls
         }
 
         public static readonly DependencyProperty KStrikethroughProperty =
-            DependencyProperty.Register(nameof(KStrikethrough), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(KStrikethrough), typeof(bool), typeof(FormatTextControl), new PropertyMetadata(false, OnStrikethroughChanged));
 
+        #endregion
+
+        #region Methods
+
+        private string GetActualText()
+        {
+            string text;
+            EditBox.Document.GetText(TextGetOptions.None, out text);
+
+            return text;
+        }
 
         #endregion
 
         #region Event Handlers
 
+        private void FamilyFont_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string fontName = (string)(e.AddedItems[0] as ComboBoxItem).Content;
+            KFontFamily = new FontFamily(fontName);
+        }
 
+        private void FontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string fontSize = (string)(e.AddedItems[0] as ComboBoxItem).Content;
+            KFontSize = int.Parse(fontSize);
+        }
+
+        private void KForeground_Click(object sender, RoutedEventArgs e)
+        {
+            var colorPickerWindow = new ColorPickerWindow();
+            colorPickerWindow.Activate();
+        }
+
+        private void ToggleBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as ToggleButton).Tag)
+            {
+                case "BoldBtn":
+                    KBold = (bool)kBoldButton.IsChecked;
+                    break;
+                case "ItalicBtn":
+                    KItalic = (bool)kItalicButton.IsChecked;
+                    break;
+                case "UnderlineBtn":
+                    KUnderline = (bool)kUnderlineButton.IsChecked;
+                    break;
+                case "StrikethroughBtn":
+                    KStrikethrough = (bool)kStrikethroughButton.IsChecked;
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        private static void OnFamilyFontChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KFamilyFontChanged?.Invoke(self, e.NewValue as FontFamily);
+            }
+        }
+
+        private static void OnFontSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KFontSizeChanged?.Invoke(self, (int)e.NewValue);
+            }
+        }
+
+        private static void OnForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KForegroundChanged?.Invoke(self, (Color)e.NewValue);
+            }
+        }
+
+        private static void OnBoldChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KBoldChanged?.Invoke(self, self.kBoldButton);
+            }
+        }
+
+        private static void OnItalicChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KItalicChanged?.Invoke(self, (bool)e.NewValue);
+            }
+        }
+
+        private static void OnUnderlineChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KUnderlineChanged?.Invoke(self, (bool)e.NewValue);
+            }
+        }
+
+        private static void OnStrikethroughChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl self)
+            {
+                self.KStrikethroughChanged?.Invoke(self, (bool)e.NewValue);
+            }
+        }
 
         #endregion
 
@@ -111,18 +223,48 @@ namespace KanBoard.Controls
         {
             base.OnApplyTemplate();
 
-            comboBox = GetTemplateChild("KComboBox") as ComboBox;
+            fontFamilyComboBox = GetTemplateChild("KComboBox") as ComboBox;
+            fontSizeComboBox = GetTemplateChild("KFontSize") as ComboBox;
+            kForegroundButton = GetTemplateChild("KForeground") as Button;
+            kBoldButton = GetTemplateChild("KBold") as ToggleButton;
+            kItalicButton = GetTemplateChild("KItalic") as ToggleButton;
+            kUnderlineButton = GetTemplateChild("KUnderline") as ToggleButton;
+            kStrikethroughButton = GetTemplateChild("KStrikethrough") as ToggleButton;
 
-            if (comboBox != null)
+            if (fontFamilyComboBox != null)
             {
-                comboBox.SelectionChanged += ComboBox_SelectionChanged;
+                fontFamilyComboBox.SelectionChanged += FamilyFont_SelectionChanged;
             }
-        }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string fontName = (string)(e.AddedItems[0] as ComboBoxItem).Content;
-            KFontFamily = new FontFamily(fontName);
+            if (fontSizeComboBox != null)
+            {
+                fontSizeComboBox.SelectionChanged += FontSize_SelectionChanged;
+            }
+
+            if(kForegroundButton != null)
+            {
+                kForegroundButton.Click += KForeground_Click;
+            }
+
+            if (kBoldButton != null)
+            {
+                kBoldButton.Checked += ToggleBtn_Checked;
+            }
+
+            if (kItalicButton != null)
+            {
+                kItalicButton.Checked += ToggleBtn_Checked;
+            }
+
+            if (kUnderlineButton != null)
+            {
+                kUnderlineButton.Checked += ToggleBtn_Checked;
+            }
+
+            if (kStrikethroughButton != null)
+            {
+                kStrikethroughButton.Checked += ToggleBtn_Checked;
+            }
         }
 
         #endregion
