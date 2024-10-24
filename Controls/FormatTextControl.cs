@@ -24,12 +24,12 @@ namespace KanBoard.Controls
         private ToggleButton kUnderlineButton;
         private ToggleButton kStrikethroughButton;
 
-        public bool HasChanges => InitialText != GetActualText();
+        public bool HasChanges => !IsInitialText();
         public string InitialText { get; set; }
 
         public event EventHandler<FontFamily> KFamilyFontChanged;
         public event EventHandler<int> KFontSizeChanged;
-        public event EventHandler<Color> KForegroundChanged;
+        public event EventHandler<SolidColorBrush> KForegroundChanged;
         public event EventHandler<ToggleButton> KBoldChanged;
         public event EventHandler<bool> KItalicChanged;
         public event EventHandler<bool> KUnderlineChanged;
@@ -57,14 +57,14 @@ namespace KanBoard.Controls
         public static readonly DependencyProperty KFontSizeProperty =
             DependencyProperty.Register(nameof(KFontSize), typeof(int), typeof(FormatTextControl), new PropertyMetadata(12, OnFontSizeChanged));
 
-        public Color KForeground
+        public SolidColorBrush KForeground
         {
-            get { return (Color)GetValue(KForegroundProperty); }
+            get { return (SolidColorBrush)GetValue(KForegroundProperty); }
             set { SetValue(KForegroundProperty, value); }
         }
 
         public static readonly DependencyProperty KForegroundProperty =
-            DependencyProperty.Register(nameof(KForeground), typeof(Color), typeof(FormatTextControl), new PropertyMetadata(Colors.Black, OnForegroundChanged));
+            DependencyProperty.Register(nameof(KForeground), typeof(SolidColorBrush), typeof(FormatTextControl), new PropertyMetadata(Colors.Black, OnForegroundChanged));
 
         public bool KBold
         {
@@ -106,12 +106,25 @@ namespace KanBoard.Controls
 
         #region Methods
 
-        private string GetActualText()
+        private bool IsInitialText()
         {
+            string initialText = InitialText;
             string text;
             EditBox.Document.GetText(TextGetOptions.None, out text);
 
-            return text;
+            initialText = initialText.Replace("\r", "").Trim();
+            text = text.Replace("\r", "").Trim();
+
+            bool teste = initialText.Equals(text);
+            return teste;
+        }
+
+        private void InitializeColorPickerWindow()
+        {
+            var colorPickerWindow = new ColorPickerWindow();
+            colorPickerWindow.Activate();
+
+            colorPickerWindow.ViewModel.KColorChanged += ViewModel_KColorChanged;
         }
 
         #endregion
@@ -132,8 +145,7 @@ namespace KanBoard.Controls
 
         private void KForeground_Click(object sender, RoutedEventArgs e)
         {
-            var colorPickerWindow = new ColorPickerWindow();
-            colorPickerWindow.Activate();
+            InitializeColorPickerWindow();
         }
 
         private void ToggleBtn_Checked(object sender, RoutedEventArgs e)
@@ -153,6 +165,12 @@ namespace KanBoard.Controls
                     KStrikethrough = (bool)kStrikethroughButton.IsChecked;
                     break;
             }
+        }
+
+        private void ViewModel_KColorChanged(object sender, ColorChangedEventArgs e)
+        {
+            kForegroundButton.Background = new SolidColorBrush(e.NewColor);
+            KForeground = new SolidColorBrush(e.NewColor);
         }
 
         #endregion
@@ -179,7 +197,7 @@ namespace KanBoard.Controls
         {
             if (d is FormatTextControl self)
             {
-                self.KForegroundChanged?.Invoke(self, (Color)e.NewValue);
+                self.KForegroundChanged?.Invoke(self, (SolidColorBrush)e.NewValue);
             }
         }
 

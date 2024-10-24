@@ -7,7 +7,7 @@ namespace KanBoard.View
 {
     public sealed partial class ColorPickerWindow : Window
     {
-        ColorPickerViewModel ViewModel { get; set; }
+        public ColorPickerViewModel ViewModel { get; set; }
 
         public ColorPickerWindow()
         {

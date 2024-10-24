@@ -10,6 +10,8 @@
     mc:Ignorable="d">
 
     <Grid>
-        <controls:ColorPickerControl/>
+        <controls:ColorPickerControl x:Name="KColorPicker"
+                                     Grid.Row="1"
+                                     Loaded="{x:Bind ViewModel.KColorPicker_Loaded}"/>
     </Grid>
 </Window>

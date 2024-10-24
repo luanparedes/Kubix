@@ -234,13 +234,13 @@ namespace KanBoard.Controls
                 selectedText.CharacterFormat.Size = e;
         }
 
-        private void FormatTextControl_KForegroundChanged(object sender, Color e)
+        private void FormatTextControl_KForegroundChanged(object sender, SolidColorBrush e)
         {
             var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
 
             if (!selectedText.Equals(""))
             {
-                selectedText.CharacterFormat.ForegroundColor = e;
+                selectedText.CharacterFormat.ForegroundColor = e.Color;
             }
         }
 
