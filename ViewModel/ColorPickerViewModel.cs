@@ -28,6 +28,12 @@ namespace KanBoard.ViewModel
         {
             colorPicker = sender as ColorPickerControl;
             colorPicker.ColorChanged += ColorPicker_ColorChanged;
+            colorPicker.KClosePicker += ColorPicker_KClosePicker;
+        }
+
+        private void ColorPicker_KClosePicker(object sender, EventArgs e)
+        {
+            colorPickerWindow.Close();
         }
 
         private void ColorPicker_ColorChanged(ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args)
@@ -39,10 +45,10 @@ namespace KanBoard.ViewModel
         {
             colorPickerWindow = sender as ColorPickerWindow;
 
-            Initialize();
+            //Initialize();
             //CustomizeWindow();
-            SetWindowSize(550, 800);
-            CenterWindow();
+            //SetWindowSize(550, 800);
+            //CenterWindow();
         }
 
         public void ColorPickerWindow_Closed(object sender, WindowEventArgs args)
@@ -54,45 +60,45 @@ namespace KanBoard.ViewModel
 
         #region Methods
 
-        private void Initialize()
-        {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(colorPickerWindow);
-            var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
-            appWindow = AppWindow.GetFromWindowId(windowId);
+        //private void Initialize()
+        //{
+        //    var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(colorPickerWindow);
+        //    var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
+        //    appWindow = AppWindow.GetFromWindowId(windowId);
 
-        }
+        //}
 
-        private void SetWindowSize(int width, int height)
-        {
-            if (appWindow != null)
-                appWindow.Resize(new SizeInt32(width, height));
-        }
+        //private void SetWindowSize(int width, int height)
+        //{
+        //    if (appWindow != null)
+        //        appWindow.Resize(new SizeInt32(width, height));
+        //}
 
-        public void CenterWindow()
-        {
-            var displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary);
-            var centerX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
-            var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
+        //public void CenterWindow()
+        //{
+        //    var displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary);
+        //    var centerX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
+        //    var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
 
-            if (appWindow != null)
-                appWindow.Move(new PointInt32(centerX, centerY));
-        }
+        //    if (appWindow != null)
+        //        appWindow.Move(new PointInt32(centerX + 300, centerY));
+        //}
 
-        private void CustomizeWindow()
-        {
-            if (appWindow != null)
-            {
-                var presenter = appWindow.Presenter as OverlappedPresenter;
+        //private void CustomizeWindow()
+        //{
+        //    if (appWindow != null)
+        //    {
+        //        var presenter = appWindow.Presenter as OverlappedPresenter;
 
-                if (presenter != null)
-                {
-                    presenter.IsResizable = false;        // Impede redimensionamento
-                    presenter.IsMinimizable = false;      // Remove botão de minimizar
-                    presenter.IsMaximizable = false;      // Remove botão de maximizar
-                    presenter.SetBorderAndTitleBar(false, false); // Remove borda e barra de título
-                }
-            }
-        }
+        //        if (presenter != null)
+        //        {
+        //            presenter.IsResizable = false;        // Impede redimensionamento
+        //            presenter.IsMinimizable = false;      // Remove botão de minimizar
+        //            presenter.IsMaximizable = false;      // Remove botão de maximizar
+        //            presenter.SetBorderAndTitleBar(false, false); // Remove borda e barra de título
+        //        }
+        //    }
+        //}
 
         #endregion
     }

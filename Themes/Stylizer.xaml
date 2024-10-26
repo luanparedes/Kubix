@@ -19,7 +19,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -58,12 +57,6 @@
                                  Grid.Row="1"
                                  Grid.ColumnSpan="3"
                                  VerticalAlignment="Stretch"/>
-                        <StackPanel Grid.Row="2"
-                                    Grid.ColumnSpan="3"
-                                    Background="{ThemeResource AppBackground}">
-                            <controls:FormatTextControl x:Name="FormatControl"
-                                                        Foreground="{ThemeResource AppMainTexts}"/>
-                        </StackPanel>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -76,136 +69,143 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:FormatTextControl">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Column="0"
-                                    Orientation="Vertical"
-                                    VerticalAlignment="Bottom">
-                            <ComboBox x:Name="KComboBox"
-                                      Width="180"
-                                      Height="40"
-                                      SelectedIndex="0">
-                                <ComboBoxItem Content="Segoe UI"/>
-                                <ComboBoxItem Content="Comic Sans MS"/>
-                                <ComboBoxItem Content="Test2"/>
-                                <ComboBoxItem Content="Test3"/>
-                            </ComboBox>
-                        </StackPanel>
+                        <RichEditBox x:Name="EditBox"
+                                     Style="{ThemeResource RichEditTextBox}"
+                                     SelectionFlyout="{x:Null}"/>
 
-                        <StackPanel Grid.Column="1"
-                                    Orientation="Vertical"
-                                    VerticalAlignment="Bottom"
-                                    Margin="3,0,0,0">
-                            <ComboBox x:Name="KFontSize"
-                                      Width="100"
-                                      Height="40"
-                                      SelectedIndex="4">
-                                <ComboBoxItem Content="4"/>
-                                <ComboBoxItem Content="6"/>
-                                <ComboBoxItem Content="8"/>
-                                <ComboBoxItem Content="10"/>
-                                <ComboBoxItem Content="12"/>
-                                <ComboBoxItem Content="14"/>
-                                <ComboBoxItem Content="16"/>
-                                <ComboBoxItem Content="18"/>
-                                <ComboBoxItem Content="20"/>
-                                <ComboBoxItem Content="22"/>
-                                <ComboBoxItem Content="24"/>
-                                <ComboBoxItem Content="26"/>
-                                <ComboBoxItem Content="28"/>
-                                <ComboBoxItem Content="30"/>
-                                <ComboBoxItem Content="32"/>
-                                <ComboBoxItem Content="34"/>
-                                <ComboBoxItem Content="36"/>
-                                <ComboBoxItem Content="38"/>
-                                <ComboBoxItem Content="40"/>
-                                <ComboBoxItem Content="42"/>
-                                <ComboBoxItem Content="44"/>
-                                <ComboBoxItem Content="46"/>
-                                <ComboBoxItem Content="48"/>
-                                <ComboBoxItem Content="50"/>
-                            </ComboBox>
-                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="2"
-                                    Orientation="Vertical" 
-                                    VerticalAlignment="Center"
-                                    Margin="12,0,0,0">
-                            <ToggleButton x:Name="KBold"
-                                          Tag="BoldBtn"
-                                          Content="B"
-                                          FontFamily="Comic Sans MS"
-                                          FontSize="12"
-                                          Height="25"
-                                          Width="25"
-                                          Margin="0,4,0,0"
-                                          Padding="0"
-                                          HorizontalAlignment="Center"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="0"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <ComboBox x:Name="KComboBox"
+                                          Width="180"
+                                          Height="32"
+                                          SelectedIndex="0">
+                                    <ComboBoxItem Content="Segoe UI"/>
+                                    <ComboBoxItem Content="Comic Sans MS"/>
+                                    <ComboBoxItem Content="Test2"/>
+                                    <ComboBoxItem Content="Test3"/>
+                                </ComboBox>
+                            </StackPanel>
 
-                        <StackPanel Grid.Column="3"
-                                    Orientation="Vertical"
-                                    Margin="12,0,0,0"
-                                    VerticalAlignment="Center">
-                            <ToggleButton x:Name="KItalic"
-                                          Tag="ItalicBtn"
-                                          Content="I"
-                                          FontFamily="Comic Sans MS"
-                                          FontSize="12"
-                                          Height="25" 
-                                          Margin="0,4,0,0"
-                                          Padding="0"
-                                          Width="25"
-                                          HorizontalAlignment="Center"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center"
+                                        Margin="3,0,0,0">
+                                <ComboBox x:Name="KFontSize"
+                                          Width="68"
+                                          Height="32"
+                                          SelectedIndex="4">
+                                    <ComboBoxItem Content="4"/>
+                                    <ComboBoxItem Content="6"/>
+                                    <ComboBoxItem Content="8"/>
+                                    <ComboBoxItem Content="10"/>
+                                    <ComboBoxItem Content="12"/>
+                                    <ComboBoxItem Content="14"/>
+                                    <ComboBoxItem Content="16"/>
+                                    <ComboBoxItem Content="18"/>
+                                    <ComboBoxItem Content="20"/>
+                                    <ComboBoxItem Content="22"/>
+                                    <ComboBoxItem Content="24"/>
+                                    <ComboBoxItem Content="26"/>
+                                    <ComboBoxItem Content="28"/>
+                                    <ComboBoxItem Content="30"/>
+                                    <ComboBoxItem Content="32"/>
+                                    <ComboBoxItem Content="34"/>
+                                    <ComboBoxItem Content="36"/>
+                                    <ComboBoxItem Content="38"/>
+                                    <ComboBoxItem Content="40"/>
+                                    <ComboBoxItem Content="42"/>
+                                    <ComboBoxItem Content="44"/>
+                                    <ComboBoxItem Content="46"/>
+                                    <ComboBoxItem Content="48"/>
+                                    <ComboBoxItem Content="50"/>
+                                </ComboBox>
+                            </StackPanel>
 
-                        <StackPanel Grid.Column="4"
-                                    Orientation="Vertical"
-                                    Margin="12,0,0,0"
-                                    VerticalAlignment="Center">
-                            <ToggleButton x:Name="KUnderline"
-                                          Tag="UnderlineBtn"
-                                          Content="U"
-                                          FontFamily="Comic Sans MS"
-                                          FontSize="12"
-                                          Height="25" 
-                                          Margin="0,4,0,0"
-                                          Padding="0"
-                                          Width="25"
-                                          HorizontalAlignment="Center"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="2"
+                                        Orientation="Vertical" 
+                                        VerticalAlignment="Center"
+                                        Margin="12,0,0,0">
+                                <ToggleButton x:Name="KBold"
+                                              Tag="BoldBtn"
+                                              Content="B"
+                                              FontFamily="Comic Sans MS"
+                                              FontSize="12"
+                                              Height="25"
+                                              Width="25"
+                                              Padding="0"
+                                              HorizontalAlignment="Center"/>
+                            </StackPanel>
 
-                        <StackPanel Grid.Column="5"
-                                    Orientation="Vertical"
-                                    Margin="12,0,10,0"
-                                    VerticalAlignment="Center">
-                            <ToggleButton x:Name="KStrikethrough"
-                                          Tag="StrikethroughBtn"
-                                          Content="S"
-                                          FontFamily="Comic Sans MS"
-                                          FontSize="12"
-                                          Height="25" 
-                                          Margin="0,4,0,0"
-                                          Padding="0"
-                                          Width="25"
-                                          HorizontalAlignment="Center"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="3"
+                                        Orientation="Vertical"
+                                        Margin="6,0,0,0"
+                                        VerticalAlignment="Center">
+                                <ToggleButton x:Name="KItalic"
+                                              Tag="ItalicBtn"
+                                              Content="I"
+                                              FontFamily="Comic Sans MS"
+                                              FontSize="12"
+                                              Height="25"
+                                              Padding="0"
+                                              Width="25"
+                                              HorizontalAlignment="Center"/>
+                            </StackPanel>
 
-                        <StackPanel Grid.Column="6"
-                                    Orientation="Vertical"
-                                    Margin="3,5,0,0">
-                            <Button x:Name="KForeground"
-                                    Height="40"
-                                    Width="40"/>
-                        </StackPanel>
+                            <StackPanel Grid.Column="4"
+                                        Orientation="Vertical"
+                                        Margin="6,0,0,0"
+                                        VerticalAlignment="Center">
+                                <ToggleButton x:Name="KUnderline"
+                                              Tag="UnderlineBtn"
+                                              Content="U"
+                                              FontFamily="Comic Sans MS"
+                                              FontSize="12"
+                                              Height="25"
+                                              Padding="0"
+                                              Width="25"
+                                              HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="5"
+                                        Orientation="Vertical"
+                                        Margin="6,0,10,0"
+                                        VerticalAlignment="Center">
+                                <ToggleButton x:Name="KStrikethrough"
+                                              Tag="StrikethroughBtn"
+                                              Content="S"
+                                              FontFamily="Comic Sans MS"
+                                              FontSize="12"
+                                              Height="25"
+                                              Padding="0"
+                                              Width="25"
+                                              HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="6"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center">
+                                <Button x:Name="KForeground"
+                                        Height="30"
+                                        Width="30"/>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -273,7 +273,6 @@
         <Setter Property="SelectionFlyout" Value="{StaticResource TextControlCommandBarSelectionFlyout}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="BackgroundSizing" Value="InnerBorderEdge" />
-        <Setter Property="PlaceholderText" Value="Type your text here"/>
         <Setter Property="AcceptsReturn" Value="True"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Template">
@@ -297,9 +296,6 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentElement" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlForegroundDisabled}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForegroundDisabled}}" />
-                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
@@ -310,9 +306,6 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundPointerOver}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForegroundPointerOver}}" />
-                                        </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentElement" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlForegroundPointerOver}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -320,9 +313,6 @@
                                 </VisualState>
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForegroundFocused}}" />
-                                        </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBackgroundFocused}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -403,17 +393,6 @@
                                       IsTabStop="False" 
                                       AutomationProperties.AccessibilityView="Raw" 
                                       ZoomMode="Disabled" />
-                        <TextBlock x:Name="PlaceholderTextContentPresenter" 
-                                   Grid.Row="1" 
-                                   Grid.Column="0" 
-                                   Grid.ColumnSpan="2" 
-                                   Foreground="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForeground}}" 
-                                   Margin="{TemplateBinding BorderThickness}" 
-                                   Padding="{TemplateBinding Padding}" 
-                                   Text="{TemplateBinding PlaceholderText}" 
-                                   TextAlignment="{TemplateBinding TextAlignment}" 
-                                   TextWrapping="{TemplateBinding TextWrapping}" 
-                                   IsHitTestVisible="False" />
                         <ContentPresenter x:Name="DescriptionPresenter" 
                                           Grid.Row="2" 
                                           Grid.Column="0" 
@@ -1191,6 +1170,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <ComboBox Grid.Row="0" x:Name="ColorRepresentationComboBox" Width="120" Margin="0,12,0,0">
                                     <ComboBoxItem x:Name="RGBComboBoxItem" Content="RGB" IsSelected="True" />
@@ -1233,11 +1213,18 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <TextBox x:Name="HexTextBox" Grid.Column="1" MaxLength="7" Text="#FFFFFF" Margin="0,12,0,0" Width="132" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                                <StackPanel Grid.Row="1" 
+                                            Grid.Column="1"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Center">
+                                    <Button x:Name="OkButton" 
+                                            Content="Ok"
+                                            Background="{ThemeResource PageBackground}"
+                                            Width="100"/>
+                                </StackPanel>
                             </Grid>
                         </StackPanel>
-
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

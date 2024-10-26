@@ -19,12 +19,10 @@ namespace KanBoard.Controls
     {
         #region Fields & Properties
 
-        private TabView customTabView; // TODO sorking open and save but save IsEnabled stop working
-        private Button openButton;     // and events.
+        private TabView customTabView;
+        private Button openButton;
         private Button saveButton;
-        private FormatTextControl formatTextControl;
 
-        private string Text { get; set; }
         private CustomTabViewItem ActualTabItem { get; set; }
 
         #endregion
@@ -34,6 +32,12 @@ namespace KanBoard.Controls
         public KNote()
         {
             KeyUp += KNote_KeyUp;
+            Loaded += KNote_Loaded;
+        }
+
+        private void KNote_Loaded(object sender, RoutedEventArgs e)
+        {
+            CreateTab();
         }
 
         #endregion
@@ -54,109 +58,26 @@ namespace KanBoard.Controls
 
             newTabItem.HasChangesChanged += CustomTabView_IsTextChanged;
             newTabItem.CloseTab += NewTabItem_CloseTab;
-            newTabItem.formatControl.EditBox.TextChanged += TabContent_TextChanged;
-            newTabItem.formatControl.EditBox.SelectionChanged += EditBox_SelectionChanged;
+            newTabItem.formatControl.KTextChanged += TabContent_TextChanged;
 
             customTabView.TabItems.Add(newTabItem);
             customTabView.SelectedItem = newTabItem;
         }
 
-        private void EditBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            var selectedText = ActualTabItem.formatControl.EditBox.Document.Selection;
-            //TODO pegar o texto atual e confirmar se já está.
-        }
-
-        private void TabContent_TextChanged(object sender, RoutedEventArgs e)
+        private void TabContent_TextChanged(object sender, string e)
         {
             saveButton.IsEnabled = ActualTabItem.formatControl.HasChanges;
         }
 
         private async void OpenFile()
         {
-            var openPicker = new FileOpenPicker();
-            openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            openPicker.FileTypeFilter.Add(".txt");
-            openPicker.FileTypeFilter.Add(".rtf");
-
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
-            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hwnd);
-
-            StorageFile file = await openPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                CreateTab(file);
-
-                switch (file.FileType)
-                {
-                    case ".txt":
-                        string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-                        (ActualTabItem.Content as RichEditBox).Document.SetText(TextSetOptions.None, text);
-                        break;
-
-                    case ".rtf":
-                        using (var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
-                        {
-                            (ActualTabItem.Content as RichEditBox).Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
-                        }
-                        break;
-                }
-            }
+            StorageFile file = await ActualTabItem.formatControl.OpenFile();
+            CreateTab(file);           
         }
 
-        private async void SaveFile()
+        private void SaveFile()
         {
-            string text = string.Empty;
-
-            if (ActualTabItem.TabFile != null)
-            {
-                switch (ActualTabItem.TabFile.FileType)
-                {
-                    case ".txt":
-                        ActualTabItem.formatControl.EditBox.Document.GetText(TextGetOptions.None, out text);
-                        break;
-                    case ".rtf":
-                        ActualTabItem.formatControl.EditBox.Document.GetText(TextGetOptions.FormatRtf, out text);
-                        break;
-                }
-
-                await FileIO.WriteTextAsync(ActualTabItem.TabFile, text);
-            }
-            else
-            {
-                var savePicker = new FileSavePicker();
-
-                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt", ".rtf" });
-                savePicker.SuggestedFileName = Stringer.GetString("KB_NewDocumentText");
-
-                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);
-                WinRT.Interop.InitializeWithWindow.Initialize(savePicker, hwnd);
-
-                ActualTabItem.TabFile = await savePicker.PickSaveFileAsync();
-
-                if (ActualTabItem.TabFile != null)
-                {
-                    switch (ActualTabItem.TabFile.FileType)
-                    {
-                        case ".txt":
-                            (ActualTabItem.Content as RichEditBox).Document.GetText(TextGetOptions.None, out text);
-                            break;
-                        case ".rtf":
-                            (ActualTabItem.Content as RichEditBox).Document.GetText(TextGetOptions.FormatRtf, out text);
-                            break;
-                    }
-
-                    await FileIO.WriteTextAsync(ActualTabItem.TabFile, text);
-                }
-            }
-
-            if (ActualTabItem.TabFile == null)
-                return;
-
-            ActualTabItem.formatControl.InitialText = (ActualTabItem.Content as RichEditBox).Document.ToString();
-            ActualTabItem.Header = ActualTabItem.TabFile.Name;
+            ActualTabItem.Header = ActualTabItem.formatControl.SaveFile();
             saveButton.IsEnabled = ActualTabItem.formatControl.HasChanges;
         }
 
@@ -213,78 +134,6 @@ namespace KanBoard.Controls
             }
         }
 
-        private void FormatTextControl_KFamilyFontChanged(object sender, FontFamily e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                if (!string.IsNullOrEmpty(e.Source))
-                {
-                    selectedText.CharacterFormat.Name = e.Source;
-                }
-            }
-        }
-
-        private void FormatTextControl_KFontSizeChanged(object sender, int e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-                selectedText.CharacterFormat.Size = e;
-        }
-
-        private void FormatTextControl_KForegroundChanged(object sender, SolidColorBrush e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                selectedText.CharacterFormat.ForegroundColor = e.Color;
-            }
-        }
-
-        private void FormatTextControl_KBoldChanged(object sender, ToggleButton e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                var isBold = selectedText.CharacterFormat.Bold == FormatEffect.On;
-                e.IsChecked = isBold;
-                selectedText.CharacterFormat.Bold = !isBold ? FormatEffect.On : FormatEffect.Off;
-            }
-        }
-        private void FormatTextControl_KItalicChanged(object sender, bool e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                selectedText.CharacterFormat.Italic = e ? FormatEffect.On : FormatEffect.Off;
-            }
-        }
-
-        private void FormatTextControl_KUnderlineChanged(object sender, bool e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                selectedText.CharacterFormat.Underline = e ? UnderlineType.Single : UnderlineType.None;
-            }
-        }
-
-        private void FormatTextControl_KStrikethroughChanged(object sender, bool e)
-        {
-            var selectedText = (ActualTabItem.Content as RichEditBox).Document.Selection;
-
-            if (!selectedText.Equals(""))
-            {
-                selectedText.CharacterFormat.Strikethrough = e ? FormatEffect.On : FormatEffect.Off;
-            }
-        }
-
         #endregion
 
         #region OnApplyTemplate
@@ -296,14 +145,11 @@ namespace KanBoard.Controls
             customTabView = GetTemplateChild("TabViewCustom") as TabView;
             openButton = GetTemplateChild("OpenButton") as Button;
             saveButton = GetTemplateChild("SaveButton") as Button;
-            formatTextControl = GetTemplateChild("FormatControl") as FormatTextControl;
 
             if (customTabView != null)
             {
                 customTabView.SelectionChanged += CustomTabView_SelectionChanged;
                 customTabView.AddTabButtonClick += CustomTabView_AddTabButtonClick;
-
-                CreateTab();
             }
 
             if (openButton != null)
@@ -315,17 +161,6 @@ namespace KanBoard.Controls
             {
                 saveButton.Click += SaveButton_Click;
                 saveButton.IsEnabled = false;
-            }
-
-            if (formatTextControl != null)
-            {
-                formatTextControl.KFamilyFontChanged += FormatTextControl_KFamilyFontChanged;
-                formatTextControl.KFontSizeChanged += FormatTextControl_KFontSizeChanged;
-                formatTextControl.KForegroundChanged += FormatTextControl_KForegroundChanged;
-                formatTextControl.KBoldChanged += FormatTextControl_KBoldChanged;
-                formatTextControl.KItalicChanged += FormatTextControl_KItalicChanged;
-                formatTextControl.KUnderlineChanged += FormatTextControl_KUnderlineChanged;
-                formatTextControl.KStrikethroughChanged += FormatTextControl_KStrikethroughChanged;
             }
         }
 
