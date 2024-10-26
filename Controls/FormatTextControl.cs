@@ -11,6 +11,7 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.UI.Xaml.Documents;
 
 namespace KanBoard.Controls
 {
@@ -30,7 +31,11 @@ namespace KanBoard.Controls
         private CreateFileEnum fileEnum;
         private string ActualText;
 
-        public event EventHandler<string> KTextChanged; 
+        public event EventHandler<string> KTextChanged;
+        public event EventHandler<bool> KBoldChanged;
+        public event EventHandler<bool> KItalicChanged;
+        public event EventHandler<bool> KUnderlineChanged;
+        public event EventHandler<bool> KStrikethroughChanged;
 
         public bool HasChanges => !IsInitialText();
         public string InitialText { get; set; } = string.Empty;
@@ -56,7 +61,7 @@ namespace KanBoard.Controls
         }
 
         public static readonly DependencyProperty KFontSizeProperty =
-            DependencyProperty.Register(nameof(KFontSize), typeof(int), typeof(FormatTextControl), new PropertyMetadata(12));
+            DependencyProperty.Register(nameof(KFontSize), typeof(int), typeof(FormatTextControl), new PropertyMetadata(10));
 
         public SolidColorBrush KForeground
         {
@@ -139,6 +144,8 @@ namespace KanBoard.Controls
                         break;
                 }
             }
+
+            InitializeFormat(TextConstants.MaxUnitCount);
         }
 
         public async Task<StorageFile> OpenFile()
@@ -254,6 +261,50 @@ namespace KanBoard.Controls
             colorPickerWindow.ViewModel.KColorChanged += ViewModel_KColorChanged;
         }
 
+        private void InitializeFormat(int count = 100)
+        {
+            var format = editBox.Document.Selection;
+            var selectedText = editBox.Document.GetRange(0, count);
+
+            selectedText.CharacterFormat.Name = KFontFamily.Source;
+            selectedText.CharacterFormat.Size = KFontSize;
+            selectedText.CharacterFormat.ForegroundColor = KForeground.Color;
+            selectedText.CharacterFormat.Bold = KBold ? FormatEffect.On : FormatEffect.Off;
+            selectedText.CharacterFormat.Italic = KItalic ? FormatEffect.On : FormatEffect.Off;
+            selectedText.CharacterFormat.Underline = KUnderline ? UnderlineType.Single : UnderlineType.None;
+            selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
+
+            editBox.Document.Selection.SetRange(0, count);
+        }
+
+        private void FormatText(ToggleButton sender)
+        {
+            var selectedText = editBox.Document.Selection;
+
+            if (selectedText != null)
+            {
+                switch (sender.Tag)
+                {
+                    case "BoldBtn":
+                        KBold = (bool)kBoldButton.IsChecked;
+                        selectedText.CharacterFormat.Bold = KBold ? FormatEffect.On : FormatEffect.Off;
+                        break;
+                    case "ItalicBtn":
+                        KItalic = (bool)kItalicButton.IsChecked;
+                        selectedText.CharacterFormat.Italic = KItalic ? FormatEffect.On : FormatEffect.Off;
+                        break;
+                    case "UnderlineBtn":
+                        KUnderline = (bool)kUnderlineButton.IsChecked;
+                        selectedText.CharacterFormat.Underline = KUnderline ? UnderlineType.Single : UnderlineType.None;
+                        break;
+                    case "StrikethroughBtn":
+                        KStrikethrough = (bool)kStrikethroughButton.IsChecked;
+                        selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
+                        break;
+                }
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -287,32 +338,9 @@ namespace KanBoard.Controls
             InitializeColorPickerWindow();
         }
 
-        private void ToggleBtn_Checked(object sender, RoutedEventArgs e)
+        private void ToogleBtn_Click(object sender, RoutedEventArgs e)
         {
-            var selectedText = editBox.Document.Selection;
-
-            if (selectedText != null)
-            {
-                switch ((sender as ToggleButton).Tag)
-                {
-                    case "BoldBtn":
-                        KBold = (bool)kBoldButton.IsChecked;
-                        selectedText.CharacterFormat.Bold = KBold ? FormatEffect.On : FormatEffect.Off;
-                        break;
-                    case "ItalicBtn":
-                        KItalic = (bool)kItalicButton.IsChecked;
-                        selectedText.CharacterFormat.Italic = KItalic ? FormatEffect.On : FormatEffect.Off;
-                        break;
-                    case "UnderlineBtn":
-                        KUnderline = (bool)kUnderlineButton.IsChecked;
-                        selectedText.CharacterFormat.Underline = KUnderline ? UnderlineType.Single : UnderlineType.None;
-                        break;
-                    case "StrikethroughBtn":
-                        KStrikethrough = (bool)kStrikethroughButton.IsChecked;
-                        selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
-                        break;
-                }
-            }
+            FormatText(sender as ToggleButton);
         }
 
         private void ViewModel_KColorChanged(object sender, ColorChangedEventArgs e)
@@ -322,10 +350,7 @@ namespace KanBoard.Controls
 
             var selectedText = editBox.Document.Selection;
 
-            if (!selectedText.Equals(""))
-            {
-                selectedText.CharacterFormat.ForegroundColor = KForeground.Color;
-            }
+            selectedText.CharacterFormat.ForegroundColor = KForeground.Color;
         }
 
         private void EditBox_TextChanged(object sender, RoutedEventArgs e)
@@ -337,6 +362,15 @@ namespace KanBoard.Controls
         {
             ITextSelection selectedText = editBox.Document.Selection;
 
+            if (selectedText != null)
+            {
+                var format = selectedText.CharacterFormat;
+
+                kBoldButton.IsChecked = format.Bold == FormatEffect.On;
+                kItalicButton.IsChecked = format.Italic == FormatEffect.On;
+                kUnderlineButton.IsChecked = format.Underline == UnderlineType.Single;
+                kStrikethroughButton.IsChecked = format.Strikethrough == FormatEffect.On;
+            }
         }
 
         #endregion
@@ -379,22 +413,22 @@ namespace KanBoard.Controls
 
             if (kBoldButton != null)
             {
-                kBoldButton.Checked += ToggleBtn_Checked;
+                kBoldButton.Click += ToogleBtn_Click;
             }
 
             if (kItalicButton != null)
             {
-                kItalicButton.Checked += ToggleBtn_Checked;
+                kItalicButton.Click += ToogleBtn_Click;
             }
 
             if (kUnderlineButton != null)
             {
-                kUnderlineButton.Checked += ToggleBtn_Checked;
+                kUnderlineButton.Click += ToogleBtn_Click;
             }
 
             if (kStrikethroughButton != null)
             {
-                kStrikethroughButton.Checked += ToggleBtn_Checked;
+                kStrikethroughButton.Click += ToogleBtn_Click;
             }
         }
 

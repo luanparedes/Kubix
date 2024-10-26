@@ -1,17 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
-using Windows.Storage.Pickers;
 using Windows.Storage;
 using Microsoft.UI.Input;
 using Windows.System;
 using Windows.UI.Core;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Text;
 using KanBoard.Helpers;
-using Windows.UI;
-using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace KanBoard.Controls
 {
