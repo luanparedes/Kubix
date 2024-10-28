@@ -1,0 +1,14 @@
+Release notes v.1.10.1.0
+
+Improvements:
+- K-Note format
+	- Font family
+	- Font sizes
+	- Font color
+	- Color picker
+	- Bold
+	- Italic
+	- Underline
+	- Strikethrough
+- Google pages unified
+- Ai page cache for every page

@@ -5,9 +5,12 @@ using KanBoard.Services.Interfaces;
 using KanBoard.View;
 using KanBoard.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Windowing;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
+using Windows.Graphics;
 
 namespace KanBoard
 {
@@ -58,7 +61,8 @@ namespace KanBoard
                 .AddSingleton<KNoteViewModel>()
                 .AddSingleton<AIViewModel>()
                 .AddSingleton<Office365ViewModel>()
-                .AddSingleton<GoogleViewModel>();
+                .AddSingleton<GoogleViewModel>()
+                .AddTransient<ColorPickerViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }
@@ -80,6 +84,21 @@ namespace KanBoard
             MainWindow.ExtendsContentIntoTitleBar = true;
             MainWindow.Content = new Frame();
             MainWindow.Activate();
+
+            CenterWindow();
+        }
+
+        public void CenterWindow()
+        {
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(MainWindow);
+            var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
+            var appWindow = AppWindow.GetFromWindowId(windowId);
+
+            var displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary);
+            var centerX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
+            var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
+
+            appWindow.Move(new PointInt32(centerX, centerY));
         }
 
         #endregion

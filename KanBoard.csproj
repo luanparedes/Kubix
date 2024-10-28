@@ -33,6 +33,7 @@
     <None Remove="View\AIPage.xaml" />
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
+    <None Remove="View\ColorPickerWindow.xaml" />
     <None Remove="View\GoogleMapsPage.xaml" />
     <None Remove="View\GooglePage.xaml" />
     <None Remove="View\GooglePhotosPage.xaml" />
@@ -59,6 +60,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -69,6 +71,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\ColorPickerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\GooglePage.xaml">

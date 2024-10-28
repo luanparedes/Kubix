@@ -144,6 +144,9 @@
   <data name="KB_MusicText" xml:space="preserve">
     <value>Música</value>
   </data>
+  <data name="KB_NewDocumentText" xml:space="preserve">
+    <value>Nuevo documento</value>
+  </data>
   <data name="KB_Office365Text" xml:space="preserve">
     <value>Office 365</value>
   </data>
