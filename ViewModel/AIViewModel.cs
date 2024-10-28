@@ -14,10 +14,12 @@ namespace KanBoard.ViewModel
         public const string STATE_CHAT_GPT = "StateChatGpt";
         public const string STATE_COPILOT = "StateCopilot";
         public const string STATE_GEMINI = "StateGemini";
+        public const string STATE_META = "StateMeta";
 
         public readonly string ChatGptURL = "https://chatgpt.com/";
         public readonly string CopilotURL = "https://copilot.microsoft.com/";
         public readonly string GeminiURL = "https://gemini.google.com/app";
+        public readonly string MetaURL = "https://meta.ai";
 
         #endregion
 
@@ -48,6 +50,11 @@ namespace KanBoard.ViewModel
                     CurrentState = STATE_GEMINI;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
+                case "MetaBtn":
+                    ActualAIApp = AIApp.Meta;
+                    CurrentState = STATE_META;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
@@ -66,6 +73,7 @@ namespace KanBoard.ViewModel
     {
         ChatGpt,
         Copilot,
-        Gemini
+        Gemini,
+        Meta
     }
 }
