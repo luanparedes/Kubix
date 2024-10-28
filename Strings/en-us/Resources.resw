@@ -156,6 +156,18 @@
   <data name="KB_PageHeader_Settings" xml:space="preserve">
     <value>&lt; Settings &gt;</value>
   </data>
+  <data name="KB_SaveCloseContentDialog" xml:space="preserve">
+    <value>If you close without saving you will lose your data, are you sure?</value>
+  </data>
+  <data name="KB_SaveClosePrimaryDialog" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="KB_SaveCloseSecondaryDialog" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Settings</value>
   </data>

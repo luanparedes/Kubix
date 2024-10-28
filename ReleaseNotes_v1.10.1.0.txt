@@ -10,5 +10,6 @@ Improvements:
 	- Italic
 	- Underline
 	- Strikethrough
+	- Save popup when close without saving
 - Google pages unified
 - Ai page cache for every page
