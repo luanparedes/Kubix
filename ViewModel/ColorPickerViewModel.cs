@@ -13,10 +13,11 @@ namespace KanBoard.ViewModel
     {
         #region Fields & Properties
 
-        ColorPickerControl colorPicker;
-        ColorPickerWindow colorPickerWindow;
-        AppWindow appWindow;
-        WindowId windowId;
+        private ColorPickerControl colorPicker;
+        private ColorPickerWindow colorPickerWindow;
+        private AppWindow appWindow;
+        private WindowId windowId;
+        private bool isOpen = false;
 
         public event EventHandler<ColorChangedEventArgs> KColorChanged;
 
@@ -43,12 +44,16 @@ namespace KanBoard.ViewModel
 
         public void ColorPickerWindow_Activated(object sender, WindowActivatedEventArgs args)
         {
-            colorPickerWindow = sender as ColorPickerWindow;
+            if (!isOpen)
+            {
+                isOpen = true;
 
-            //Initialize();
-            //CustomizeWindow();
-            //SetWindowSize(550, 800);
-            //CenterWindow();
+                colorPickerWindow = sender as ColorPickerWindow;
+
+                Initialize();
+                SetWindowSize(550, 800);
+                CenterWindow();
+            }
         }
 
         public void ColorPickerWindow_Closed(object sender, WindowEventArgs args)
@@ -60,45 +65,29 @@ namespace KanBoard.ViewModel
 
         #region Methods
 
-        //private void Initialize()
-        //{
-        //    var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(colorPickerWindow);
-        //    var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
-        //    appWindow = AppWindow.GetFromWindowId(windowId);
+        private void Initialize()
+        {
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(colorPickerWindow);
+            var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
+            appWindow = AppWindow.GetFromWindowId(windowId);
 
-        //}
+        }
 
-        //private void SetWindowSize(int width, int height)
-        //{
-        //    if (appWindow != null)
-        //        appWindow.Resize(new SizeInt32(width, height));
-        //}
+        private void SetWindowSize(int width, int height)
+        {
+            if (appWindow != null)
+                appWindow.Resize(new SizeInt32(width, height));
+        }
 
-        //public void CenterWindow()
-        //{
-        //    var displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary);
-        //    var centerX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
-        //    var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
+        public void CenterWindow()
+        {
+            var displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary);
+            var centerX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
+            var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
 
-        //    if (appWindow != null)
-        //        appWindow.Move(new PointInt32(centerX + 300, centerY));
-        //}
-
-        //private void CustomizeWindow()
-        //{
-        //    if (appWindow != null)
-        //    {
-        //        var presenter = appWindow.Presenter as OverlappedPresenter;
-
-        //        if (presenter != null)
-        //        {
-        //            presenter.IsResizable = false;        // Impede redimensionamento
-        //            presenter.IsMinimizable = false;      // Remove botão de minimizar
-        //            presenter.IsMaximizable = false;      // Remove botão de maximizar
-        //            presenter.SetBorderAndTitleBar(false, false); // Remove borda e barra de título
-        //        }
-        //    }
-        //}
+            if (appWindow != null)
+                appWindow.Move(new PointInt32(centerX + 400, centerY));
+        }
 
         #endregion
     }

@@ -11,7 +11,6 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.UI.Xaml.Documents;
 
 namespace KanBoard.Controls
 {
@@ -146,6 +145,7 @@ namespace KanBoard.Controls
             }
 
             InitializeFormat(TextConstants.MaxUnitCount);
+            ShowInitialValues();
         }
 
         public async Task<StorageFile> OpenFile()
@@ -275,6 +275,21 @@ namespace KanBoard.Controls
             selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
 
             editBox.Document.Selection.SetRange(0, count);
+        }
+
+        private void ShowInitialValues()
+        {
+            foreach (ComboBoxItem item in fontFamilyComboBox.Items)
+            {
+                if (KFontFamily.Source.Contains(item.Content.ToString()))
+                    fontFamilyComboBox.SelectedItem = item;
+            }
+
+            foreach (ComboBoxItem item in fontSizeComboBox.Items)
+            {
+                if (item.Content.ToString().Equals(KFontSize.ToString()))
+                    fontSizeComboBox.SelectedItem = item;
+            }
         }
 
         private void FormatText(ToggleButton sender)

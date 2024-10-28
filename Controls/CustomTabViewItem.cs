@@ -29,23 +29,16 @@ namespace KanBoard.Controls
         {
             formatControl = new FormatTextControl(file, text);
 
-            //formatControl.EditBox.Style = (Style)App.Current.Resources["RichEditTextBox"];
-            //formatControl.EditBox.SelectionFlyout = null;
-
             switch (file)
             {
                 case CreateFileEnum.NewFile:
-                    //formatControl.EditBox.Document.GetText(TextGetOptions.None, out text);
                     Header = Stringer.GetString("KB_NewDocumentText");
                     break;
                 case CreateFileEnum.OpenFile:
-                    //formatControl.EditBox.Document.SetText(TextSetOptions.None, text);
                     Header = header;
                     break;
             }
 
-            //formatControl.EditBox.TextChanged += CustomTabViewItem_TextChanged;
-            //formatControl.EditBox.SelectionChanged += CustomTabViewItem_SelectionChanged;
             formatControl.InitialText = text;
 
             Content = formatControl;
