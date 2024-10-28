@@ -1228,7 +1228,7 @@
     <Style TargetType="controls:CustomTabViewItem" BasedOn="{StaticResource CustomTabViewItemStyle}">
         <Setter Property="Background" Value="{ThemeResource TabItemBackground}"/>
     </Style>
-    
+
     <Style TargetType="controls:BrowserTabViewItem" BasedOn="{StaticResource CustomTabViewItemStyle}">
         <Setter Property="Background" Value="{ThemeResource TabItemBackground}"/>
     </Style>

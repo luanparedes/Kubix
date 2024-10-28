@@ -48,8 +48,19 @@ namespace KanBoard.Controls
 
         #region Event Handlers
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (formatControl.HasChanges)
+            {
+                CustomDialog dialog = new CustomDialog();
+                var response = await dialog.ShowSaveDialog();
+
+                if (response == ContentDialogResult.Primary)
+                {
+                    await formatControl.SaveFile();
+                }
+            }
+
             CloseTab?.Invoke(this, closeButton);
         }
 
