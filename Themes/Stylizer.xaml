@@ -95,12 +95,7 @@
                                 <ComboBox x:Name="KComboBox"
                                           Width="180"
                                           Height="32"
-                                          SelectedIndex="0">
-                                    <ComboBoxItem Content="Segoe UI"/>
-                                    <ComboBoxItem Content="Comic Sans MS"/>
-                                    <ComboBoxItem Content="Test2"/>
-                                    <ComboBoxItem Content="Test3"/>
-                                </ComboBox>
+                                          SelectedIndex="200"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1"

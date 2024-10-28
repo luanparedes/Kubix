@@ -11,6 +11,9 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Windows.Globalization.Fonts;
+using System.Drawing.Text;
+using System.Linq;
 
 namespace KanBoard.Controls
 {
@@ -320,6 +323,25 @@ namespace KanBoard.Controls
             }
         }
 
+        private List<ComboBoxItem> LoadFonts()
+        {
+            InstalledFontCollection fonts = new InstalledFontCollection();
+            
+            List<ComboBoxItem> comboItems = new List<ComboBoxItem>();
+            
+            var fontNames = fonts.Families
+                         .Select(f => f.Name)
+                         .OrderBy(name => name)
+                         .ToList();
+
+            foreach(var font in fontNames )
+            {
+                comboItems.Add(new ComboBoxItem() { Content = font});
+            }
+
+            return comboItems;
+        }
+
         #endregion
 
         #region Event Handlers
@@ -414,6 +436,7 @@ namespace KanBoard.Controls
             if (fontFamilyComboBox != null)
             {
                 fontFamilyComboBox.SelectionChanged += FamilyFont_SelectionChanged;
+                fontFamilyComboBox.ItemsSource = LoadFonts();
             }
 
             if (fontSizeComboBox != null)
