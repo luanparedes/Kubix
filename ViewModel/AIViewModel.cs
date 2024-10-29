@@ -1,10 +1,7 @@
-﻿
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
-using Windows.UI.WebUI;
-using System;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class AIViewModel
     {

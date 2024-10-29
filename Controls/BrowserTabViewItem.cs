@@ -2,7 +2,7 @@
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class BrowserTabViewItem : TabViewItem
     {

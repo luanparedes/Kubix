@@ -5,9 +5,9 @@ using Windows.Storage;
 using Microsoft.UI.Input;
 using Windows.System;
 using Windows.UI.Core;
-using KanBoard.Helpers;
+using Kubix.Helpers;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class KNote : Control
     {

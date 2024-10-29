@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.ViewModel;
+using Kubix.ViewModel;
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard.View
+namespace Kubix.View
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

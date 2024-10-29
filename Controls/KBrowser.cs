@@ -4,7 +4,7 @@ using System.Linq;
 using Windows.Globalization;
 using Windows.UI.WebUI;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class KBrowser : Control
     {

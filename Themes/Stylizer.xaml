@@ -2,9 +2,9 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:KanBoard.Controls"
-    xmlns:local="using:KanBoard.Themes" 
-    xmlns:h="using:KanBoard.Helpers">
+    xmlns:controls="using:Kubix.Controls"
+    xmlns:local="using:Kubix.Themes" 
+    xmlns:h="using:Kubix.Helpers">
 
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>

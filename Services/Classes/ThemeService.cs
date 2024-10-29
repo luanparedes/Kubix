@@ -1,7 +1,7 @@
-﻿using KanBoard.Services.Interfaces;
+﻿using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
 
-namespace KanBoard.Services.Classes
+namespace Kubix.Services.Classes
 {
     public class ThemeService : IThemeService
     {
