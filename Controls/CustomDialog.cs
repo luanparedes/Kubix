@@ -1,10 +1,10 @@
-﻿using KanBoard.Helpers;
+﻿using Kubix.Helpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class CustomDialog : Control
     {

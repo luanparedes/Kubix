@@ -1,5 +1,5 @@
 ﻿
-namespace KanBoard.Model
+namespace Kubix.Model
 {
     public class UserInfo
     {

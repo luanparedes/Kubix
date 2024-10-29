@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class CompilersViewModel
     {

@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.Helpers;
-using KanBoard.Services.Classes;
-using KanBoard.Services.Interfaces;
-using KanBoard.View;
-using KanBoard.ViewModel;
+using Kubix.Helpers;
+using Kubix.Services.Classes;
+using Kubix.Services.Interfaces;
+using Kubix.View;
+using Kubix.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
@@ -12,7 +12,7 @@ using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
 using Windows.Graphics;
 
-namespace KanBoard
+namespace Kubix
 {
     public partial class App : Application
     {

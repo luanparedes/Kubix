@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml;
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class AppMusicViewModel : ObservableObject
     {

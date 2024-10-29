@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class BrowserViewModel : ObservableObject
     {

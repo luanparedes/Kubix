@@ -1,8 +1,8 @@
-﻿using KanBoard.Services.Interfaces;
+﻿using Kubix.Services.Interfaces;
 using System;
 using System.Diagnostics;
 
-namespace KanBoard.Services.Classes
+namespace Kubix.Services.Classes
 {
     public class LogService : ILogger
     {

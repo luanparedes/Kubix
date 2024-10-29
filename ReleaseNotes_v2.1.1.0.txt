@@ -1,4 +1,5 @@
 Release notes v.2.1.1.0
 
 Features:
+- Change App Name
 - Compilers page

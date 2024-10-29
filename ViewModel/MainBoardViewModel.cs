@@ -1,13 +1,13 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.Helpers;
-using KanBoard.Services.Interfaces;
-using KanBoard.View;
+using Kubix.Helpers;
+using Kubix.Services.Interfaces;
+using Kubix.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class MainBoardViewModel : ObservableObject
     {

@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using KanBoard.Services.Classes;
-using KanBoard.Services.Interfaces;
-using KanBoard.View;
+using Kubix.Services.Classes;
+using Kubix.Services.Interfaces;
+using Kubix.View;
 using Microsoft.UI.Xaml;
 using System.Windows.Input;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class SettingsViewModel : ObservableObject
     {
