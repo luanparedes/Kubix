@@ -77,6 +77,9 @@ namespace KanBoard.ViewModel
                 case "SocialMediaPage":
                     _navigationService.GoToNavigationView(typeof(SocialMediasPage));
                     break;
+                case "CompilersPage":
+                    _navigationService.GoToNavigationView(typeof(CompilersPage));
+                    break;
 
             }
         }
