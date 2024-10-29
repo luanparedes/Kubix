@@ -17,6 +17,8 @@
         </Grid.RowDefinitions>
         
         <WebView2 Grid.Row="1"
-                  Source="{x:Bind ViewModel.YoutubeURL}"/>
+                  Source="{x:Bind ViewModel.YoutubeURL}"
+                  CoreWebView2Initialized="{x:Bind ViewModel.YoutubeAppWeb_CoreWebView2Initialized}"
+                  NavigationStarting="{x:Bind ViewModel.YoutubeAppWeb_NavigationStarting}"/>
     </Grid>
 </Page>

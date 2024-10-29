@@ -34,12 +34,11 @@
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
     <None Remove="View\ColorPickerWindow.xaml" />
-    <None Remove="View\GoogleMapsPage.xaml" />
     <None Remove="View\GooglePage.xaml" />
-    <None Remove="View\GooglePhotosPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
     <None Remove="View\SettingsPage.xaml" />
+    <None Remove="View\SocialMediasPage.xaml" />
     <None Remove="View\SplashScreenPage.xaml" />
     <None Remove="View\StreamingsPage.xaml" />
     <None Remove="View\UserInfoPage.xaml" />
@@ -73,22 +72,17 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\SocialMediasPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="View\ColorPickerWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\GooglePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="View\GoogleMapsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="View\GooglePhotosPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

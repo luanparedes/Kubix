@@ -171,6 +171,9 @@
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="KB_SocialMediaText" xml:space="preserve">
+    <value>Social Media</value>
+  </data>
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>
   </data>

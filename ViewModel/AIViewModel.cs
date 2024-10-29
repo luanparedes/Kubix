@@ -14,10 +14,12 @@ namespace KanBoard.ViewModel
         public const string STATE_CHAT_GPT = "StateChatGpt";
         public const string STATE_COPILOT = "StateCopilot";
         public const string STATE_GEMINI = "StateGemini";
+        public const string STATE_META = "StateMeta";
 
         public readonly string ChatGptURL = "https://chatgpt.com/";
         public readonly string CopilotURL = "https://copilot.microsoft.com/";
         public readonly string GeminiURL = "https://gemini.google.com/app";
+        public readonly string MetaURL = "https://meta.ai";
 
         #endregion
 
@@ -48,6 +50,11 @@ namespace KanBoard.ViewModel
                     CurrentState = STATE_GEMINI;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
+                case "MetaBtn":
+                    ActualAIApp = AIApp.Meta;
+                    CurrentState = STATE_META;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
@@ -60,12 +67,28 @@ namespace KanBoard.ViewModel
             pageControl = sender as UserControl;
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
+
+        public void AIAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+
+            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void AIAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
+        }
     }
 
     public enum AIApp
     {
         ChatGpt,
         Copilot,
-        Gemini
+        Gemini,
+        Meta
     }
 }

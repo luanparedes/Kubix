@@ -37,6 +37,9 @@
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_StreamingText')}" 
                                     Icon="WebCam" 
                                     Tag="StreamingsPage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SocialMediaText')}" 
+                                    Icon="Contact2" 
+                                    Tag="SocialMediaPage"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_KNoteText')}" 
                                     Icon="Page2" 
                                     Tag="NotepadPage"/>
