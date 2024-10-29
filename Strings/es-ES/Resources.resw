@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="KB_AIText" xml:space="preserve">
-    <value>IA TODO</value>
+    <value>IAzito</value>
   </data>
   <data name="KB_AppNameText" xml:space="preserve">
     <value>KanBoard</value>
@@ -129,17 +129,26 @@
   <data name="KB_GooglePhotosText" xml:space="preserve">
     <value>Fotos de Google</value>
   </data>
+  <data name="KB_GoogleText" xml:space="preserve">
+    <value>Googlito</value>
+  </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
     <value>* El tema Alto contraste se configura automáticamente con Windows.</value>
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
-    <value>K-Note</value>
+    <value>K-Notito</value>
+  </data>
+  <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
+    <value>Inicie sesión en Google para tener funcionalidad completa.</value>
   </data>
   <data name="KB_MusicText" xml:space="preserve">
-    <value>Música</value>
+    <value>Músiquita</value>
+  </data>
+  <data name="KB_NewDocumentText" xml:space="preserve">
+    <value>Nuevo documento</value>
   </data>
   <data name="KB_Office365Text" xml:space="preserve">
-    <value>Office 365</value>
+    <value>Office 365quito</value>
   </data>
   <data name="KB_PageHeader_KNote" xml:space="preserve">
     <value>&lt; K-Note &gt;</value>
@@ -147,8 +156,23 @@
   <data name="KB_PageHeader_Settings" xml:space="preserve">
     <value>&lt; Ajustes &gt;</value>
   </data>
+  <data name="KB_SaveCloseContentDialog" xml:space="preserve">
+    <value>Si cierras sin guardar perderás tus datos, ¿estás seguro?</value>
+  </data>
+  <data name="KB_SaveClosePrimaryDialog" xml:space="preserve">
+    <value>Ahorrar</value>
+  </data>
+  <data name="KB_SaveCloseSecondaryDialog" xml:space="preserve">
+    <value>para cerrar</value>
+  </data>
+  <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
+    <value>Ahorrar</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Ajustes</value>
+  </data>
+  <data name="KB_SocialMediaText" xml:space="preserve">
+    <value>Redesitas socialitas</value>
   </data>
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>
@@ -163,12 +187,12 @@
     <value>Modo Claro</value>
   </data>
   <data name="KB_ThemesText" xml:space="preserve">
-    <value>Temas</value>
+    <value>Temitas</value>
   </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
-    <value>Navegador TODO</value>
+    <value>Navegadorito</value>
   </data>
   <data name="KB_YoutubeText" xml:space="preserve">
-    <value>Youtube</value>
+    <value>Youtubito</value>
   </data>
 </root>

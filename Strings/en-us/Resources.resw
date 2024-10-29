@@ -129,14 +129,23 @@
   <data name="KB_GooglePhotosText" xml:space="preserve">
     <value>Google Photos</value>
   </data>
+  <data name="KB_GoogleText" xml:space="preserve">
+    <value>Google</value>
+  </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
     <value>* The High Contrast theme is setted automatically with Windows.</value>
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
   </data>
+  <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
+    <value>Sign in with Google to get all features.</value>
+  </data>
   <data name="KB_MusicText" xml:space="preserve">
     <value>Music</value>
+  </data>
+  <data name="KB_NewDocumentText" xml:space="preserve">
+    <value>New Document</value>
   </data>
   <data name="KB_Office365Text" xml:space="preserve">
     <value>Office 365</value>
@@ -147,8 +156,23 @@
   <data name="KB_PageHeader_Settings" xml:space="preserve">
     <value>&lt; Settings &gt;</value>
   </data>
+  <data name="KB_SaveCloseContentDialog" xml:space="preserve">
+    <value>If you close without saving you will lose your data, are you sure?</value>
+  </data>
+  <data name="KB_SaveClosePrimaryDialog" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="KB_SaveCloseSecondaryDialog" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="KB_SocialMediaText" xml:space="preserve">
+    <value>Social Media</value>
   </data>
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>

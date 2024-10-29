@@ -14,16 +14,16 @@ namespace KanBoard.ViewModel
         public const string STATE_CHAT_GPT = "StateChatGpt";
         public const string STATE_COPILOT = "StateCopilot";
         public const string STATE_GEMINI = "StateGemini";
+        public const string STATE_META = "StateMeta";
 
         public readonly string ChatGptURL = "https://chatgpt.com/";
         public readonly string CopilotURL = "https://copilot.microsoft.com/";
         public readonly string GeminiURL = "https://gemini.google.com/app";
-        public readonly string NullURL = "http://null.com";
+        public readonly string MetaURL = "https://meta.ai";
 
         #endregion
 
         private Control pageControl;
-        private WebView2 webView;
 
         AIApp ActualAIApp;
 
@@ -36,22 +36,26 @@ namespace KanBoard.ViewModel
             switch (button.Tag)
             {
                 case "ChatGptBtn":
-                    webView.Source = new Uri(ChatGptURL);
                     ActualAIApp = AIApp.ChatGpt;
                     CurrentState = STATE_CHAT_GPT;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "CopilotBtn":
-                    webView.Source = new Uri(CopilotURL);
                     ActualAIApp = AIApp.Copilot;
                     CurrentState = STATE_COPILOT;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "GeminiBtn":
-                    webView.Source = new Uri(GeminiURL);
                     ActualAIApp = AIApp.Gemini;
                     CurrentState = STATE_GEMINI;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    break;
+                case "MetaBtn":
+                    ActualAIApp = AIApp.Meta;
+                    CurrentState = STATE_META;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "BackButton":
-                    webView.Source = new Uri(NullURL);
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
@@ -64,14 +68,19 @@ namespace KanBoard.ViewModel
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
-        public void WebView2_Loaded(object sender, RoutedEventArgs e)
+        public void AIAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            webView = sender as WebView2;
+            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+
+            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
         }
 
-        public void StreamAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        public void AIAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
-            VisualStateManager.GoToState(pageControl, CurrentState, true);
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
     }
 
@@ -79,6 +88,7 @@ namespace KanBoard.ViewModel
     {
         ChatGpt,
         Copilot,
-        Gemini
+        Gemini,
+        Meta
     }
 }

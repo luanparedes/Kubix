@@ -16,41 +16,70 @@
                 <VisualStateGroup x:Name="PageState">
                     <VisualState x:Name="StateChoiceApp">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="BackButton.Visibility" Value="Collapsed"/>
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="StateChatGpt">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Visible"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="BackButton.Visibility" Value="Visible"/>
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="StateCopilot">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
-                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Visible"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="BackButton.Visibility" Value="Visible"/>
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="StateGemini">
                         <VisualState.Setters>
-                            <Setter Target="AIApp.Visibility" Value="Visible"/>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Visible"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="StateMeta">
+                        <VisualState.Setters>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="BackButton.Visibility" Value="Visible"/>
                         </VisualState.Setters>
                     </VisualState>
@@ -64,28 +93,28 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="BackButton" 
-                    Grid.Column="0" 
-                    Padding="1"
-                    Width="35" CornerRadius="20"
-                    Height="35"
-                    Margin="5,0,20,0"
-                    Tag="BackButton"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Grid.Column="0" 
+                        Padding="1"
+                        Width="35" CornerRadius="20"
+                        Height="35"
+                        Margin="5,0,20,0"
+                        Tag="BackButton"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <FontIcon Glyph="&#xE72B;"
-                          FontFamily="Segoe MDL2 Assets" 
-                          HorizontalAlignment="Center" 
-                          FontSize="16"/>
+                              FontFamily="Segoe MDL2 Assets" 
+                              HorizontalAlignment="Center" 
+                              FontSize="16"/>
                 </Button>
 
                 <Button x:Name="ChatGptButtonBar"
-                    Width="32" 
-                    Height="32"
-                    Padding="0"
-                    Margin="0,0,7,0"
-                    CornerRadius="18"
-                    Visibility="Collapsed"
-                    Tag="ChatGptBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Width="32" 
+                        Height="32"
+                        Padding="0"
+                        Margin="0,0,7,0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="ChatGptBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/chatgpt_logo.png" 
                                Height="22" 
@@ -94,14 +123,14 @@
                     </Button.Content>
                 </Button>
                 <Button x:Name="CopilotButtonBar"
-                    Width="32"
-                    Height="32"
-                    Padding="0"
-                    Margin="0,0,7,0"
-                    CornerRadius="18"
-                    Visibility="Collapsed"
-                    Tag="CopilotBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Margin="0,0,7,0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="CopilotBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/copilot_logo.png" 
                                Height="35" 
@@ -110,16 +139,32 @@
                     </Button.Content>
                 </Button>
                 <Button x:Name="GeminiButtonBar"
-                    Width="32"
-                    Height="32"
-                    Padding="0"
-                    Margin="0,0,7,0"
-                    CornerRadius="18"
-                    Visibility="Collapsed"
-                    Tag="GeminiBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Margin="0,0,7,0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="GeminiBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/gemini_logo.png" 
+                               Height="25"
+                               Width="25"
+                               HorizontalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="MetaButtonBar"
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        Margin="0,0,7,0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="MetaBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/metaai_logo.png" 
                                Height="25"
                                Width="25"
                                HorizontalAlignment="Center"/>
@@ -128,65 +173,108 @@
             </StackPanel>
 
             <Grid x:Name="ChoiceAppPanel" 
-                Grid.Row="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+                  Grid.Row="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="180"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="180"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="ChatGptButton"
-                    Grid.Column="0"
-                    Width="150" 
-                    Height="150"
-                    CornerRadius="180"
-                    Tag="ChatGptBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Width="150" 
+                        Height="150"
+                        CornerRadius="180"
+                        Tag="ChatGptBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/chatgpt_logo.png" 
-                           Height="100" 
-                           Width="100"
-                           HorizontalAlignment="Center"/>
+                               Height="100" 
+                               Width="100"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="CopilotButton"
-                    Grid.Column="1"
-                    Width="150" 
-                    Height="150"
-                    CornerRadius="180"
-                    Tag="CopilotBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Width="150" 
+                        Height="150"
+                        CornerRadius="180"
+                        Tag="CopilotBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/copilot_logo.png"
-                           Height="150" 
-                           Width="150"
-                           HorizontalAlignment="Center"/>
+                               Height="150" 
+                               Width="150"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
                 <Button x:Name="GeminiButton"
-                    Grid.Column="2"
-                    Width="150" 
-                    Height="150"
-                    CornerRadius="180"
-                    Tag="GeminiBtn"
-                    Click="{x:Bind ViewModel.Button_Click}">
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Width="150" 
+                        Height="150"
+                        CornerRadius="180"
+                        Tag="GeminiBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/gemini_logo.png"
-                           Height="110" 
-                           Width="110"
-                           HorizontalAlignment="Center"/>
+                               Height="110" 
+                               Width="110"
+                               HorizontalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="MetaButton"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Width="150" 
+                        Height="150"
+                        CornerRadius="180"
+                        Tag="MetaBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/metaai_logo.png"
+                               Height="110" 
+                               Width="110"
+                               HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
             </Grid>
 
-            <WebView2 x:Name="AIApp" 
+            <WebView2 x:Name="ChatGptApp" 
                       Grid.Row="1"
+                      Source="{x:Bind ViewModel.ChatGptURL}"
                       Visibility="Collapsed"
-                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
-                      NavigationCompleted="{x:Bind ViewModel.StreamAppWeb_NavigationCompleted}"/>
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
+
+            <WebView2 x:Name="CopilotApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.CopilotURL}"
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
+
+            <WebView2 x:Name="GeminiApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.GeminiURL}"
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
+
+            <WebView2 x:Name="MetaApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.MetaURL}"
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
         </Grid>
     </UserControl>
 </Page>

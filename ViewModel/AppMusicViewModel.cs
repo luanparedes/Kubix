@@ -13,9 +13,8 @@ namespace KanBoard.ViewModel
         public const string STATE_SPOTIFY_APP = "SpotifyAppState";
         public const string STATE_DEEZER_APP = "DeezerAppState";
 
-        public readonly string SpotifyURL = "http://www.spotify.com";
-        public readonly string DeezerURL = "http://www.deezer.com";
-        public readonly string NullURL = "http://www.null.com";
+        public readonly string SpotifyURL = "https://www.spotify.com";
+        public readonly string DeezerURL = "https://www.deezer.com";
 
         #endregion
 
@@ -32,15 +31,15 @@ namespace KanBoard.ViewModel
 
         #region Event Handlers
 
-        public void WebView2_Loaded(object sender, RoutedEventArgs e)
-        {
-            webView = sender as WebView2;
-        }
-
         public void PageControl_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             pageControl = sender as UserControl;
             VisualStateManager.GoToState(pageControl, CurrentState, true);
+        }
+
+        public void WebView2_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            webView = sender as WebView2;
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
@@ -50,26 +49,40 @@ namespace KanBoard.ViewModel
             switch (button.Tag)
             {
                 case "SpotifyBtn":
-                    webView.Source = new Uri(SpotifyURL);
                     ActualMusicApp = MusicApp.Spotify;
                     CurrentState = STATE_SPOTIFY_APP;
+                    webView.Source = new Uri(SpotifyURL);
                     break;
                 case "DeezerBtn":
-                    webView.Source = new Uri(DeezerURL);
                     ActualMusicApp = MusicApp.Deezer;
                     CurrentState = STATE_DEEZER_APP;
+                    webView.Source = new Uri(DeezerURL);
                     break;
                 case "BackButton":
-                    webView.Source = new Uri(NullURL);
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
             }
         }
 
-        public void MusicAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        public void GoogleAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             VisualStateManager.GoToState(pageControl, CurrentState, true);
+        }
+
+        public void AppMusicAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
+            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
+
+            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void AppMusicAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
 
         #endregion

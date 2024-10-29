@@ -18,11 +18,10 @@ namespace KanBoard.ViewModel
         public const string STATE_DISNEY = "StateDisney";
         public const string STATE_PRIME_VIDEO = "StatePrimeVideo";
 
-        public readonly string NetflixURL = "http://netflix.com";
-        public readonly string MaxURL = "http://max.com";
-        public readonly string DisneyURL = "http://disneyplus.com";
-        public readonly string PrimeVideoURL = "http://primevideo.com";
-        public readonly string NullURL = "http://null.com";
+        public readonly string NetflixURL = "https://netflix.com";
+        public readonly string MaxURL = "https://max.com";
+        public readonly string DisneyURL = "https://disneyplus.com";
+        public readonly string PrimeVideoURL = "https://primevideo.com";
 
         #endregion
 
@@ -37,15 +36,6 @@ namespace KanBoard.ViewModel
 
         #endregion
 
-        #region Constructor
-
-        public StreamingsViewModel()
-        {
-
-        }
-
-        #endregion
-
         #region Event Handlers
 
         public void PageControl_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -54,7 +44,7 @@ namespace KanBoard.ViewModel
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
 
-        public void WebView2_Loaded(object sender, RoutedEventArgs e)
+        public void WebView2_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             webView = sender as WebView2;
         }
@@ -66,27 +56,26 @@ namespace KanBoard.ViewModel
             switch (button.Tag)
             {
                 case "NetflixBtn":
-                    webView.Source = new Uri(NetflixURL);
                     ActualStreamingApp = StreamingApp.Netflix;
                     CurrentState = STATE_NETFLIX;
+                    webView.Source = new Uri(NetflixURL);
                     break;
                 case "MaxBtn":
-                    webView.Source = new Uri(MaxURL);
                     ActualStreamingApp = StreamingApp.Max;
                     CurrentState = STATE_MAX;
+                    webView.Source = new Uri(MaxURL);
                     break;
                 case "DisneyBtn":
-                    webView.Source = new Uri(DisneyURL);
                     ActualStreamingApp = StreamingApp.Disney;
                     CurrentState = STATE_DISNEY;
+                    webView.Source = new Uri(DisneyURL);
                     break;
                 case "PrimeVideoBtn":
-                    webView.Source = new Uri(PrimeVideoURL);
                     ActualStreamingApp = StreamingApp.PrimeVideo;
                     CurrentState = STATE_PRIME_VIDEO;
+                    webView.Source = new Uri(PrimeVideoURL);
                     break;
                 case "BackButton":
-                    webView.Source = new Uri(NullURL);
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
@@ -96,6 +85,21 @@ namespace KanBoard.ViewModel
         public void StreamAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             VisualStateManager.GoToState(pageControl, CurrentState, true);
+        }
+
+        public void StreamingsAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
+            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
+
+            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void StreamingsAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
 
         #endregion

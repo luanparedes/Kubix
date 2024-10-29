@@ -17,14 +17,14 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace KanBoard.View
 {
-    public sealed partial class GooglePhotosPage : Page
+    public sealed partial class GooglePage : Page
     {
-        GooglePhotosViewModel ViewModel { get; }
+        GoogleViewModel ViewModel { get; }
 
-        public GooglePhotosPage()
+        public GooglePage()
         {
             this.InitializeComponent();
-            ViewModel = Ioc.Default.GetService<GooglePhotosViewModel>();
+            ViewModel = Ioc.Default.GetService<GoogleViewModel>();
         }
     }
 }

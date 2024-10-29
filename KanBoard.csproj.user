@@ -22,10 +22,13 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
-    <Page Update="View\GoogleMapsPage.xaml">
+    <Page Update="View\SocialMediasPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\GooglePhotosPage.xaml">
+    <Page Update="View\ColorPickerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\GooglePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Office365Page.xaml">

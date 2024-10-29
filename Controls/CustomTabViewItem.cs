@@ -1,8 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using KanBoard.Helpers;
+using Microsoft.UI.Text;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.ComponentModel;
 using Windows.Storage;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace KanBoard.Controls
 {
@@ -10,53 +12,55 @@ namespace KanBoard.Controls
     {
         #region Fields & Properties
 
-        public bool HasChanges => InitialText != (Content as TextBox).Text;
-
+        public FormatTextControl formatControl;
         private Button closeButton;
-        public string InitialText {  get; set; }
+
         public StorageFile TabFile { get; set; }
 
         public event EventHandler HasChangesChanged;
+        public event EventHandler<ITextSelection> SelectionTextChanged;
         public event EventHandler<Button> CloseTab;
 
         #endregion
 
         #region Constructor
 
-        public CustomTabViewItem()
+        public CustomTabViewItem(CreateFileEnum file, string header = null, string text = "")
         {
-            Content = new TextBox();
-            (Content as TextBox).Style = (Style)App.Current.Resources["NotepadTextBox"];
+            formatControl = new FormatTextControl(file, text);
 
-            (Content as TextBox).TextChanged += CustomTabViewItem_TextChanged;
-            
-            Header = "New file";
-            InitialText = (Content as TextBox).Text;
-        }
+            switch (file)
+            {
+                case CreateFileEnum.NewFile:
+                    Header = Stringer.GetString("KB_NewDocumentText");
+                    break;
+                case CreateFileEnum.OpenFile:
+                    Header = header;
+                    break;
+            }
 
-        public CustomTabViewItem(string header, string text)
-        {
-            Content = new TextBox();
-            (Content as TextBox).Style = (Style)App.Current.Resources["NotepadTextBox"];
-            (Content as TextBox).Text = text;
+            formatControl.InitialText = text;
 
-            (Content as TextBox).TextChanged += CustomTabViewItem_TextChanged;
-
-            Header = header;
-            InitialText = (Content as TextBox).Text;
+            Content = formatControl;
         }
 
         #endregion
 
         #region Event Handlers
 
-        private void CustomTabViewItem_TextChanged(object sender, TextChangedEventArgs e)
+        private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            HasChangesChanged?.Invoke(this, null);
-        }
+            if (formatControl.HasChanges)
+            {
+                CustomDialog dialog = new CustomDialog();
+                var response = await dialog.ShowSaveDialog();
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
+                if (response == ContentDialogResult.Primary)
+                {
+                    await formatControl.SaveFile();
+                }
+            }
+
             CloseTab?.Invoke(this, closeButton);
         }
 
@@ -69,7 +73,9 @@ namespace KanBoard.Controls
             base.OnApplyTemplate();
 
             closeButton = GetTemplateChild("CloseButton") as Button;
-            closeButton.Click += CloseButton_Click;
+            
+            if (closeButton != null)
+                closeButton.Click += CloseButton_Click;
         }
 
         #endregion
