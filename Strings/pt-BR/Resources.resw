@@ -123,6 +123,9 @@
   <data name="KB_AppNameText" xml:space="preserve">
     <value>KanBoard</value>
   </data>
+  <data name="KB_CompilersText" xml:space="preserve">
+    <value>Compiladores</value>
+  </data>
   <data name="KB_GoogleMapsText" xml:space="preserve">
     <value>Google Mapas</value>
   </data>

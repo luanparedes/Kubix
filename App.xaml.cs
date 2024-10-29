@@ -63,6 +63,7 @@ namespace KanBoard
                 .AddSingleton<Office365ViewModel>()
                 .AddSingleton<GoogleViewModel>()
                 .AddSingleton<SocialMediasViewModel>()
+                .AddSingleton<CompilersViewModel>()
                 .AddTransient<ColorPickerViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());

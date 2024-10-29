@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="KanBoard.View.CompilersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KanBoard.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <UserControl x:Name="PageControl">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <WebView2 x:Name="CompilersWeb"
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.CompilerURL}"
+                      Loaded="{x:Bind ViewModel.WebView_Loaded}"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
+        </Grid>
+    </UserControl>
+</Page>
