@@ -46,6 +46,9 @@
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GoogleText')}" 
                                     Icon="Admin" 
                                     Tag="GooglePage"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_Calculator')}" 
+                                    Icon="Admin" 
+                                    Tag="CalculatorPage"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SettingsText')}" 

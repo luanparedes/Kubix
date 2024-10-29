@@ -23,6 +23,7 @@
     <AppInstallerUri>https://github.com/luanparedes/KanBoard</AppInstallerUri>
     <HoursBetweenUpdateChecks>24</HoursBetweenUpdateChecks>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Themes\Colors.xaml" />
@@ -33,6 +34,7 @@
     <None Remove="View\AIPage.xaml" />
     <None Remove="View\AppMusicPage.xaml" />
     <None Remove="View\BrowserPage.xaml" />
+    <None Remove="View\CalculatorPage.xaml" />
     <None Remove="View\ColorPickerWindow.xaml" />
     <None Remove="View\GoogleMapsPage.xaml" />
     <None Remove="View\GooglePage.xaml" />
@@ -71,6 +73,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\CalculatorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\ColorPickerWindow.xaml">
