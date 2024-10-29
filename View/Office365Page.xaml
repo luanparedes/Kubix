@@ -18,6 +18,8 @@
 
         <WebView2 x:Name="Office365App" 
                   Grid.Row="1"
-                  Source="{x:Bind ViewModel.OfficeURL}"/>
+                  Source="{x:Bind ViewModel.OfficeURL}"
+                  CoreWebView2Initialized="{x:Bind ViewModel.OfficeAppWeb_CoreWebView2Initialized}"
+                  NavigationStarting="{x:Bind ViewModel.OfficeAppWeb_NavigationStarting}"/>
     </Grid>
 </Page>

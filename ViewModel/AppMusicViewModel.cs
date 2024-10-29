@@ -13,8 +13,8 @@ namespace KanBoard.ViewModel
         public const string STATE_SPOTIFY_APP = "SpotifyAppState";
         public const string STATE_DEEZER_APP = "DeezerAppState";
 
-        public readonly string SpotifyURL = "http://www.spotify.com";
-        public readonly string DeezerURL = "http://www.deezer.com";
+        public readonly string SpotifyURL = "https://www.spotify.com";
+        public readonly string DeezerURL = "https://www.deezer.com";
 
         #endregion
 
@@ -68,6 +68,21 @@ namespace KanBoard.ViewModel
         public void GoogleAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             VisualStateManager.GoToState(pageControl, CurrentState, true);
+        }
+
+        public void AppMusicAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
+            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
+
+            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void AppMusicAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
 
         #endregion

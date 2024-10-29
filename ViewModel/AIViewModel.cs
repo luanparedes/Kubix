@@ -67,6 +67,21 @@ namespace KanBoard.ViewModel
             pageControl = sender as UserControl;
             VisualStateManager.GoToState(pageControl, CurrentState, true);
         }
+
+        public void AIAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+
+            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void AIAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
+        }
     }
 
     public enum AIApp

@@ -296,7 +296,9 @@
                       Source="{x:Bind ViewModel.GoogleLoginURL}"
                       Visibility="Collapsed"
                       Loaded="{x:Bind ViewModel.WebView_Loaded}"
-                      NavigationCompleted="{x:Bind ViewModel.GoogleAppWeb_NavigationCompleted}"/>
+                      NavigationCompleted="{x:Bind ViewModel.GoogleAppWeb_NavigationCompleted}"
+                      CoreWebView2Initialized="{x:Bind ViewModel.GoogleAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.GoogleAppWeb_NavigationStarting}"/>
         </Grid>
     </UserControl>
 

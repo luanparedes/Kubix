@@ -231,10 +231,12 @@
             </Grid>
 
             <WebView2 x:Name="StreamingAppWeb" 
-                  Grid.Row="1"
-                  Visibility="Collapsed"
-                  Loaded="{x:Bind ViewModel.WebView2_Loaded}"
-                  NavigationCompleted="{x:Bind ViewModel.StreamAppWeb_NavigationCompleted}"/>
+                      Grid.Row="1"
+                      Visibility="Collapsed"
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
+                      NavigationCompleted="{x:Bind ViewModel.StreamAppWeb_NavigationCompleted}"
+                      CoreWebView2Initialized="{x:Bind ViewModel.StreamingsAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.StreamingsAppWeb_NavigationStarting}"/>
         </Grid>
     </UserControl>
 </Page>

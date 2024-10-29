@@ -251,22 +251,30 @@
             <WebView2 x:Name="ChatGptApp" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.ChatGptURL}"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
 
             <WebView2 x:Name="CopilotApp" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.CopilotURL}"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
 
             <WebView2 x:Name="GeminiApp" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.GeminiURL}"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
 
             <WebView2 x:Name="MetaApp" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.MetaURL}"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
         </Grid>
     </UserControl>
 </Page>
