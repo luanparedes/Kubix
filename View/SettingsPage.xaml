@@ -47,6 +47,7 @@
                 <RadioButton x:Name="LightButton"
                              Content="{x:Bind h:Stringer.GetString('KB_ThemeLightText')}"
                              GroupName="ThemeOptions"
+                             IsChecked="{x:Bind ViewModel._dataInitial.IsLightThemeChecked}"
                              Command="{x:Bind ViewModel.SwitchThemeCommand}">
                     <RadioButton.CommandParameter>
                         <xaml:ElementTheme>Light</xaml:ElementTheme>
@@ -55,6 +56,7 @@
                 <RadioButton x:Name="DarkButton"
                              Content="{x:Bind h:Stringer.GetString('KB_ThemeDarkText')}"
                              GroupName="ThemeOptions"
+                             IsChecked="{x:Bind ViewModel._dataInitial.IsDarkThemeChecked}"
                              Command="{x:Bind ViewModel.SwitchThemeCommand}">
                     <RadioButton.CommandParameter>
                         <xaml:ElementTheme>Dark</xaml:ElementTheme>
@@ -63,6 +65,7 @@
                 <RadioButton x:Name="DefaultButton"
                              Content="{x:Bind h:Stringer.GetString('KB_ThemeDefaultText')}"
                              GroupName="ThemeOptions"
+                             IsChecked="{x:Bind ViewModel._dataInitial.IsDefaultThemeChecked}"
                              Command="{x:Bind ViewModel.SwitchThemeCommand}">
                     <RadioButton.CommandParameter>
                         <xaml:ElementTheme>Default</xaml:ElementTheme>

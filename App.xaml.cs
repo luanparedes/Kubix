@@ -24,6 +24,8 @@ namespace Kubix
 
         private IAppInfo _appInfo;
         private INavigationService _navigationService;
+        private readonly IThemeService _themeService;
+        private readonly IDataInitial _dataInitial;
 
         #endregion
 
@@ -33,6 +35,8 @@ namespace Kubix
         {
             this.InitializeComponent();
             ConfigureServices();
+            _themeService = Ioc.Default.GetService<IThemeService>();
+            _dataInitial = Ioc.Default.GetService<IDataInitial>();
 
             App.Instance = this;
         }
@@ -46,6 +50,7 @@ namespace Kubix
             var services = new ServiceCollection();
 
             services
+                .AddSingleton<IDataInitial, DataInitial>()
                 .AddSingleton<IAppInfo, AppInfo>()
                 .AddSingleton<ILogger, LogService>()
                 .AddSingleton<IThemeService, ThemeService>()
@@ -80,6 +85,8 @@ namespace Kubix
 
         private void ConfigureMainWindow()
         {
+            SetInitialTheme();
+
             MainWindow = Ioc.Default.GetService<Window>();
 
             MainWindow.Title = _appInfo.GetAppFullNameVersion();
@@ -101,6 +108,16 @@ namespace Kubix
             var centerY = (displayArea.WorkArea.Height - appWindow.Size.Height) / 2;
 
             appWindow.Move(new PointInt32(centerX, centerY));
+        }
+
+        private void SetInitialTheme()
+        {
+            if (_dataInitial.IsDefaultThemeChecked)
+                _themeService.DefaultTheme();
+            else if (_dataInitial.IsLightThemeChecked)
+                _themeService.LightTheme();
+            else if (_dataInitial.IsDarkThemeChecked)
+                _themeService.DarkTheme();
         }
 
         #endregion

@@ -13,6 +13,7 @@ namespace Kubix.ViewModel
     {
         #region Fields & Properties
 
+        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>(); 
         private readonly INavigationService _navigation = Ioc.Default.GetService<INavigationService>();
         private readonly IThemeService _themeService = Ioc.Default.GetService<IThemeService>();
 
@@ -37,6 +38,25 @@ namespace Kubix.ViewModel
         private void ChangeAppTheme(ElementTheme theme)
         {
             _themeService.ChangeAppTheme(theme);
+
+            switch (theme)
+            {
+                case ElementTheme.Dark:
+                    _dataInitial.IsDarkThemeChecked = true;
+                    _dataInitial.IsLightThemeChecked = false;
+                    _dataInitial.IsDefaultThemeChecked = false;
+                    break;
+                case ElementTheme.Light:
+                    _dataInitial.IsDarkThemeChecked = false;
+                    _dataInitial.IsLightThemeChecked = true;
+                    _dataInitial.IsDefaultThemeChecked = false;
+                    break;
+                case ElementTheme.Default:
+                    _dataInitial.IsDarkThemeChecked = false;
+                    _dataInitial.IsLightThemeChecked = false;
+                    _dataInitial.IsDefaultThemeChecked = true;
+                    break;
+            }
         }
 
         #endregion
