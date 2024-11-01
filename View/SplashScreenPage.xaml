@@ -19,8 +19,8 @@
         <TextBlock Grid.Row="1"
                    Text="Kubix" 
                    FontSize="70" 
-                   FontFamily="Comic Sans MS"
-                   Foreground="{ThemeResource AppMainTexts}"
+                   FontFamily="Showcard Gothic"
+                   Foreground="{ThemeResource TitleMainTexts}"
                    HorizontalAlignment="Center"/>
     </StackPanel>
 </Page>

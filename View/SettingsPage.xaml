@@ -36,7 +36,7 @@
         <Grid Grid.Row="1" Padding="12" VerticalAlignment="Stretch">
             <StackPanel Orientation="Vertical"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource AppBackground}"
+                        Background="{ThemeResource SectionPanelBackground}"
                         CornerRadius="16"
                         Padding="12"
                         Height="200">

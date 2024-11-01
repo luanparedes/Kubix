@@ -8,9 +8,10 @@
     <SolidColorBrush x:Key="AppBackground" Color="{ThemeResource AppDarkBackgroungColor}"/>
     <SolidColorBrush x:Key="PageBackground" Color="{ThemeResource PageDarkBackgroungColor}"/>
 
+    <SolidColorBrush x:Key="TitleMainTexts" Color="{ThemeResource TextPalleteForegroundColor}"/>
     <SolidColorBrush x:Key="AppMainTexts" Color="{ThemeResource AppLightBackgroungColor}"/>
 
-    <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource Gray40}"/>
+    <SolidColorBrush x:Key="SectionPanelBackground" Color="{ThemeResource SectionDarkBackgroundColor}"/>
     
     <!-- Browser Page -->
     <SolidColorBrush x:Key="TabItemBackground" Color="{ThemeResource BrowserDarkTabBackgroundColor}"/>

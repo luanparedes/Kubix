@@ -56,6 +56,7 @@ namespace Kubix
                 .AddSingleton<IThemeService, ThemeService>()
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<Window>()
+                .AddSingleton<InitialConfigViewModel>()
                 .AddSingleton<MainBoardViewModel>()
                 .AddSingleton<SettingsViewModel>()
                 .AddSingleton<UserInfoViewModel>()
@@ -133,8 +134,13 @@ namespace Kubix
      
             _navigationService.SetFrame(MainWindow.Content as Frame, FrameTypeEnum.MainFrame);
             _navigationService.GoToPage(typeof(SplashScreenPage));
+            
             await Task.Delay(3000);
-            _navigationService.BackToBoard();
+
+            if (_dataInitial.IsFirstTimeOpening)
+                _navigationService.GoToPage(typeof(InitialConfigPage));
+            else
+                _navigationService.BackToBoard();
         }
 
         #endregion

@@ -123,6 +123,9 @@
   <data name="KB_AppNameText" xml:space="preserve">
     <value>Kubix</value>
   </data>
+  <data name="KB_ChoicesText" xml:space="preserve">
+    <value>Escolha os recursos que deseja utilizar no Kubix. Lembre-se que depois poderá modificar nas configurações.</value>
+  </data>
   <data name="KB_CompilersText" xml:space="preserve">
     <value>Compiladores</value>
   </data>

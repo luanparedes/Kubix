@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Kubix.Services.Interfaces;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 using Windows.Storage;
 
 namespace Kubix.Services.Classes
@@ -10,8 +12,8 @@ namespace Kubix.Services.Classes
         public bool IsFirstTimeOpening
         {
             get { return _isFirstTimeOpening; }
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _isFirstTimeOpening, value);
                 SaveBool(nameof(IsFirstTimeOpening), value);
             }
@@ -69,16 +71,16 @@ namespace Kubix.Services.Classes
             localSettings.Values[chave] = valor;
         }
 
-        public bool RecoverBool(string chave, bool valorPadrao = false)
+        public bool RecoverBool(string name, bool defaultValue = false)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
 
-            if (localSettings.Values.ContainsKey(chave))
+            if (localSettings.Values.ContainsKey(name))
             {
-                return (bool)localSettings.Values[chave];
+                return (bool)localSettings.Values[name];
             }
 
-            return valorPadrao;
+            return defaultValue;
         }
     }
 }
