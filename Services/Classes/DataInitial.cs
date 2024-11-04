@@ -1,13 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Kubix.Services.Interfaces;
+using System;
+using System.ComponentModel;
 using System.Reflection.Metadata;
 using System.Xml.Linq;
 using Windows.Storage;
 
 namespace Kubix.Services.Classes
 {
-    public class DataInitial : ObservableObject, IDataInitial
+    public class DataInitial : ObservableObject, INotifyPropertyChanged, IDataInitial
     {
+        #region Fields & Properties
+
+        public event EventHandler UIUpdateChanged;
+
         private bool _isFirstTimeOpening = true;
         public bool IsFirstTimeOpening
         {
@@ -41,7 +47,7 @@ namespace Kubix.Services.Classes
             }
         }
 
-        private bool _isDefaultThemeChecked;
+        private bool _isDefaultThemeChecked = true;
         public bool IsDefaultThemeChecked
         {
             get { return _isDefaultThemeChecked; }
@@ -52,18 +58,128 @@ namespace Kubix.Services.Classes
             }
         }
 
+        private bool _hasWebBrowser = true;
+        public bool HasWebBrowser
+        {
+            get { return _hasWebBrowser; }
+            set
+            {
+                SetProperty(ref _hasWebBrowser, value);
+                SaveBool(nameof(HasWebBrowser), value);
+            }
+        }
+
+        private bool _hasAI = true;
+        public bool HasAI
+        {
+            get { return _hasAI; }
+            set
+            {
+                SetProperty(ref _hasAI, value);
+                SaveBool(nameof(HasAI), value);
+            }
+        }
+
+        private bool _hasMusic = true;
+        public bool HasMusic
+        {
+            get { return _hasMusic; }
+            set
+            {
+                SetProperty(ref _hasMusic, value);
+                SaveBool(nameof(HasMusic), value);
+            }
+        }
+
+        private bool _hasYoutube = true;
+        public bool HasYoutube
+        {
+            get { return _hasYoutube; }
+            set
+            {
+                SetProperty(ref _hasYoutube, value);
+                SaveBool(nameof(HasYoutube), value);
+            }
+        }
+
+        private bool _hasStreaming = true;
+        public bool HasStreaming
+        {
+            get { return _hasStreaming; }
+            set
+            {
+                SetProperty(ref _hasStreaming, value);
+                SaveBool(nameof(HasStreaming), value);
+            }
+        }
+
+        private bool _hasSocialMedia = true;
+        public bool HasSocialMedia
+        {
+            get { return _hasSocialMedia; }
+            set
+            {
+                SetProperty(ref _hasSocialMedia, value);
+                SaveBool(nameof(HasSocialMedia), value);
+            }
+        }
+
+        private bool _hasKNote = true;
+        public bool HasKNote
+        {
+            get { return _hasKNote; }
+            set
+            {
+                SetProperty(ref _hasKNote, value);
+                SaveBool(nameof(HasKNote), value);
+            }
+        }
+
+        private bool _hasOffice = true;
+        public bool HasOffice
+        {
+            get { return _hasOffice; }
+            set
+            {
+                SetProperty(ref _hasOffice, value);
+                SaveBool(nameof(HasOffice), value);
+            }
+        }
+
+        private bool _hasGoogle = true;
+        public bool HasGoogle
+        {
+            get { return _hasGoogle; }
+            set
+            {
+                SetProperty(ref _hasGoogle, value);
+                SaveBool(nameof(HasGoogle), value);
+            }
+        }
+
+        private bool _hasCompilers = true;
+        public bool HasCompilers
+        {
+            get { return _hasCompilers; }
+            set
+            {
+                SetProperty(ref _hasCompilers, value);
+                SaveBool(nameof(HasCompilers), value);
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
         public DataInitial()
         {
             SetInitialValues();
         }
 
-        private void SetInitialValues()
-        {
-            IsFirstTimeOpening = RecoverBool(nameof(IsFirstTimeOpening));
-            IsDarkThemeChecked = RecoverBool(nameof(IsDarkThemeChecked));
-            IsLightThemeChecked = RecoverBool(nameof(IsLightThemeChecked));
-            IsDefaultThemeChecked = RecoverBool(nameof(IsDefaultThemeChecked));
-        }
+        #endregion
+
+        #region Methods
 
         public void SaveBool(string chave, bool valor)
         {
@@ -71,7 +187,7 @@ namespace Kubix.Services.Classes
             localSettings.Values[chave] = valor;
         }
 
-        public bool RecoverBool(string name, bool defaultValue = false)
+        public bool RecoverBool(string name, bool defaultValue = true)
         {
             var localSettings = ApplicationData.Current.LocalSettings;
 
@@ -82,5 +198,34 @@ namespace Kubix.Services.Classes
 
             return defaultValue;
         }
+
+        private void SetInitialValues()
+        {
+            IsFirstTimeOpening = RecoverBool(nameof(IsFirstTimeOpening));
+            IsDarkThemeChecked = RecoverBool(nameof(IsDarkThemeChecked));
+            IsLightThemeChecked = RecoverBool(nameof(IsLightThemeChecked));
+            IsDefaultThemeChecked = RecoverBool(nameof(IsDefaultThemeChecked));
+            HasWebBrowser = RecoverBool(nameof(HasWebBrowser));
+            HasAI = RecoverBool(nameof(HasAI));
+            HasMusic = RecoverBool(nameof(HasMusic));
+            HasYoutube = RecoverBool(nameof(HasYoutube));
+            HasStreaming = RecoverBool(nameof(HasStreaming));
+            HasSocialMedia = RecoverBool(nameof(HasSocialMedia));
+            HasKNote = RecoverBool(nameof(HasKNote));
+            HasOffice = RecoverBool(nameof(HasOffice));
+            HasGoogle = RecoverBool(nameof(HasGoogle));
+            HasCompilers = RecoverBool(nameof(HasCompilers));
+        }
+
+        #endregion
+
+        #region Events
+
+        public void OnUpdateUI()
+        {
+            UIUpdateChanged?.Invoke(this, null);
+        }
+
+        #endregion
     }
 }

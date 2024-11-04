@@ -129,6 +129,15 @@
   <data name="KB_CompilersText" xml:space="preserve">
     <value>Compiladores</value>
   </data>
+  <data name="KB_ContinueText" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="KB_FinishText" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="KB_FunctionalitiesText" xml:space="preserve">
+    <value>Funcionalidades</value>
+  </data>
   <data name="KB_GoogleMapsText" xml:space="preserve">
     <value>Mapas de Google</value>
   </data>
@@ -174,6 +183,9 @@
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
     <value>Ahorrar</value>
   </data>
+  <data name="KB_SelectAllText" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Ajustes</value>
   </data>
@@ -195,8 +207,14 @@
   <data name="KB_ThemesText" xml:space="preserve">
     <value>Temitas</value>
   </data>
+  <data name="KB_ToText" xml:space="preserve">
+    <value>a</value>
+  </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
     <value>Navegadorito</value>
+  </data>
+  <data name="KB_WelcomeText" xml:space="preserve">
+    <value>Bienvenido</value>
   </data>
   <data name="KB_YoutubeText" xml:space="preserve">
     <value>Youtubito</value>

@@ -5,11 +5,13 @@ using Kubix.Services.Classes;
 using Kubix.Services.Interfaces;
 using Kubix.View;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Kubix.ViewModel
 {
-    public class SettingsViewModel : ObservableObject
+    public class SettingsViewModel : ObservableObject, INotifyPropertyChanged
     {
         #region Fields & Properties
 
@@ -66,6 +68,47 @@ namespace Kubix.ViewModel
         public void BackButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             _navigation.BackPrevious();
+        }
+
+        public void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkbox = sender as CheckBox;
+
+            switch (checkbox.Tag)
+            {
+                case "WebCheck":
+                    _dataInitial.HasWebBrowser = checkbox.IsChecked.Value;
+                    break;
+                case "AICheck":
+                    _dataInitial.HasAI = checkbox.IsChecked.Value;
+                    break;
+                case "MusicCheck":
+                    _dataInitial.HasMusic = checkbox.IsChecked.Value;
+                    break;
+                case "YoutubeCheck":
+                    _dataInitial.HasYoutube = checkbox.IsChecked.Value;
+                    break;
+                case "StreamingCheck":
+                    _dataInitial.HasStreaming = checkbox.IsChecked.Value;
+                    break;
+                case "SocialMediaCheck":
+                    _dataInitial.HasSocialMedia = checkbox.IsChecked.Value;
+                    break;
+                case "KNoteCheck":
+                    _dataInitial.HasKNote = checkbox.IsChecked.Value;
+                    break;
+                case "OfficeCheck":
+                    _dataInitial.HasOffice = checkbox.IsChecked.Value;
+                    break;
+                case "GoogleCheck":
+                    _dataInitial.HasGoogle = checkbox.IsChecked.Value;
+                    break;
+                case "CompilersCheck":
+                    _dataInitial.HasCompilers = checkbox.IsChecked.Value;
+                    break;
+            }
+
+            _dataInitial.OnUpdateUI();
         }
 
         #endregion

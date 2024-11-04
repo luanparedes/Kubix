@@ -7,8 +7,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="using:Kubix.Helpers"
+    xmlns:converters="Convert"
     mc:Ignorable="d"
-    Background="{ThemeResource AppBackground}">
+    Background="{ThemeResource PageBackground}">
 
     <UserControl x:Name="PageControl" Loaded="{x:Bind ViewModel.PageControl_Loaded}">
         <Grid>
@@ -40,20 +41,20 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="1"
-                           Text="Welcome"
+                           Text="{x:Bind c:Stringer.GetString('KB_WelcomeText')}"
                            FontFamily="Showcard Gothic"
                            FontSize="110" 
                            HorizontalAlignment="Center"
                            Foreground="{ThemeResource TitleMainTexts}"/>
                 <TextBlock Grid.Row="2"
-                           Text="to" 
+                           Text="{x:Bind c:Stringer.GetString('KB_ToText')}" 
                            FontFamily="Showcard Gothic"
                            FontSize="60" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Foreground="{ThemeResource TitleMainTexts}"/>
                 <TextBlock Grid.Row="3"
-                           Text="Kubix" 
+                           Text="{x:Bind c:Stringer.GetString('KB_AppNameText')}" 
                            FontFamily="Showcard Gothic"
                            FontSize="120" 
                            HorizontalAlignment="Center"
@@ -61,9 +62,10 @@
                            Foreground="{ThemeResource TitleMainTexts}"/>
                 <Button Grid.Row="5"
                         Tag="ContinueBtn"
-                        Content="Continuar" 
+                        Content="{x:Bind c:Stringer.GetString('KB_ContinueText')}" 
                         CornerRadius="16"
                         Background="PapayaWhip"
+                        Foreground="Black"
                         Height="40"
                         MinWidth="200"
                         Padding="10"
@@ -105,27 +107,48 @@
                         <StackPanel Grid.Column="0"
                                     Orientation="Vertical"
                                     HorizontalAlignment="Stretch"
-                                    Padding="20,10">
+                                    Padding="20,10"
+                                    Loaded="{x:Bind ViewModel.StackPanel_Loaded}">
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_WebBrowserText')}"
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="WebCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_AIText')}"
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="AICheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_MusicText')}" 
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="MusicCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_YoutubeText')}" 
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="YoutubeCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_StreamingText')}"
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="StreamingCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_SocialMediaText')}" 
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="SocialMediaCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_KNoteText')}"  
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="KNoteCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_Office365Text')}"
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="OfficeCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_GoogleText')}" 
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="GoogleCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_CompilersText')}" 
-                                      Style="{StaticResource DefaultCheckBoxStyle}"/>
+                                      Tag="CompilersCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </StackPanel>
                     </ScrollViewer>
 
@@ -134,14 +157,25 @@
                     </Grid>
                 </Grid>
 
+                <CheckBox Grid.Row="3"
+                          Content="{x:Bind c:Stringer.GetString('KB_SelectAllText')}"
+                          Style="{StaticResource DefaultCheckBoxStyle}"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Bottom"
+                          Margin="20,0,0,0"
+                          IsChecked="{x:Bind ViewModel.IsAllItensSelected, Mode=TwoWay}"
+                          Visibility="Collapsed"
+                          Loaded="{x:Bind ViewModel.CheckBox_Loaded}"
+                          Checked="{x:Bind ViewModel.CheckBox_Checked}"/>
+
                 <Button Grid.Row="3"
-                        Content="Finish"
+                        Content="{x:Bind c:Stringer.GetString('KB_FinishText')}"
                         Tag="FinishBtn"
                         MinWidth="100"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         CornerRadius="16"
-                        IsEnabled="True"
+                        IsEnabled="{x:Bind ViewModel.HasItemSelected, Mode=OneWay}"
                         Margin="0,0,0,5"
                         Click="{x:Bind ViewModel.Button_Click}"/>
             </Grid>
