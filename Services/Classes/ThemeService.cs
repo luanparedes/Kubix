@@ -1,5 +1,6 @@
 ﻿using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
+using Windows.UI.ViewManagement;
 
 namespace Kubix.Services.Classes
 {
@@ -10,14 +11,39 @@ namespace Kubix.Services.Classes
             ChangeAppTheme(ElementTheme.Dark);
         }
 
+        public void LightTheme()
+        {
+            ChangeAppTheme(ElementTheme.Light);
+        }
+
+        public void DefaultTheme()
+        {
+
+            var uiSettings = new UISettings();
+            var color = uiSettings.GetColorValue(UIColorType.Background);
+
+            bool isDarkTheme = color.R < 128 && color.G < 128 && color.B < 128;
+
+            if (isDarkTheme)
+                DarkTheme();
+            else
+                LightTheme();
+        }
+
+
         public void HighContrastTheme()
         {
             //throw new NotImplementedException();
         }
 
-        public void LightTheme()
+        public static ElementTheme GetSystemTheme()
         {
-            ChangeAppTheme(ElementTheme.Light);
+            var uiSettings = new UISettings();
+            var color = uiSettings.GetColorValue(UIColorType.Background);
+
+            bool isDarkTheme = color.R < 128 && color.G < 128 && color.B < 128;
+
+            return isDarkTheme ? ElementTheme.Dark : ElementTheme.Light;
         }
 
         public void ChangeAppTheme(ElementTheme theme)

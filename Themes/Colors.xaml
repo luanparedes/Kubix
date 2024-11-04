@@ -10,12 +10,14 @@
     <Color x:Key="PageLightBackgroungColor">#cdd3eb</Color>
     <Color x:Key="BrowserDarkTabBackgroundColor">#1e1e1e</Color>
     <Color x:Key="BrowserLightTabBackgroundColor">#bbc2df</Color>
+    <Color x:Key="TextPalleteForegroundColor">#43668e</Color>
     
     <!-- Basic Colors -->
     <Color x:Key="White">#fcfcfc</Color>
     <Color x:Key="Black">#010101</Color>
     <Color x:Key="Transparent">Transparent</Color>
 
-    <Color x:Key="Gray40">#66010101</Color>
+    <Color x:Key="SectionDarkBackgroundColor">#363434</Color>
+    <Color x:Key="SectionLightBackgroundColor">#dfe3f4</Color>
     
 </ResourceDictionary>

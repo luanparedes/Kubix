@@ -7,6 +7,7 @@ namespace Kubix.Services.Interfaces
         void ChangeAppTheme(ElementTheme theme);
         void LightTheme();
         void DarkTheme();
+        void DefaultTheme();
         void HighContrastTheme();
     }
 }

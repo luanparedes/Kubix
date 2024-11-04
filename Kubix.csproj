@@ -25,6 +25,9 @@
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\AllApps.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Themes\Colors.xaml" />
     <None Remove="Themes\Dark\ThemeColors.xaml" />
     <None Remove="Themes\HighContrast\ThemeColors.xaml" />
@@ -36,6 +39,7 @@
     <None Remove="View\ColorPickerWindow.xaml" />
     <None Remove="View\CompilersPage.xaml" />
     <None Remove="View\GooglePage.xaml" />
+    <None Remove="View\InitialConfigPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
     <None Remove="View\SettingsPage.xaml" />
@@ -71,6 +75,11 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\InitialConfigPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\CompilersPage.xaml">

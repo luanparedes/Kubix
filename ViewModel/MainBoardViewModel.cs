@@ -9,10 +9,41 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Kubix.ViewModel
 {
-    public class MainBoardViewModel : ObservableObject
+    public partial class MainBoardViewModel : ObservableObject
     {
         #region Fields & Properties
 
+        [ObservableProperty]
+        private bool isBrowserShowing;
+        
+        [ObservableProperty]
+        private bool isAIShowing;
+
+        [ObservableProperty]
+        private bool isMusicShowing;
+
+        [ObservableProperty]
+        private bool isYoutubeShowing;
+
+        [ObservableProperty]
+        private bool isStreamingShowing;
+
+        [ObservableProperty]
+        private bool isSocialMediaShowing;
+
+        [ObservableProperty]
+        private bool isKNoteShowing;
+
+        [ObservableProperty]
+        private bool isOffice365Showing;
+
+        [ObservableProperty]
+        private bool isGoogleShowing;
+
+        [ObservableProperty]
+        private bool isCompilersShowing;
+
+        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
 
@@ -23,6 +54,26 @@ namespace Kubix.ViewModel
         public MainBoardViewModel()
         {
             _logger.InfoLog("Entered Constructor ViewModel!");
+            _dataInitial.UIUpdateChanged += _dataInitial_UIUpdateChanged;
+            GetChoicesFeatures();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void GetChoicesFeatures()
+        {
+            IsBrowserShowing = _dataInitial.HasWebBrowser;
+            IsAIShowing = _dataInitial.HasAI;
+            IsMusicShowing = _dataInitial.HasMusic;
+            IsYoutubeShowing = _dataInitial.HasYoutube;
+            IsStreamingShowing = _dataInitial.HasStreaming;
+            IsSocialMediaShowing = _dataInitial.HasSocialMedia;
+            IsKNoteShowing = _dataInitial.HasKNote;
+            IsOffice365Showing = _dataInitial.HasOffice;
+            IsGoogleShowing = _dataInitial.HasGoogle;
+            IsCompilersShowing = _dataInitial.HasCompilers;
         }
 
         #endregion
@@ -80,8 +131,12 @@ namespace Kubix.ViewModel
                 case "CompilersPage":
                     _navigationService.GoToNavigationView(typeof(CompilersPage));
                     break;
-
             }
+        }
+
+        private void _dataInitial_UIUpdateChanged(object sender, System.EventArgs e)
+        {
+            GetChoicesFeatures();
         }
 
         #endregion
