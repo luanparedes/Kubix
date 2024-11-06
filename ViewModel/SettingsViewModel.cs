@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
-using Kubix.Services.Classes;
 using Kubix.Services.Interfaces;
-using Kubix.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.ComponentModel;
@@ -15,7 +13,8 @@ namespace Kubix.ViewModel
     {
         #region Fields & Properties
 
-        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>(); 
+        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
+        public readonly IAppInfo _appInfo = Ioc.Default.GetService<IAppInfo>();
         private readonly INavigationService _navigation = Ioc.Default.GetService<INavigationService>();
         private readonly IThemeService _themeService = Ioc.Default.GetService<IThemeService>();
 

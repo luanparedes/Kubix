@@ -2,8 +2,6 @@
 using Kubix.Services.Interfaces;
 using System;
 using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
 using Windows.Storage;
 
 namespace Kubix.Services.Classes

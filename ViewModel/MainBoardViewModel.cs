@@ -82,8 +82,10 @@ namespace Kubix.ViewModel
 
         public void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
+            NavigationView navigationView = sender as NavigationView;
+
             _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
-            _navigationService.GoToNavigationView(typeof(BrowserPage));
+            navigationView.SelectedItem = navigationView.MenuItems[0];
         }
 
         public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -95,6 +97,9 @@ namespace Kubix.ViewModel
 
             switch(tag)
             {
+                case "HomePage":
+                    _navigationService.GoToNavigationView(typeof(HomePage));
+                    break;
                 case "SettingsPage":
                     _navigationService.GoToNavigationView(typeof(SettingsPage));
                     break;
