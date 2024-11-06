@@ -57,6 +57,7 @@ namespace Kubix
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<Window>()
                 .AddSingleton<InitialConfigViewModel>()
+                .AddSingleton<HomeViewModel>()
                 .AddSingleton<MainBoardViewModel>()
                 .AddSingleton<SettingsViewModel>()
                 .AddSingleton<UserInfoViewModel>()

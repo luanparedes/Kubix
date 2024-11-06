@@ -18,14 +18,16 @@
           VerticalAlignment="Stretch" 
           Background="{ThemeResource AppBackground}">
         <NavigationView x:Name="NavigationView"
-            PaneDisplayMode="Left"
-            IsBackButtonVisible="Collapsed"
-            OpenPaneLength="230"
-            Background="{ThemeResource AppBackground}"
-            Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
-            SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
+                        PaneDisplayMode="Left"
+                        IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="230"
+                        Background="{ThemeResource AppBackground}"
+                        Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
+                        SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
-                <!--<NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>-->
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_HomeText')}" 
+                                    Icon="Home"
+                                    Tag="HomePage"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_WebBrowserText')}" 
                                     Icon="World" 
                                     Tag="BrowserPage"
