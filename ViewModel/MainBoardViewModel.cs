@@ -1,18 +1,49 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.Helpers;
-using KanBoard.Services.Interfaces;
-using KanBoard.View;
+using Kubix.Helpers;
+using Kubix.Services.Interfaces;
+using Kubix.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
-    public class MainBoardViewModel : ObservableObject
+    public partial class MainBoardViewModel : ObservableObject
     {
         #region Fields & Properties
 
+        [ObservableProperty]
+        private bool isBrowserShowing;
+        
+        [ObservableProperty]
+        private bool isAIShowing;
+
+        [ObservableProperty]
+        private bool isMusicShowing;
+
+        [ObservableProperty]
+        private bool isYoutubeShowing;
+
+        [ObservableProperty]
+        private bool isStreamingShowing;
+
+        [ObservableProperty]
+        private bool isSocialMediaShowing;
+
+        [ObservableProperty]
+        private bool isKNoteShowing;
+
+        [ObservableProperty]
+        private bool isOffice365Showing;
+
+        [ObservableProperty]
+        private bool isGoogleShowing;
+
+        [ObservableProperty]
+        private bool isCompilersShowing;
+
+        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
 
@@ -23,6 +54,26 @@ namespace KanBoard.ViewModel
         public MainBoardViewModel()
         {
             _logger.InfoLog("Entered Constructor ViewModel!");
+            _dataInitial.UIUpdateChanged += _dataInitial_UIUpdateChanged;
+            GetChoicesFeatures();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void GetChoicesFeatures()
+        {
+            IsBrowserShowing = _dataInitial.HasWebBrowser;
+            IsAIShowing = _dataInitial.HasAI;
+            IsMusicShowing = _dataInitial.HasMusic;
+            IsYoutubeShowing = _dataInitial.HasYoutube;
+            IsStreamingShowing = _dataInitial.HasStreaming;
+            IsSocialMediaShowing = _dataInitial.HasSocialMedia;
+            IsKNoteShowing = _dataInitial.HasKNote;
+            IsOffice365Showing = _dataInitial.HasOffice;
+            IsGoogleShowing = _dataInitial.HasGoogle;
+            IsCompilersShowing = _dataInitial.HasCompilers;
         }
 
         #endregion
@@ -31,8 +82,10 @@ namespace KanBoard.ViewModel
 
         public void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
+            NavigationView navigationView = sender as NavigationView;
+
             _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
-            _navigationService.GoToNavigationView(typeof(BrowserPage));
+            navigationView.SelectedItem = navigationView.MenuItems[0];
         }
 
         public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -44,6 +97,9 @@ namespace KanBoard.ViewModel
 
             switch(tag)
             {
+                case "HomePage":
+                    _navigationService.GoToNavigationView(typeof(HomePage));
+                    break;
                 case "SettingsPage":
                     _navigationService.GoToNavigationView(typeof(SettingsPage));
                     break;
@@ -77,8 +133,15 @@ namespace KanBoard.ViewModel
                 case "SocialMediaPage":
                     _navigationService.GoToNavigationView(typeof(SocialMediasPage));
                     break;
-
+                case "CompilersPage":
+                    _navigationService.GoToNavigationView(typeof(CompilersPage));
+                    break;
             }
+        }
+
+        private void _dataInitial_UIUpdateChanged(object sender, System.EventArgs e)
+        {
+            GetChoicesFeatures();
         }
 
         #endregion

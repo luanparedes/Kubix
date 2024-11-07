@@ -1,54 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Page
-    x:Class="KanBoard.MainBoardPage"
+    x:Class="Kubix.MainBoardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:KanBoard"
+    xmlns:local="using:Kubix"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:Microsoft.UI.Xaml"
-    xmlns:h="using:KanBoard.Helpers"
+    xmlns:h="using:Kubix.Helpers"
     mc:Ignorable="d">
-
+    
+    <Page.Resources>
+        <h:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+    
     <Grid HorizontalAlignment="Stretch"
           VerticalAlignment="Stretch" 
           Background="{ThemeResource AppBackground}">
-        <NavigationView
-            PaneDisplayMode="Left"
-            IsBackButtonVisible="Collapsed"
-            OpenPaneLength="230"
-            Background="{ThemeResource AppBackground}"
-            Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
-            SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
+        <NavigationView x:Name="NavigationView"
+                        PaneDisplayMode="Left"
+                        IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="230"
+                        Background="{ThemeResource AppBackground}"
+                        Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
+                        SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
             <NavigationView.MenuItems>
-                <!--<NavigationViewItem Content="Kanban Board" Icon="Home" Tag="UserInfoPage"/>-->
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_HomeText')}" 
+                                    Icon="Home"
+                                    Tag="HomePage"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_WebBrowserText')}" 
                                     Icon="World" 
-                                    Tag="BrowserPage"/>
+                                    Tag="BrowserPage"
+                                    Visibility="{x:Bind ViewModel.IsBrowserShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_AIText')}" 
                                     Icon="People" 
-                                    Tag="AIPage"/>
+                                    Tag="AIPage"
+                                    Visibility="{x:Bind ViewModel.IsAIShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_MusicText')}" 
                                     Icon="MusicInfo" 
-                                    Tag="AppMusicPage"/>
+                                    Tag="AppMusicPage"
+                                    Visibility="{x:Bind ViewModel.IsMusicShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_YoutubeText')}" 
                                     Icon="Video" 
-                                    Tag="YoutubePage"/>
+                                    Tag="YoutubePage"
+                                    Visibility="{x:Bind ViewModel.IsYoutubeShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_StreamingText')}" 
                                     Icon="WebCam" 
-                                    Tag="StreamingsPage"/>
+                                    Tag="StreamingsPage"
+                                    Visibility="{x:Bind ViewModel.IsStreamingShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SocialMediaText')}" 
                                     Icon="Contact2" 
-                                    Tag="SocialMediaPage"/>
+                                    Tag="SocialMediaPage"
+                                    Visibility="{x:Bind ViewModel.IsSocialMediaShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_KNoteText')}" 
                                     Icon="Page2" 
-                                    Tag="NotepadPage"/>
+                                    Tag="NotepadPage"
+                                    Visibility="{x:Bind ViewModel.IsKNoteShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
                                     Icon="ContactPresence"
-                                    Tag="Office365Page"/>
+                                    Tag="Office365Page"
+                                    Visibility="{x:Bind ViewModel.IsOffice365Showing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_GoogleText')}" 
                                     Icon="Admin" 
-                                    Tag="GooglePage"/>
+                                    Tag="GooglePage"
+                                    Visibility="{x:Bind ViewModel.IsGoogleShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_CompilersText')}" 
+                                    Icon="ProtectedDocument"
+                                    Tag="CompilersPage"
+                                    Visibility="{x:Bind ViewModel.IsCompilersShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Content="{x:Bind h:Stringer.GetString('KB_SettingsText')}" 

@@ -1,8 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
-using KanBoard.ViewModel;
+using Kubix.ViewModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace KanBoard.View
+namespace Kubix.View
 {
     public sealed partial class AppMusicPage : Page
     {

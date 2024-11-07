@@ -121,7 +121,22 @@
     <value>IA</value>
   </data>
   <data name="KB_AppNameText" xml:space="preserve">
-    <value>KanBoard</value>
+    <value>Kubix</value>
+  </data>
+  <data name="KB_ChoicesText" xml:space="preserve">
+    <value>Escolha os recursos que deseja utilizar no Kubix. Lembre-se que depois poderá modificar nas configurações.</value>
+  </data>
+  <data name="KB_CompilersText" xml:space="preserve">
+    <value>Compiladores</value>
+  </data>
+  <data name="KB_ContinueText" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="KB_FinishText" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
+  <data name="KB_FunctionalitiesText" xml:space="preserve">
+    <value>Funcionalidades</value>
   </data>
   <data name="KB_GoogleMapsText" xml:space="preserve">
     <value>Google Mapas</value>
@@ -134,6 +149,9 @@
   </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
     <value>* O tema Alto Contraste é definido automaticamente no Windows.</value>
+  </data>
+  <data name="KB_HomeText" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
@@ -168,6 +186,9 @@
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
     <value>Salvar</value>
   </data>
+  <data name="KB_SelectAllText" xml:space="preserve">
+    <value>Selecionar tudo</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Configurações</value>
   </data>
@@ -189,8 +210,14 @@
   <data name="KB_ThemesText" xml:space="preserve">
     <value>Temas</value>
   </data>
+  <data name="KB_ToText" xml:space="preserve">
+    <value>ao</value>
+  </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
     <value>Navegador Web</value>
+  </data>
+  <data name="KB_WelcomeText" xml:space="preserve">
+    <value>Bem vindo</value>
   </data>
   <data name="KB_YoutubeText" xml:space="preserve">
     <value>Youtube</value>

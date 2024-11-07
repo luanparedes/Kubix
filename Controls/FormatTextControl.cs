@@ -1,5 +1,5 @@
-﻿using KanBoard.Helpers;
-using KanBoard.View;
+﻿using Kubix.Helpers;
+using Kubix.View;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class FormatTextControl : Control
     {

@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.Helpers;
-using KanBoard.Services.Classes;
-using KanBoard.Services.Interfaces;
-using KanBoard.View;
-using KanBoard.ViewModel;
+using Kubix.Helpers;
+using Kubix.Services.Classes;
+using Kubix.Services.Interfaces;
+using Kubix.View;
+using Kubix.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
@@ -12,7 +12,7 @@ using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
 using Windows.Graphics;
 
-namespace KanBoard
+namespace Kubix
 {
     public partial class App : Application
     {
@@ -24,6 +24,8 @@ namespace KanBoard
 
         private IAppInfo _appInfo;
         private INavigationService _navigationService;
+        private readonly IThemeService _themeService;
+        private readonly IDataInitial _dataInitial;
 
         #endregion
 
@@ -33,6 +35,8 @@ namespace KanBoard
         {
             this.InitializeComponent();
             ConfigureServices();
+            _themeService = Ioc.Default.GetService<IThemeService>();
+            _dataInitial = Ioc.Default.GetService<IDataInitial>();
 
             App.Instance = this;
         }
@@ -46,11 +50,14 @@ namespace KanBoard
             var services = new ServiceCollection();
 
             services
+                .AddSingleton<IDataInitial, DataInitial>()
                 .AddSingleton<IAppInfo, AppInfo>()
                 .AddSingleton<ILogger, LogService>()
                 .AddSingleton<IThemeService, ThemeService>()
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<Window>()
+                .AddSingleton<InitialConfigViewModel>()
+                .AddSingleton<HomeViewModel>()
                 .AddSingleton<MainBoardViewModel>()
                 .AddSingleton<SettingsViewModel>()
                 .AddSingleton<UserInfoViewModel>()
@@ -63,6 +70,7 @@ namespace KanBoard
                 .AddSingleton<Office365ViewModel>()
                 .AddSingleton<GoogleViewModel>()
                 .AddSingleton<SocialMediasViewModel>()
+                .AddSingleton<CompilersViewModel>()
                 .AddTransient<ColorPickerViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
@@ -79,6 +87,8 @@ namespace KanBoard
 
         private void ConfigureMainWindow()
         {
+            SetInitialTheme();
+
             MainWindow = Ioc.Default.GetService<Window>();
 
             MainWindow.Title = _appInfo.GetAppFullNameVersion();
@@ -102,6 +112,16 @@ namespace KanBoard
             appWindow.Move(new PointInt32(centerX, centerY));
         }
 
+        private void SetInitialTheme()
+        {
+            if (_dataInitial.IsDefaultThemeChecked)
+                _themeService.DefaultTheme();
+            else if (_dataInitial.IsLightThemeChecked)
+                _themeService.LightTheme();
+            else if (_dataInitial.IsDarkThemeChecked)
+                _themeService.DarkTheme();
+        }
+
         #endregion
 
         #region Event Handlers
@@ -115,8 +135,13 @@ namespace KanBoard
      
             _navigationService.SetFrame(MainWindow.Content as Frame, FrameTypeEnum.MainFrame);
             _navigationService.GoToPage(typeof(SplashScreenPage));
+            
             await Task.Delay(3000);
-            _navigationService.BackToBoard();
+
+            if (_dataInitial.IsFirstTimeOpening)
+                _navigationService.GoToPage(typeof(InitialConfigPage));
+            else
+                _navigationService.BackToBoard();
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class YoutubeViewModel
     {
