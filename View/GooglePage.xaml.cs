@@ -12,10 +12,10 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using KanBoard.ViewModel;
+using Kubix.ViewModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
-namespace KanBoard.View
+namespace Kubix.View
 {
     public sealed partial class GooglePage : Page
     {

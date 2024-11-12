@@ -1,11 +1,11 @@
-﻿using KanBoard.Helpers;
-using KanBoard.Services.Interfaces;
+﻿using Kubix.Helpers;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using System.Reflection.Metadata;
 
-namespace KanBoard.Services.Classes
+namespace Kubix.Services.Classes
 {
     public class NavigationService : INavigationService
     {

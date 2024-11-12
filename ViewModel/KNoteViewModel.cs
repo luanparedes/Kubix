@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class KNoteViewModel : ObservableObject
     {

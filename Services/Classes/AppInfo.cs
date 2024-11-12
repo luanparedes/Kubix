@@ -1,16 +1,27 @@
-﻿using KanBoard.Services.Interfaces;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Kubix.Helpers;
+using Kubix.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KanBoard.Services.Classes
+namespace Kubix.Services.Classes
 {
-    public class AppInfo : IAppInfo
+    public class AppInfo : ObservableObject, IAppInfo
     {
-        public readonly string AppName = "KanBoard";
-        public readonly string AppVersion = "0.0.5";
+        private string _appName = Stringer.GetString("KB_AppNameText");
+        public string AppName
+        {
+            get { return _appName; }
+        }
+
+        private string _appVersion = "2.1.1.0";
+        public string AppVersion
+        {
+            get { return _appVersion; }
+        }
 
         public string GetAppFullNameVersion()
         {

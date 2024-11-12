@@ -1,15 +1,10 @@
-﻿using KanBoard.Controls;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Globalization;
 
-
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class GoogleViewModel
     {
@@ -96,6 +91,21 @@ namespace KanBoard.ViewModel
         public void GoogleAppWeb_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             VisualStateManager.GoToState(pageControl, CurrentState, true);
+        }
+
+        public void GoogleAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
+            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            webView.CoreWebView2.Settings.IsScriptEnabled = true;
+
+            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void GoogleAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
 
         #endregion

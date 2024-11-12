@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "KanBoard (Package)": {
+    "Kubix (Package)": {
       "commandName": "MsixPackage"
     },
-    "KanBoard (Unpackaged)": {
+    "Kubix (Unpackaged)": {
       "commandName": "Project"
     }
   }

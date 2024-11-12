@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.Services.Interfaces;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class UserInfoViewModel : ObservableObject
     {

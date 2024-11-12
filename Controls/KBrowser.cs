@@ -2,14 +2,15 @@
 using System;
 using System.Linq;
 using Windows.Globalization;
+using Windows.UI.WebUI;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class KBrowser : Control
     {
         #region Constants
 
-        private const string GoogleURL = "http://google.com";
+        private const string GoogleURL = "https://google.com";
 
         #endregion
 
@@ -38,6 +39,8 @@ namespace KanBoard.Controls
         {
             BrowserTabViewItem newTabItem = new BrowserTabViewItem();
             (newTabItem.Content as WebView2).NavigationCompleted += KBrowser_NavigationCompleted;
+            (newTabItem.Content as WebView2).CoreWebView2Initialized += KBrowser_CoreWebView2Initialized;
+            (newTabItem.Content as WebView2).NavigationStarting += KBrowser_NavigationStarting;
 
             (newTabItem.Content as WebView2).Source = new Uri($"{website}");
             newTabItem.Header = (newTabItem.Content as WebView2).Source.Host;
@@ -52,6 +55,21 @@ namespace KanBoard.Controls
         {
             string currentLanguage = ApplicationLanguages.Languages.FirstOrDefault() ?? "en-US";
             await (ActualTabItem.Content as WebView2).CoreWebView2.ExecuteScriptAsync($"document.documentElement.lang = '{currentLanguage}';");
+        }
+
+        public void KBrowser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+        {
+            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
+            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+
+            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
+        }
+
+        public void KBrowser_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        {
+            if (!args.Uri.StartsWith("https://"))
+                args.Cancel = true;
         }
 
         private void GoToWebsite(string website)

@@ -1,5 +1,5 @@
-﻿using KanBoard.Helpers;
-using KanBoard.View;
+﻿using Kubix.Helpers;
+using Kubix.View;
 using Microsoft.UI;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
@@ -11,11 +11,10 @@ using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Windows.Globalization.Fonts;
 using System.Drawing.Text;
 using System.Linq;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class FormatTextControl : Control
     {
@@ -125,7 +124,12 @@ namespace KanBoard.Controls
         private void FormatTextControl_Loaded(object sender, RoutedEventArgs e)
         {
             CreateNote();
+            InitializeFormat(TextConstants.MaxUnitCount);
+            ShowInitialValues();
+
             this.kForegroundButton.Background = KForeground;
+
+            Loaded -= FormatTextControl_Loaded;
         }
 
         #endregion
@@ -146,9 +150,6 @@ namespace KanBoard.Controls
                         break;
                 }
             }
-
-            InitializeFormat(TextConstants.MaxUnitCount);
-            ShowInitialValues();
         }
 
         public async Task<StorageFile> OpenFile()

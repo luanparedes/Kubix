@@ -1,8 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.ViewModel;
+using Kubix.ViewModel;
 
-namespace KanBoard.View
+namespace Kubix.View
 {
     public sealed partial class UserInfoPage : Page
     {

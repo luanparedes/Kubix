@@ -2,12 +2,12 @@
 using Microsoft.UI;
 using Windows.Graphics;
 using Microsoft.UI.Xaml;
-using KanBoard.View;
-using KanBoard.Controls;
+using Kubix.View;
+using Kubix.Controls;
 using System;
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard.ViewModel
+namespace Kubix.ViewModel
 {
     public class ColorPickerViewModel
     {

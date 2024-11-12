@@ -1,9 +1,9 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
-using KanBoard.ViewModel;
+using Kubix.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace KanBoard
+namespace Kubix
 {
     public sealed partial class MainBoardPage : Page
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class ColorPickerControl : ColorPicker
     {

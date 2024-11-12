@@ -1,6 +1,6 @@
 ﻿using Microsoft.Windows.ApplicationModel.Resources;
 
-namespace KanBoard.Helpers
+namespace Kubix.Helpers
 {
     public static class Stringer
     {

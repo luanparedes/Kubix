@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Kubix.View.SocialMediasPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kubix.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required"
+    Background="{ThemeResource PageBackground}">
+
+    <UserControl x:Name="PageControl" Loaded="{x:Bind ViewModel.PageControl_Loaded}">
+        <Grid>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="PageState">
+                    <VisualState x:Name="ChoiceAppState">
+                        <VisualState.Setters>
+                            <Setter Target="SocialMediaAppWeb.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
+                            <Setter Target="InstagramButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="FacebookButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="XButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="BackButton.Visibility" Value="Collapsed"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="InstagramAppState">
+                        <VisualState.Setters>
+                            <Setter Target="SocialMediaAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="InstagramButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="FacebookButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="XButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="FacebookAppState">
+                        <VisualState.Setters>
+                            <Setter Target="SocialMediaAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="InstagramButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="FacebookButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="XButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="XAppState">
+                        <VisualState.Setters>
+                            <Setter Target="SocialMediaAppWeb.Visibility" Value="Visible"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="InstagramButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="FacebookButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="XButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BackButton" 
+                        Grid.Column="0" 
+                        Padding="1"
+                        Width="35" CornerRadius="20"
+                        Height="35"
+                        Margin="5,0,20,0"
+                        Tag="BackButton"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <FontIcon Glyph="&#xE72B;"
+                              FontFamily="Segoe MDL2 Assets" 
+                              HorizontalAlignment="Center" 
+                              FontSize="16"/>
+                </Button>
+
+                <Button x:Name="InstagramButtonBar"
+                        Width="32" 
+                        Height="32"
+                        Padding="0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Margin="0,0,7,0"
+                        Tag="InstagramBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/instagram_logo.png" 
+                               Height="20" 
+                               Width="20" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="FacebookButtonBar"
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Margin="0,0,7,0"
+                        Tag="FacebookBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/facebook_logo.png" 
+                               Height="18"
+                               Width="18" />
+                    </Button.Content>
+                </Button>
+                <Button x:Name="XButtonBar"
+                        Width="32"
+                        Height="32"
+                        Padding="0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Margin="0,0,7,0"
+                        Tag="XBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/x_logo.png" 
+                               Height="18" 
+                               Width="18" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <StackPanel x:Name="ChoiceAppPanel" 
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        Height="700"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button x:Name="InstagramButton"
+                        Width="150" 
+                        Height="150" 
+                        Padding="1"
+                        CornerRadius="180"
+                        Tag="InstagramBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/instagram_logo.png" 
+                               Height="96" 
+                               Width="96"
+                               HorizontalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="FacebookButton"
+                        Width="150" 
+                        Height="150" 
+                        Padding="1"
+                        CornerRadius="180"
+                        Margin="50,0,50,0"
+                        Tag="FacebookBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/facebook_logo.png"
+                               Width="96"
+                               Height="96"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="XButton"
+                        Width="150" 
+                        Height="150" 
+                        Padding="1"
+                        CornerRadius="180"
+                        Tag="XBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/x_logo.png"
+                               Width="96"
+                               Height="96"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <WebView2 x:Name="SocialMediaAppWeb" 
+                      Grid.Row="1"
+                      Visibility="Collapsed"
+                      Loaded="{x:Bind ViewModel.WebView2_Loaded}"
+                      NavigationCompleted="{x:Bind ViewModel.SocialMedia_NavigationCompleted}"
+                      CoreWebView2Initialized="{x:Bind ViewModel.SocialMediaAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.SocialMediaAppWeb_NavigationStarting}"/>
+        </Grid>
+    </UserControl>
+</Page>

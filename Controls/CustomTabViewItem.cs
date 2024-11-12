@@ -1,4 +1,4 @@
-﻿using KanBoard.Helpers;
+﻿using Kubix.Helpers;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -6,7 +6,7 @@ using System;
 using Windows.Storage;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace KanBoard.Controls
+namespace Kubix.Controls
 {
     public class CustomTabViewItem : TabViewItem
     {
@@ -48,8 +48,19 @@ namespace KanBoard.Controls
 
         #region Event Handlers
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (formatControl.HasChanges)
+            {
+                CustomDialog dialog = new CustomDialog();
+                var response = await dialog.ShowSaveDialog();
+
+                if (response == ContentDialogResult.Primary)
+                {
+                    await formatControl.SaveFile();
+                }
+            }
+
             CloseTab?.Invoke(this, closeButton);
         }
 
