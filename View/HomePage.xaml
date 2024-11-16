@@ -7,12 +7,97 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Kubix.Controls"
-    xmlns:h="using:Kubix.Helpers"
+    xmlns:h="using:Kubix.Helpers" 
+    xmlns:models="using:Kubix.Model"
     mc:Ignorable="d"
     Background="{ThemeResource PageBackground}">
 
-    <Grid>
+    <Page.Resources>
+        <DataTemplate x:Key="SearchCityTemplate" x:DataType="models:CityModel">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding City}" FontSize="16" Margin="0,0,10,0"/>
+                <TextBlock Text="{Binding State}" FontSize="16"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <Style TargetType="controls:WeatherForecastControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:WeatherForecastControl">
+                        <Grid CornerRadius="18" 
+                              Padding="12"
+                              Background="{ThemeResource SectionPanelBackground}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="70"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <AutoSuggestBox x:Name="SearchCity"
+                                                Grid.Column="0"
+                                                ItemTemplate="{ThemeResource SearchCityTemplate}"
+                                                CornerRadius="16"
+                                                Margin="0,0,12,0"/>
+                                <ComboBox x:Name="ComboState"
+                                          Grid.Column="1"
+                                          SelectedIndex="0">
+                                    <ComboBoxItem Content="All"/>
+                                    <ComboBoxItem Content="AC"/>
+                                    <ComboBoxItem Content="AL"/>
+                                    <ComboBoxItem Content="AP"/>
+                                    <ComboBoxItem Content="AM"/>
+                                    <ComboBoxItem Content="BA"/>
+                                    <ComboBoxItem Content="CE"/>
+                                    <ComboBoxItem Content="DF"/>
+                                    <ComboBoxItem Content="ES"/>
+                                    <ComboBoxItem Content="GO"/>
+                                    <ComboBoxItem Content="MA"/>
+                                    <ComboBoxItem Content="MT"/>
+                                    <ComboBoxItem Content="MS"/>
+                                    <ComboBoxItem Content="MG"/>
+                                    <ComboBoxItem Content="PA"/>
+                                    <ComboBoxItem Content="PB"/>
+                                    <ComboBoxItem Content="PR"/>
+                                    <ComboBoxItem Content="PE"/>
+                                    <ComboBoxItem Content="PI"/>
+                                    <ComboBoxItem Content="RR"/>
+                                    <ComboBoxItem Content="RO"/>
+                                    <ComboBoxItem Content="RJ"/>
+                                    <ComboBoxItem Content="RN"/>
+                                    <ComboBoxItem Content="RS"/>
+                                    <ComboBoxItem Content="SC"/>
+                                    <ComboBoxItem Content="SP"/>
+                                    <ComboBoxItem Content="SE"/>
+                                    <ComboBoxItem Content="TO"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <TextBlock x:Name="TemperatureText"
+                                       Grid.Row="1"
+                                       Text="23º"
+                                       FontFamily="Showcard Gothic"
+                                       FontSize="120"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="CityText"
+                                       Grid.Row="2"
+                                       FontSize="32"
+                                       HorizontalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Padding="12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -22,8 +107,8 @@
         </Grid.ColumnDefinitions>
 
         <controls:KClock Grid.Column="0"
-                         Grid.Row="0"/>
-        <CalendarView Grid.Row="1"
+                         Grid.Row="1"/>
+        <CalendarView Grid.Row="2"
                       Grid.Column="0"
                       SelectionMode="None"
                       IsGroupLabelVisible="True"
@@ -33,7 +118,7 @@
                       VerticalAlignment="Bottom"
                       Margin="74,0,20,20"/>
 
-        <TextBlock Text="{x:Bind h:Stringer.GetString('KB_AppNameText')}"
+        <!--<TextBlock Text="{x:Bind h:Stringer.GetString('KB_AppNameText')}"
                    Grid.Column="1"
                    Grid.RowSpan="2"
                    FontFamily="Showcard Gothic"
@@ -41,6 +126,10 @@
                    Foreground="{ThemeResource TitleMainTexts}"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Width="70"/>
+                   Width="70"/>-->
+
+        <controls:WeatherForecastControl Grid.Column="1"
+                                         Grid.Row="1"
+                                         Grid.RowSpan="2"/>
     </Grid>
 </Page>

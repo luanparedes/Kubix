@@ -2,11 +2,11 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kubix.Themes"
     xmlns:controls="using:Kubix.Controls"
-    xmlns:local="using:Kubix.Themes" 
-    xmlns:h="using:Kubix.Helpers" 
-    xmlns:controls1="using:Microsoft.UI.Xaml.Controls" 
-    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals">
+    xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" 
+    xmlns:models="using:Kubix.Model">
 
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
