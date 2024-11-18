@@ -15,5 +15,7 @@ namespace Kubix.Model
         public string State { get; set; }
 
         public string Population { get; set; }
+
+        public float Temperature {  get; set; }
     }
 }
