@@ -21,5 +21,14 @@ namespace Kubix.Helpers
 
             return string.Format(mainString, param1);
         }
+
+        public static string GetString(string mainString, string param1, string param2)
+        {
+            ResourceLoader loader = new ResourceLoader();
+
+            mainString = loader.GetString(mainString);
+
+            return string.Format(mainString, param1, param2);
+        }
     }
 }

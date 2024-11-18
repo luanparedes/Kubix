@@ -55,6 +55,7 @@ namespace Kubix
                 .AddSingleton<ILogger, LogService>()
                 .AddSingleton<IThemeService, ThemeService>()
                 .AddSingleton<INavigationService, NavigationService>()
+                .AddSingleton<IExcelService, ExcelService>()
                 .AddSingleton<Window>()
                 .AddSingleton<InitialConfigViewModel>()
                 .AddSingleton<HomeViewModel>()

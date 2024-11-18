@@ -42,7 +42,7 @@ namespace Kubix.Controls
 
         private void Timer_Tick(object sender, object e)
         {
-            _clockText.Text = DateTime.Now.ToString("H:mm:ss");
+            _clockText.Text = DateTime.Now.ToString("H:mm");
         }
 
         #endregion

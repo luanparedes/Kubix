@@ -12,6 +12,10 @@
     <Color x:Key="BrowserLightTabBackgroundColor">#bbc2df</Color>
     <Color x:Key="TextPalleteForegroundColor">#43668e</Color>
     
+    <!-- Loading Colors -->
+    <Color x:Key="LoadingBackgroundColor">#123054</Color>
+    <Color x:Key="LoadingForegroundColor">#265b9b</Color>
+
     <!-- Basic Colors -->
     <Color x:Key="White">#fcfcfc</Color>
     <Color x:Key="Black">#010101</Color>
