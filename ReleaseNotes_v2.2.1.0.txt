@@ -5,4 +5,4 @@ Features:
 - Search on Weather to see weather from all cities of the world.
 
 Improvements:
-- Icons from left menu items.
+- New Style from left menu items.

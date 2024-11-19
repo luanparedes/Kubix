@@ -7,5 +7,6 @@ namespace Kubix.Model
         public string FeatureName { get; set; }
         public BitmapImage FeatureIcon { get; set; }
         public string FeatureAlias { get; set; }
+        public bool FeatureVisibility { get; set; }
     }
 }

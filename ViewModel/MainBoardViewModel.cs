@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Controls;
 using Kubix.Helpers;
 using Kubix.Model;
 using Kubix.Services.Interfaces;
@@ -99,6 +100,7 @@ namespace Kubix.ViewModel
                 FeatureName = Stringer.GetString("KB_WebBrowserText"),
                 FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/globe_feature.png")),
                 FeatureAlias = "BrowserId",
+                FeatureVisibility = _dataInitial.HasCompilers
             });
 
             featuresList.Add(new FeatureModel()
@@ -171,31 +173,29 @@ namespace Kubix.ViewModel
 
         #region Event Handlers
 
-        //TODO: Agora perdeu a referencia entre a choices page, settings e menu
-        //após ter sido excluído os items.
-
         public void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
             NavigationView navigationView = sender as NavigationView;
 
-            FeaturesList = GetAllFeatures();
-            navigationView.MenuItemsSource = FeaturesList;
-            navigationView.FooterMenuItems.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_SettingsText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/settings_feature.png")),
-                FeatureAlias = "SettingsId",
-            });
+            //FeaturesList = GetAllFeatures();
+            //navigationView.MenuItemsSource = FeaturesList;
+
+            //navigationView.FooterMenuItems.Add(new FeatureModel()
+            //{
+            //    FeatureName = Stringer.GetString("KB_SettingsText"),
+            //    FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/settings_feature.png")),
+            //    FeatureAlias = "SettingsId",
+            //});
 
             _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
-            navigationView.SelectedItem = (navigationView.MenuItemsSource as List<FeatureModel>)[0];
+            //navigationView.SelectedItem = (navigationView.MenuItemsSource as List<FeatureModel>)[0];
+            navigationView.SelectedItem = navigationView.MenuItems[0];
         }
 
         public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             Frame frame = (sender.Content) as Frame;
-
-            string alias = (args.SelectedItem as FeatureModel).FeatureAlias;
+            string alias = (args.SelectedItem as MenuNavigationItem).Alias;
 
             switch(alias)
             {
