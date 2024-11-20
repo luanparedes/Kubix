@@ -12,6 +12,13 @@
     <Color x:Key="BrowserLightTabBackgroundColor">#bbc2df</Color>
     <Color x:Key="TextPalleteForegroundColor">#43668e</Color>
     
+    <!-- Features Menu Colors -->
+    <Color x:Key="MenuSelectedBackgroundColor">#8043668e</Color>
+    <Color x:Key="MenuPointerOverBackgroundColor">#3343668e</Color>
+    <Color x:Key="SelectedBackgroundColor">#8043668e</Color>
+    <Color x:Key="SelectedBarBackgroundColorWhite">#123054</Color>
+    <Color x:Key="SelectedBarBackgroundColorDark">#cfd7e1</Color>
+
     <!-- Loading Colors -->
     <Color x:Key="LoadingBackgroundColor">#123054</Color>
     <Color x:Key="LoadingForegroundColor">#265b9b</Color>

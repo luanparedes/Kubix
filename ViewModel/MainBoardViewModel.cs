@@ -84,91 +84,6 @@ namespace Kubix.ViewModel
             IsCompilersShowing = _dataInitial.HasCompilers;
         }
 
-        private List<FeatureModel> GetAllFeatures()
-        {
-            List<FeatureModel> featuresList = new List<FeatureModel>();
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_HomeText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/home_feature.png")),
-                FeatureAlias = "HomeId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_WebBrowserText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/globe_feature.png")),
-                FeatureAlias = "BrowserId",
-                FeatureVisibility = _dataInitial.HasCompilers
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_AIText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/ai2_feature.png")),
-                FeatureAlias = "AiId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_MusicText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/music_feature.png")),
-                FeatureAlias = "MusicId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_YoutubeText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/youtube_feature.png")),
-                FeatureAlias = "YoutubeId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_StreamingText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/streaming_feature.png")),
-                FeatureAlias = "StreamingId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_SocialMediaText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/socialmedia_feature.png")),
-                FeatureAlias = "SocialMediaId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_KNoteText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/note_feature.png")),
-                FeatureAlias = "KNoteId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_Office365Text"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/office_feature.png")),
-                FeatureAlias = "OfficeId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_GoogleText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/google_feature.png")),
-                FeatureAlias = "GoogleId",
-            });
-
-            featuresList.Add(new FeatureModel()
-            {
-                FeatureName = Stringer.GetString("KB_CompilersText"),
-                FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/compiler_feature.png")),
-                FeatureAlias = "CompilersId",
-            });
-
-            return featuresList;
-        }
-
         #endregion
 
         #region Event Handlers
@@ -177,18 +92,7 @@ namespace Kubix.ViewModel
         {
             NavigationView navigationView = sender as NavigationView;
 
-            //FeaturesList = GetAllFeatures();
-            //navigationView.MenuItemsSource = FeaturesList;
-
-            //navigationView.FooterMenuItems.Add(new FeatureModel()
-            //{
-            //    FeatureName = Stringer.GetString("KB_SettingsText"),
-            //    FeatureIcon = new BitmapImage(new Uri($"ms-appx:///Assets/settings_feature.png")),
-            //    FeatureAlias = "SettingsId",
-            //});
-
             _navigationService.SetFrame((Frame)(sender as NavigationView).Content, FrameTypeEnum.NavigationViewFrame);
-            //navigationView.SelectedItem = (navigationView.MenuItemsSource as List<FeatureModel>)[0];
             navigationView.SelectedItem = navigationView.MenuItems[0];
         }
 

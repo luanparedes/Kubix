@@ -14,27 +14,6 @@
     
     <Page.Resources>
         <h:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-
-        <DataTemplate x:Key="FeatureItemTemplate" x:DataType="models:FeatureModel">
-            <Grid Visibility="{Binding FeatureVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <Image Source="{Binding FeatureIcon}"
-                       Width="28"
-                       Height="22"
-                       HorizontalAlignment="Left"/>
-
-                <TextBlock Grid.Column="1"
-                           Text="{Binding FeatureName}"
-                           FontSize="16"
-                           FontFamily="Comic Sans MS"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"/>
-            </Grid>
-        </DataTemplate>
     </Page.Resources>
     
     <Grid HorizontalAlignment="Stretch"
@@ -56,7 +35,7 @@
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
                 
-                <NavigationViewItemSeparator Margin="0,6"/>
+                <NavigationViewItemSeparator />
                 
                 <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_WebBrowserText')}"
                                              Alias="BrowserId"
@@ -114,7 +93,7 @@
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
 
-                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_SocialMediaText')}"
+                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
                                              Alias="OfficeId"
                                              Visibility="{x:Bind ViewModel.IsOffice365Showing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <controls:MenuNavigationItem.ItemIcon>

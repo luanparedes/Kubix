@@ -6,3 +6,4 @@ Features:
 
 Improvements:
 - New Style from left menu items.
+- Settings Radio Buttons style.
