@@ -16,4 +16,7 @@
     <!-- Browser Page -->
     <SolidColorBrush x:Key="TabItemBackground" Color="{ThemeResource BrowserLightTabBackgroundColor}"/>
 
+    <!-- Features Menu -->
+    <SolidColorBrush x:Key="VerticalBarSelectedFeature" Color="{ThemeResource SelectedBarBackgroundColorWhite}"/>
+
 </ResourceDictionary>

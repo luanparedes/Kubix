@@ -147,6 +147,9 @@
   <data name="KB_GoogleText" xml:space="preserve">
     <value>Google</value>
   </data>
+  <data name="KB_HasPopulationText" xml:space="preserve">
+    <value>{0} has a population of {1} inhabitants.</value>
+  </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
     <value>* The High Contrast theme is setted automatically with Windows.</value>
   </data>

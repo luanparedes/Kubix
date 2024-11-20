@@ -7,12 +7,100 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Kubix.Controls"
-    xmlns:h="using:Kubix.Helpers"
+    xmlns:h="using:Kubix.Helpers" 
+    xmlns:models="using:Kubix.Model"
     mc:Ignorable="d"
     Background="{ThemeResource PageBackground}">
 
-    <Grid>
+    <Page.Resources>
+        <DataTemplate x:Key="SearchCityTemplate" x:DataType="models:CityModel">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding City}" FontSize="16"/>
+                <TextBlock Text=" - " FontSize="16" Margin="6,0"/>
+                <TextBlock Text="{Binding State}" FontSize="16"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <Style TargetType="controls:WeatherForecastControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:WeatherForecastControl">
+                        <UserControl x:Name="MainControl">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="PageState">
+                                        <VisualState x:Name="LoadingState">
+                                            <VisualState.Setters>
+                                                <Setter Target="LoadingGrid.Visibility" Value="Visible"/>
+                                                <Setter Target="WeatherGrid.Visibility" Value="Collapsed"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="WeatherState">
+                                            <VisualState.Setters>
+                                                <Setter Target="LoadingGrid.Visibility" Value="Collapsed"/>
+                                                <Setter Target="WeatherGrid.Visibility" Value="Visible"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                
+                                <Grid x:Name="LoadingGrid">
+                                    <ProgressRing x:Name="WeatherProgressRing"
+                                                  Background="{ThemeResource LoadingBackgroundColor}"
+                                                  Foreground="{ThemeResource LoadingForegroundColor}"
+                                                  Width="100" 
+                                                  Height="100"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <Grid x:Name="WeatherGrid"
+                                      CornerRadius="18"
+                                      Padding="12"
+                                      Background="{ThemeResource SectionPanelBackground}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <AutoSuggestBox x:Name="SearchCity"
+                                                    Grid.Column="0"
+                                                    ItemTemplate="{ThemeResource SearchCityTemplate}"
+                                                    CornerRadius="16"/>
+                                    </Grid>
+
+                                    <TextBlock x:Name="TemperatureText"
+                                               Grid.Row="1"
+                                               FontFamily="Showcard Gothic"
+                                               FontSize="120"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="CityText"
+                                               Grid.Row="2"
+                                               FontFamily="Berlin Sans FB"
+                                               FontSize="32"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="PopulationText"
+                                               Grid.Row="3"
+                                               FontFamily="Berlin Sans FB"
+                                               FontSize="18"
+                                               HorizontalAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               Margin="0,18"/>
+                                </Grid>
+                            </Grid>
+                        </UserControl>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Padding="12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -22,8 +110,8 @@
         </Grid.ColumnDefinitions>
 
         <controls:KClock Grid.Column="0"
-                         Grid.Row="0"/>
-        <CalendarView Grid.Row="1"
+                         Grid.Row="1"/>
+        <CalendarView Grid.Row="2"
                       Grid.Column="0"
                       SelectionMode="None"
                       IsGroupLabelVisible="True"
@@ -31,16 +119,10 @@
                       Language="pt"
                       CalendarIdentifier="GregorianCalendar"
                       VerticalAlignment="Bottom"
-                      Margin="74,0,20,20"/>
+                      HorizontalAlignment="Center"/>
 
-        <TextBlock Text="{x:Bind h:Stringer.GetString('KB_AppNameText')}"
-                   Grid.Column="1"
-                   Grid.RowSpan="2"
-                   FontFamily="Showcard Gothic"
-                   FontSize="85"
-                   Foreground="{ThemeResource TitleMainTexts}"
-                   VerticalAlignment="Center"
-                   TextWrapping="Wrap"
-                   Width="70"/>
+        <controls:WeatherForecastControl Grid.Column="1"
+                                         Grid.Row="1"
+                                         Grid.RowSpan="2"/>
     </Grid>
 </Page>
