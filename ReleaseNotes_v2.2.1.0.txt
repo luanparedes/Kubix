@@ -3,3 +3,7 @@ Release notes v.2.2.1.0
 Features:
 - Weather Forecast implemented
 - Search on Weather to see weather from all cities of the world.
+
+Improvements:
+- New Style from left menu items.
+- Settings Radio Buttons style.

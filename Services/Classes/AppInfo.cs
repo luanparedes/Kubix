@@ -1,11 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Kubix.Helpers;
 using Kubix.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kubix.Services.Classes
 {
@@ -17,7 +12,7 @@ namespace Kubix.Services.Classes
             get { return _appName; }
         }
 
-        private string _appVersion = "2.1.1.0";
+        private string _appVersion = "2.2.1.0";
         public string AppVersion
         {
             get { return _appVersion; }

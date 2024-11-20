@@ -1,11 +1,16 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Controls;
 using Kubix.Helpers;
+using Kubix.Model;
 using Kubix.Services.Interfaces;
 using Kubix.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
+using System;
+using System.Collections.Generic;
 
 namespace Kubix.ViewModel
 {
@@ -47,6 +52,8 @@ namespace Kubix.ViewModel
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
 
+        public List<FeatureModel> FeaturesList;
+
         #endregion
 
         #region Contructor
@@ -55,6 +62,7 @@ namespace Kubix.ViewModel
         {
             _logger.InfoLog("Entered Constructor ViewModel!");
             _dataInitial.UIUpdateChanged += _dataInitial_UIUpdateChanged;
+
             GetChoicesFeatures();
         }
 
@@ -91,49 +99,44 @@ namespace Kubix.ViewModel
         public void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             Frame frame = (sender.Content) as Frame;
+            string alias = (args.SelectedItem as MenuNavigationItem).Alias;
 
-            var selectedItem = args.SelectedItem as NavigationViewItem;
-            var tag = (string)selectedItem.Tag;
-
-            switch(tag)
+            switch(alias)
             {
-                case "HomePage":
+                case "HomeId":
                     _navigationService.GoToNavigationView(typeof(HomePage));
                     break;
-                case "SettingsPage":
+                case "SettingsId":
                     _navigationService.GoToNavigationView(typeof(SettingsPage));
                     break;
-                case "UserInfoPage":
-                    _navigationService.GoToNavigationView(typeof(UserInfoPage));
-                    break;
-                case "AppMusicPage":
+                case "MusicId":
                     _navigationService.GoToNavigationView(typeof(AppMusicPage));
                     break;
-                case "BrowserPage":
+                case "BrowserId":
                     _navigationService.GoToNavigationView(typeof(BrowserPage));
                     break;
-                case "YoutubePage":
+                case "YoutubeId":
                     _navigationService.GoToNavigationView(typeof(YoutubePage));
                     break;
-                case "StreamingsPage":
+                case "StreamingId":
                     _navigationService.GoToNavigationView(typeof(StreamingsPage));
                     break;
-                case "NotepadPage":
+                case "KNoteId":
                     _navigationService.GoToNavigationView(typeof(KNotePage));
                     break;
-                case "AIPage":
+                case "AiId":
                     _navigationService.GoToNavigationView(typeof(AIPage));
                     break;
-                case "Office365Page":
+                case "OfficeId":
                     _navigationService.GoToNavigationView(typeof(Office365Page));
                     break;
-                case "GooglePage":
+                case "GoogleId":
                     _navigationService.GoToNavigationView(typeof(GooglePage));
                     break;
-                case "SocialMediaPage":
+                case "SocialMediaId":
                     _navigationService.GoToNavigationView(typeof(SocialMediasPage));
                     break;
-                case "CompilersPage":
+                case "CompilersId":
                     _navigationService.GoToNavigationView(typeof(CompilersPage));
                     break;
             }

@@ -29,6 +29,19 @@
     <Content Remove="Assets\worldcities.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\ai2_feature.png" />
+    <None Remove="Assets\ai_feature.png" />
+    <None Remove="Assets\compiler_feature.png" />
+    <None Remove="Assets\globe_feature.png" />
+    <None Remove="Assets\google_feature.png" />
+    <None Remove="Assets\home_feature.png" />
+    <None Remove="Assets\music_feature.png" />
+    <None Remove="Assets\note_feature.png" />
+    <None Remove="Assets\office_feature.png" />
+    <None Remove="Assets\settings_feature.png" />
+    <None Remove="Assets\socialmedia_feature.png" />
+    <None Remove="Assets\streaming_feature.png" />
+    <None Remove="Assets\youtube_feature.png" />
     <None Remove="Themes\Colors.xaml" />
     <None Remove="Themes\Dark\ThemeColors.xaml" />
     <None Remove="Themes\HighContrast\ThemeColors.xaml" />
@@ -80,6 +93,47 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\ai2_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\ai_feature.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\compiler_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\globe_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\google_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\home_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\music_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\note_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\office_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\settings_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\socialmedia_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\streaming_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\youtube_feature.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\HomePage.xaml">
