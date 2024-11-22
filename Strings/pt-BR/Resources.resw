@@ -189,6 +189,9 @@
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
     <value>Salvar</value>
   </data>
+  <data name="KB_SearchCity" xml:space="preserve">
+    <value>Pesquisar cidade</value>
+  </data>
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>Selecionar tudo</value>
   </data>

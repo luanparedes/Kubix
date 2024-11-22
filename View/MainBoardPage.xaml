@@ -122,8 +122,7 @@
                 <NavigationViewItemSeparator/>
 
                 <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_SettingsText')}"
-                                             Alias="SettingsId"
-                                             Visibility="{x:Bind ViewModel.IsSocialMediaShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                             Alias="SettingsId" >
                     <controls:MenuNavigationItem.ItemIcon>
                         <BitmapImage UriSource="ms-appx:///Assets/settings_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
