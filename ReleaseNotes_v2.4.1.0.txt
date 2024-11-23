@@ -1,0 +1,11 @@
+Release notes v.2.4.1.0
+
+Features:
+- Terminal implemented.
+- Diff tool implemented.
+
+Improvements:
+- Weather search city text box placeholder added.
+
+Bug fixes:
+- Fix bug when disabling Social Media on options and settings was hidding too.

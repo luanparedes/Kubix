@@ -72,6 +72,7 @@ namespace Kubix
                 .AddSingleton<GoogleViewModel>()
                 .AddSingleton<SocialMediasViewModel>()
                 .AddSingleton<CompilersViewModel>()
+                .AddSingleton<TerminalViewModel>()
                 .AddTransient<ColorPickerViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());

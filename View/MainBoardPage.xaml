@@ -116,6 +116,14 @@
                         <BitmapImage UriSource="ms-appx:///Assets/compiler_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
+
+                <controls:MenuNavigationItem Feature="Terminal"
+                                             Alias="TerminalId"
+                                             Visibility="{x:Bind ViewModel.IsTerminalShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <controls:MenuNavigationItem.ItemIcon>
+                        <BitmapImage UriSource="ms-appx:///Assets/terminal_feature.png" />
+                    </controls:MenuNavigationItem.ItemIcon>
+                </controls:MenuNavigationItem>
             </NavigationView.MenuItems>
             
             <NavigationView.FooterMenuItems>

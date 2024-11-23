@@ -219,6 +219,9 @@
   <data name="KB_ToText" xml:space="preserve">
     <value>a</value>
   </data>
+  <data name="KB_TypeAndEnter" xml:space="preserve">
+    <value>Escriba un comando y presione Entrar</value>
+  </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
     <value>Navegadorito</value>
   </data>
