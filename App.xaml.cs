@@ -11,6 +11,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
 using Windows.Graphics;
+using System;
 
 namespace Kubix
 {
@@ -26,6 +27,7 @@ namespace Kubix
         private INavigationService _navigationService;
         private readonly IThemeService _themeService;
         private readonly IDataInitial _dataInitial;
+        private readonly IDataService _dataService;
 
         #endregion
 
@@ -35,10 +37,20 @@ namespace Kubix
         {
             this.InitializeComponent();
             ConfigureServices();
+
             _themeService = Ioc.Default.GetService<IThemeService>();
             _dataInitial = Ioc.Default.GetService<IDataInitial>();
+            _dataService = Ioc.Default.GetService<IDataService>();
+
+            ActivateDatabase();
 
             App.Instance = this;
+        }
+
+        private void ActivateDatabase()
+        {
+            _dataService.CreateDatabaseIfNotExists();
+            _dataService.CreateTerminalCommandsTable();
         }
 
         #endregion
@@ -51,6 +63,7 @@ namespace Kubix
 
             services
                 .AddSingleton<IDataInitial, DataInitial>()
+                .AddSingleton<IDataService, DataService>()
                 .AddSingleton<IAppInfo, AppInfo>()
                 .AddSingleton<ILogger, LogService>()
                 .AddSingleton<IThemeService, ThemeService>()
@@ -72,6 +85,7 @@ namespace Kubix
                 .AddSingleton<GoogleViewModel>()
                 .AddSingleton<SocialMediasViewModel>()
                 .AddSingleton<CompilersViewModel>()
+                .AddSingleton<TerminalViewModel>()
                 .AddTransient<ColorPickerViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());

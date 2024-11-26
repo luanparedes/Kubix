@@ -105,6 +105,9 @@ namespace Kubix.ViewModel
                 case "CompilersCheck":
                     _dataInitial.HasCompilers = checkbox.IsChecked.Value;
                     break;
+                case "TerminalCheck":
+                    _dataInitial.HasTerminal = checkbox.IsChecked.Value;
+                    break;
             }
 
             _dataInitial.OnUpdateUI();

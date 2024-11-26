@@ -189,6 +189,9 @@
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
     <value>Ahorrar</value>
   </data>
+  <data name="KB_SearchCity" xml:space="preserve">
+    <value>Buscar ciudad</value>
+  </data>
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>Seleccionar todo</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>
+  </data>
+  <data name="KB_TerminalText" xml:space="preserve">
+    <value>Terminal</value>
   </data>
   <data name="KB_ThemeDarkText" xml:space="preserve">
     <value>Modo Oscuro</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="KB_ToText" xml:space="preserve">
     <value>a</value>
+  </data>
+  <data name="KB_TypeAndEnter" xml:space="preserve">
+    <value>Escriba un comando y presione Entrar</value>
   </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
     <value>Navegadorito</value>

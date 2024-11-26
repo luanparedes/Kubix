@@ -48,6 +48,11 @@ namespace Kubix.ViewModel
         [ObservableProperty]
         private bool isCompilersShowing;
 
+        [ObservableProperty]
+        private bool isTerminalShowing;
+
+        public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing;
+
         public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
@@ -82,6 +87,7 @@ namespace Kubix.ViewModel
             IsOffice365Showing = _dataInitial.HasOffice;
             IsGoogleShowing = _dataInitial.HasGoogle;
             IsCompilersShowing = _dataInitial.HasCompilers;
+            IsTerminalShowing = _dataInitial.HasTerminal;
         }
 
         #endregion
@@ -138,6 +144,9 @@ namespace Kubix.ViewModel
                     break;
                 case "CompilersId":
                     _navigationService.GoToNavigationView(typeof(CompilersPage));
+                    break;
+                case "TerminalId":
+                    _navigationService.GoToNavigationView(typeof(TerminalPage));
                     break;
             }
         }

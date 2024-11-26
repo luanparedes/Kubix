@@ -166,6 +166,17 @@ namespace Kubix.Services.Classes
             }
         }
 
+        private bool _hasTerminal = true;
+        public bool HasTerminal
+        {
+            get { return _hasTerminal; }
+            set
+            {
+                SetProperty(ref _hasTerminal, value);
+                SaveBool(nameof(HasTerminal), value);
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -213,6 +224,7 @@ namespace Kubix.Services.Classes
             HasOffice = RecoverBool(nameof(HasOffice));
             HasGoogle = RecoverBool(nameof(HasGoogle));
             HasCompilers = RecoverBool(nameof(HasCompilers));
+            HasTerminal = RecoverBool(nameof(HasTerminal));
         }
 
         #endregion
