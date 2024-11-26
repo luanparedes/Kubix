@@ -8,9 +8,8 @@ using System.Windows.Input;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Drawing.Text;
+using Kubix.Services.Interfaces;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Kubix.ViewModel
 {
@@ -20,6 +19,8 @@ namespace Kubix.ViewModel
         private Process _process;
         private List<string> _lastCommands;
         private int _commandIndex = 0;
+
+        private readonly IDataService _dataService;
 
         ICommand ExecuteCommand { get; }
 
@@ -34,11 +35,11 @@ namespace Kubix.ViewModel
 
         public TerminalViewModel()
         {
-            CurrentDirectory = Environment.CurrentDirectory;
-            TerminalOutput = $"{CurrentDirectory}>";
-            ExecuteCommand = new RelayCommand(InitializeTerminal);
+            _dataService = Ioc.Default.GetService<IDataService>();
+            _lastCommands = _dataService.GetDBCommands();
 
-            _lastCommands = new List<string>();
+            CurrentDirectory = Environment.CurrentDirectory;
+            ExecuteCommand = new RelayCommand(InitializeTerminal);
         }
 
         private void InitializeTerminal(object parameter)
@@ -76,6 +77,8 @@ namespace Kubix.ViewModel
                 }
 
                 TerminalInput = string.Empty;
+                _commandIndex = 0;
+
                 _scrollViewer.ChangeView(0, _scrollViewer.ScrollableHeight, null);
             }
         }
@@ -93,6 +96,7 @@ namespace Kubix.ViewModel
                 if (!_lastCommands.Contains(parameter))
                 {
                     _lastCommands.Insert(0, parameter as string);
+                    _dataService.InsertIntoCommands(parameter as string);
                 }
                 else
                 {
@@ -121,6 +125,8 @@ namespace Kubix.ViewModel
                     if (Directory.Exists(fullPath))
                     {
                         CurrentDirectory = fullPath;
+                        _lastCommands.Insert(0, TerminalInput);
+                        _dataService.InsertIntoCommands(TerminalInput);
                     }
                     else
                     {
@@ -164,6 +170,9 @@ namespace Kubix.ViewModel
             {
                 try
                 {
+                    if (_commandIndex == -1)
+                        _commandIndex = 0;
+
                     TerminalInput = _lastCommands[_commandIndex];
                     _commandIndex++;
                 }

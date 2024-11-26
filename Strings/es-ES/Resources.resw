@@ -204,6 +204,9 @@
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>
   </data>
+  <data name="KB_TerminalText" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
   <data name="KB_ThemeDarkText" xml:space="preserve">
     <value>Modo Oscuro</value>
   </data>
