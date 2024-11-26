@@ -156,6 +156,9 @@
   <data name="KB_HomeText" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="KB_KDiffText" xml:space="preserve">
+    <value>K-Diff</value>
+  </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Notito</value>
   </data>

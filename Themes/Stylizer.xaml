@@ -209,6 +209,61 @@
         </Setter>
     </Style>
 
+    <Style TargetType="controls:KDiff">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:KDiff">
+                    <Grid Padding="12,0,12,12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="&lt; K-Diff &gt;" 
+                                   Grid.Column="0" 
+                                   Foreground="{ThemeResource AppMainTexts}"
+                                   FontSize="18"
+                                   Margin="10,0"
+                                   VerticalAlignment="Center"/>
+
+                        <Grid Grid.Row="1"
+                              Grid.Column="0"
+                              CornerRadius="16">
+                            <RichEditBox x:Name="LeftText"
+                                         TextWrapping="Wrap"
+                                         Style="{ThemeResource RichEditTextBox}"
+                                         SelectionFlyout="{x:Null}"/>
+                        </Grid>
+
+                        <Button Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Content="Diff"
+                                Background="{ThemeResource MenuSelectedBackgroundColor}"
+                                Width="65"
+                                Height="65"
+                                CornerRadius="50"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+
+                        <Grid Grid.Row="1"
+                              Grid.Column="2"
+                              CornerRadius="16">
+                            <RichEditBox x:Name="RightText"
+                                         TextWrapping="Wrap"
+                                         Style="{ThemeResource RichEditTextBox}"
+                                         SelectionFlyout="{x:Null}"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="controls:KBrowser">
         <Setter Property="Background" Value="{ThemeResource AppBackground}"/>
         <Setter Property="Template">

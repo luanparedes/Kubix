@@ -115,6 +115,14 @@
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
 
+                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KDiffText')}"
+                                             Alias="KDiffId"
+                                             Visibility="{x:Bind ViewModel.IsKDiffShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <controls:MenuNavigationItem.ItemIcon>
+                        <BitmapImage UriSource="ms-appx:///Assets/kdiff_feature.png" />
+                    </controls:MenuNavigationItem.ItemIcon>
+                </controls:MenuNavigationItem>
+
                 <controls:MenuNavigationItem Feature="Terminal"
                                              Alias="TerminalId"
                                              Visibility="{x:Bind ViewModel.IsTerminalShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -141,8 +149,11 @@
                         <BitmapImage UriSource="ms-appx:///Assets/settings_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
+                
             </NavigationView.FooterMenuItems>
+            
             <Frame x:Name="ContentFrame"/>
+            
         </NavigationView>
     </Grid>
 </Page>

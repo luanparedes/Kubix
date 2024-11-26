@@ -108,6 +108,9 @@ namespace Kubix.ViewModel
                 case "TerminalCheck":
                     _dataInitial.HasTerminal = checkbox.IsChecked.Value;
                     break;
+                case "KDiffCheck":
+                    _dataInitial.HasKDiff = checkbox.IsChecked.Value;
+                    break;
             }
 
             _dataInitial.OnUpdateUI();

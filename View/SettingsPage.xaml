@@ -182,6 +182,13 @@
                               IsChecked="{x:Bind ViewModel._dataInitial.HasTerminal, Mode=TwoWay}"
                               Style="{StaticResource DefaultCheckBoxStyle}"
                               Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind h:Stringer.GetString('KB_KDiffText')}" 
+                              Grid.Row="5"
+                              Grid.Column="1"
+                              Tag="KDiffCheck"
+                              IsChecked="{x:Bind ViewModel._dataInitial.HasKDiff, Mode=TwoWay}"
+                              Style="{StaticResource DefaultCheckBoxStyle}"
+                              Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </Grid>
                     </Expander.Content>
                 </Expander>

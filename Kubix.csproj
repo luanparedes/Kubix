@@ -55,6 +55,7 @@
     <None Remove="View\GooglePage.xaml" />
     <None Remove="View\HomePage.xaml" />
     <None Remove="View\InitialConfigPage.xaml" />
+    <None Remove="View\KDiffPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
     <None Remove="View\SettingsPage.xaml" />
@@ -136,6 +137,11 @@
     <Content Update="Assets\youtube_feature.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\KDiffPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\HomePage.xaml">
