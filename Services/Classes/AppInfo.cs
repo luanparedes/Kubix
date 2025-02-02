@@ -12,7 +12,7 @@ namespace Kubix.Services.Classes
             get { return _appName; }
         }
 
-        private string _appVersion = "2.2.1.0";
+        private string _appVersion = "2.4.1.0";
         public string AppVersion
         {
             get { return _appVersion; }

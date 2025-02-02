@@ -7,8 +7,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:controls="using:Kubix.Controls"
+    xmlns:diffplex="using:DiffPlex.UI"
     mc:Ignorable="d"
-    Background="{ThemeResource PageBackground}">
+    Background="{ThemeResource PageBackground}"
+    NavigationCacheMode="Enabled">
 
     <Grid>
         <controls:KDiff/>

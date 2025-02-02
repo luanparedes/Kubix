@@ -6,6 +6,7 @@ Features:
 
 Improvements:
 - Weather search city text box placeholder added.
+- Japanese language added.
 
 Bug fixes:
 - Fix bug when disabling Social Media on options and settings was hidding too.
