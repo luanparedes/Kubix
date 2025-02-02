@@ -17,11 +17,13 @@
                     <VisualState x:Name="StateChoiceApp">
                         <VisualState.Setters>
                             <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
                             <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Visible"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="MetaButtonBar.Visibility" Value="Collapsed"/>
@@ -31,11 +33,29 @@
                     <VisualState x:Name="StateChatGpt">
                         <VisualState.Setters>
                             <Setter Target="ChatGptApp.Visibility" Value="Visible"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
                             <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="BackButton.Visibility" Value="Visible"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="StateDeepseek">
+                        <VisualState.Setters>
+                            <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Visible"/>
+                            <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
@@ -45,10 +65,13 @@
                     <VisualState x:Name="StateCopilot">
                         <VisualState.Setters>
                             <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotApp.Visibility" Value="Visible"/>
-                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
-                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
+                            <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
@@ -58,11 +81,13 @@
                     <VisualState x:Name="StateGemini">
                         <VisualState.Setters>
                             <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiApp.Visibility" Value="Visible"/>
                             <Setter Target="MetaApp.Visibility" Value="Collapsed"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Collapsed"/>
                             <Setter Target="MetaButtonBar.Visibility" Value="Visible"/>
@@ -72,11 +97,13 @@
                     <VisualState x:Name="StateMeta">
                         <VisualState.Setters>
                             <Setter Target="ChatGptApp.Visibility" Value="Collapsed"/>
+                            <Setter Target="DeepseekApp.Visibility" Value="Collapsed"/>
                             <Setter Target="CopilotApp.Visibility" Value="Collapsed"/>
                             <Setter Target="GeminiApp.Visibility" Value="Collapsed"/>
                             <Setter Target="MetaApp.Visibility" Value="Visible"/>
                             <Setter Target="ChoiceAppPanel.Visibility" Value="Collapsed"/>
                             <Setter Target="ChatGptButtonBar.Visibility" Value="Visible"/>
+                            <Setter Target="DeepseekButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="CopilotButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="GeminiButtonBar.Visibility" Value="Visible"/>
                             <Setter Target="MetaButtonBar.Visibility" Value="Collapsed"/>
@@ -117,6 +144,22 @@
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
                         <Image Source="/Assets/chatgpt_logo.png" 
+                               Height="22" 
+                               Width="22"
+                               HorizontalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="DeepseekButtonBar"
+                        Width="32" 
+                        Height="32"
+                        Padding="0"
+                        Margin="0,0,7,0"
+                        CornerRadius="18"
+                        Visibility="Collapsed"
+                        Tag="DeepseekBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/deepseek_logo.png" 
                                Height="22" 
                                Width="22"
                                HorizontalAlignment="Center"/>
@@ -180,15 +223,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="180"/>
                     <RowDefinition Height="180"/>
+                    <RowDefinition Height="180"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="ChatGptButton"
-                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Grid.Row="0"
+                        HorizontalAlignment="Center"
                         Width="150" 
                         Height="150"
                         CornerRadius="180"
@@ -201,9 +246,25 @@
                                HorizontalAlignment="Center"/>
                     </Button.Content>
                 </Button>
+                <Button x:Name="DeepseekButton"
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Width="150" 
+                        Height="150"
+                        Margin="0,0,30,0"
+                        CornerRadius="180"
+                        Tag="DeepseekBtn"
+                        Click="{x:Bind ViewModel.Button_Click}">
+                    <Button.Content>
+                        <Image Source="/Assets/deepseek_logo.png" 
+                               Height="100" 
+                               Width="100"
+                               HorizontalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
                 <Button x:Name="CopilotButton"
                         Grid.Column="1"
-                        Grid.Row="0"
+                        Grid.Row="1"
                         Width="150" 
                         Height="150"
                         CornerRadius="180"
@@ -218,9 +279,10 @@
                 </Button>
                 <Button x:Name="GeminiButton"
                         Grid.Column="0"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Width="150" 
                         Height="150"
+                        Margin="0,0,30,0"
                         CornerRadius="180"
                         Tag="GeminiBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
@@ -233,7 +295,7 @@
                 </Button>
                 <Button x:Name="MetaButton"
                         Grid.Column="1"
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Width="150" 
                         Height="150"
                         CornerRadius="180"
@@ -251,6 +313,13 @@
             <WebView2 x:Name="ChatGptApp" 
                       Grid.Row="1"
                       Source="{x:Bind ViewModel.ChatGptURL}"
+                      Visibility="Collapsed"
+                      CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
+                      NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
+
+            <WebView2 x:Name="DeepseekApp" 
+                      Grid.Row="1"
+                      Source="{x:Bind ViewModel.DeepseekURL}"
                       Visibility="Collapsed"
                       CoreWebView2Initialized="{x:Bind ViewModel.AIAppWeb_CoreWebView2Initialized}"
                       NavigationStarting="{x:Bind ViewModel.AIAppWeb_NavigationStarting}"/>
