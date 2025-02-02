@@ -85,13 +85,19 @@
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
 
-                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KNoteText')}"
-                                             Alias="KNoteId"
-                                             Visibility="{x:Bind ViewModel.IsKNoteShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_GoogleText')}"
+                                             Alias="GoogleId"
+                                             Visibility="{x:Bind ViewModel.IsGoogleShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <controls:MenuNavigationItem.ItemIcon>
-                        <BitmapImage UriSource="ms-appx:///Assets/note_feature.png" />
+                        <BitmapImage UriSource="ms-appx:///Assets/google_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
+
+                <NavigationViewItemSeparator/>
+
+                <NavigationViewItemHeader Content="Tools"
+                                          Margin="0,-8,0,0"
+                                          Visibility="{x:Bind ViewModel.IsToolsShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                 <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
                                              Alias="OfficeId"
@@ -101,11 +107,27 @@
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
 
-                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_GoogleText')}"
-                                             Alias="GoogleId"
-                                             Visibility="{x:Bind ViewModel.IsGoogleShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KNoteText')}"
+                                             Alias="KNoteId"
+                                             Visibility="{x:Bind ViewModel.IsKNoteShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <controls:MenuNavigationItem.ItemIcon>
-                        <BitmapImage UriSource="ms-appx:///Assets/google_feature.png" />
+                        <BitmapImage UriSource="ms-appx:///Assets/note_feature.png" />
+                    </controls:MenuNavigationItem.ItemIcon>
+                </controls:MenuNavigationItem>
+
+                <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KDiffText')}"
+                                             Alias="KDiffId"
+                                             Visibility="{x:Bind ViewModel.IsKDiffShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <controls:MenuNavigationItem.ItemIcon>
+                        <BitmapImage UriSource="ms-appx:///Assets/kdiff_feature.png" />
+                    </controls:MenuNavigationItem.ItemIcon>
+                </controls:MenuNavigationItem>
+
+                <controls:MenuNavigationItem Feature="Terminal"
+                                             Alias="TerminalId"
+                                             Visibility="{x:Bind ViewModel.IsTerminalShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <controls:MenuNavigationItem.ItemIcon>
+                        <BitmapImage UriSource="ms-appx:///Assets/terminal_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
 
@@ -122,14 +144,16 @@
                 <NavigationViewItemSeparator/>
 
                 <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_SettingsText')}"
-                                             Alias="SettingsId"
-                                             Visibility="{x:Bind ViewModel.IsSocialMediaShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                             Alias="SettingsId" >
                     <controls:MenuNavigationItem.ItemIcon>
                         <BitmapImage UriSource="ms-appx:///Assets/settings_feature.png" />
                     </controls:MenuNavigationItem.ItemIcon>
                 </controls:MenuNavigationItem>
+                
             </NavigationView.FooterMenuItems>
+            
             <Frame x:Name="ContentFrame"/>
+            
         </NavigationView>
     </Grid>
 </Page>

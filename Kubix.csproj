@@ -55,6 +55,7 @@
     <None Remove="View\GooglePage.xaml" />
     <None Remove="View\HomePage.xaml" />
     <None Remove="View\InitialConfigPage.xaml" />
+    <None Remove="View\KDiffPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
     <None Remove="View\SettingsPage.xaml" />
@@ -76,13 +77,16 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="DiffPlex.Windows" Version="1.1.0" />
     <PackageReference Include="EPPlus" Version="7.4.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="WindowsTerminal.WinUI3.Control" Version="1.11.3471" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -134,6 +138,11 @@
     <Content Update="Assets\youtube_feature.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\KDiffPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\HomePage.xaml">

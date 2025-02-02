@@ -118,43 +118,43 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="KB_AIText" xml:space="preserve">
-    <value>IA</value>
+    <value>人工知能</value>
   </data>
   <data name="KB_AppNameText" xml:space="preserve">
-    <value>Kubix</value>
+    <value>クビックス</value>
   </data>
   <data name="KB_ChoicesText" xml:space="preserve">
-    <value>Elija las funciones que desea utilizar en Kubix. Recuerda que luego podrás modificarlo en los ajustes.</value>
+    <value>Kubix で使用する機能を選択します。後で設定で変更できることを覚えておいてください。</value>
   </data>
   <data name="KB_CompilersText" xml:space="preserve">
-    <value>Compiladores</value>
+    <value>コンパイラ</value>
   </data>
   <data name="KB_ContinueText" xml:space="preserve">
-    <value>Continuar</value>
+    <value>続く</value>
   </data>
   <data name="KB_FinishText" xml:space="preserve">
-    <value>Finalizar</value>
+    <value>仕上げる</value>
   </data>
   <data name="KB_FunctionalitiesText" xml:space="preserve">
-    <value>Funcionalidades</value>
+    <value>特徴</value>
   </data>
   <data name="KB_GoogleMapsText" xml:space="preserve">
-    <value>Mapas de Google</value>
+    <value>Googleマップ</value>
   </data>
   <data name="KB_GooglePhotosText" xml:space="preserve">
-    <value>Fotos de Google</value>
+    <value>Googleフォト</value>
   </data>
   <data name="KB_GoogleText" xml:space="preserve">
     <value>Google</value>
   </data>
   <data name="KB_HasPopulationText" xml:space="preserve">
-    <value>{0} tiene una población de {1} habitantes.</value>
+    <value>{0} の人口は {1} 人です。</value>
   </data>
   <data name="KB_HighContrastInfoText" xml:space="preserve">
-    <value>* El tema Alto contraste se configura automáticamente con Windows.</value>
+    <value>* Windows ではハイコントラスト テーマが自動的に設定されます。</value>
   </data>
   <data name="KB_HomeText" xml:space="preserve">
-    <value>Home</value>
+    <value>家</value>
   </data>
   <data name="KB_KDiffText" xml:space="preserve">
     <value>K-Diff</value>
@@ -163,78 +163,78 @@
     <value>K-Note</value>
   </data>
   <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
-    <value>Inicie sesión en Google para tener funcionalidad completa.</value>
+    <value>すべての機能を利用するには、Google でログインしてください。</value>
   </data>
   <data name="KB_MusicText" xml:space="preserve">
-    <value>Música</value>
+    <value>音楽</value>
   </data>
   <data name="KB_NewDocumentText" xml:space="preserve">
-    <value>Nuevo documento</value>
+    <value>新しい文書</value>
   </data>
   <data name="KB_Office365Text" xml:space="preserve">
-    <value>Office 365</value>
+    <value>オフィス365</value>
   </data>
   <data name="KB_PageHeader_KNote" xml:space="preserve">
     <value>&lt; K-Note &gt;</value>
   </data>
   <data name="KB_PageHeader_Settings" xml:space="preserve">
-    <value>&lt; Ajustes &gt;</value>
+    <value>&lt; 設定 &gt;</value>
   </data>
   <data name="KB_SaveCloseContentDialog" xml:space="preserve">
-    <value>Si cierras sin guardar perderás tus datos, ¿estás seguro?</value>
+    <value>保存せずに閉じるとデータが失われますが、よろしいですか?</value>
   </data>
   <data name="KB_SaveClosePrimaryDialog" xml:space="preserve">
-    <value>Ahorrar</value>
+    <value>保存</value>
   </data>
   <data name="KB_SaveCloseSecondaryDialog" xml:space="preserve">
-    <value>para cerrar</value>
+    <value>閉じる</value>
   </data>
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
-    <value>Ahorrar</value>
+    <value>保存</value>
   </data>
   <data name="KB_SearchCity" xml:space="preserve">
-    <value>Buscar ciudad</value>
+    <value>都市を検索</value>
   </data>
   <data name="KB_SelectAllText" xml:space="preserve">
-    <value>Seleccionar todo</value>
+    <value>すべて選択</value>
   </data>
   <data name="KB_SettingsText" xml:space="preserve">
-    <value>Ajustes</value>
+    <value>設定</value>
   </data>
   <data name="KB_SocialMediaText" xml:space="preserve">
-    <value>Redes sociales</value>
+    <value>ソーシャルメディア</value>
   </data>
   <data name="KB_StreamingText" xml:space="preserve">
-    <value>Streamings</value>
+    <value>ストリーミング</value>
   </data>
   <data name="KB_TerminalText" xml:space="preserve">
-    <value>Terminal</value>
+    <value>ターミナル</value>
   </data>
   <data name="KB_ThemeDarkText" xml:space="preserve">
-    <value>Modo Oscuro</value>
+    <value>ダークモード</value>
   </data>
   <data name="KB_ThemeDefaultText" xml:space="preserve">
-    <value>Valor predeterminado del sistema</value>
+    <value>システムのデフォルト</value>
   </data>
   <data name="KB_ThemeLightText" xml:space="preserve">
-    <value>Modo Claro</value>
+    <value>ライトモード</value>
   </data>
   <data name="KB_ThemesText" xml:space="preserve">
-    <value>Temas</value>
+    <value>テーマ</value>
   </data>
   <data name="KB_ToText" xml:space="preserve">
-    <value>a</value>
+    <value>に</value>
   </data>
   <data name="KB_TypeAndEnter" xml:space="preserve">
-    <value>Escriba un comando y presione Entrar</value>
+    <value>コマンドを入力してEnterキーを押します</value>
   </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
-    <value>Navegador web</value>
+    <value>ウェブブラウザ</value>
   </data>
   <data name="KB_WelcomeText" xml:space="preserve">
-    <value>Bienvenido</value>
+    <value>いらっしゃいませ</value>
   </data>
   <data name="KB_YoutubeText" xml:space="preserve">
-    <value>Youtubito</value>
+    <value>ユーチューブ</value>
   </data>
 </root>

@@ -23,6 +23,8 @@ namespace Kubix.Services.Interfaces
         public bool HasOffice { get; set; }
         public bool HasGoogle { get; set; }
         public bool HasCompilers { get; set; }
+        public bool HasTerminal { get; set; }
+        public bool HasKDiff { get; set; }
 
         public event EventHandler UIUpdateChanged;
         public void OnUpdateUI();

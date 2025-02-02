@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="db2f8bdf-ee93-47a3-b193-8bd9a1a5df69"
-    Publisher="CN=Sunnymoon"
-    Version="1.10.1.0" />
+    Name="Sunnymoon.App.Kubix"
+    Publisher="CN=Sunnymoon Software"
+    Version="2.4.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="db2f8bdf-ee93-47a3-b193-8bd9a1a5df69" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Kubix</DisplayName>
-    <PublisherDisplayName>Sunnymoon</PublisherDisplayName>
+    <PublisherDisplayName>Sunnymoon Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -40,7 +40,7 @@
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\Kubix_Icon_1024x1024.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>

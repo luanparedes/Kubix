@@ -156,6 +156,9 @@
   <data name="KB_HomeText" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="KB_KDiffText" xml:space="preserve">
+    <value>K-Diff</value>
+  </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
   </data>
@@ -189,6 +192,9 @@
   <data name="KB_SaveCloseTitleDialog" xml:space="preserve">
     <value>Salvar</value>
   </data>
+  <data name="KB_SearchCity" xml:space="preserve">
+    <value>Pesquisar cidade</value>
+  </data>
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>Selecionar tudo</value>
   </data>
@@ -200,6 +206,9 @@
   </data>
   <data name="KB_StreamingText" xml:space="preserve">
     <value>Streamings</value>
+  </data>
+  <data name="KB_TerminalText" xml:space="preserve">
+    <value>Terminal</value>
   </data>
   <data name="KB_ThemeDarkText" xml:space="preserve">
     <value>Modo Escuro</value>
@@ -215,6 +224,9 @@
   </data>
   <data name="KB_ToText" xml:space="preserve">
     <value>ao</value>
+  </data>
+  <data name="KB_TypeAndEnter" xml:space="preserve">
+    <value>Digite um comando e pressione Enter</value>
   </data>
   <data name="KB_WebBrowserText" xml:space="preserve">
     <value>Navegador Web</value>

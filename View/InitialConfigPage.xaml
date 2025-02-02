@@ -149,6 +149,14 @@
                                       Tag="CompilersCheck"
                                       Style="{StaticResource DefaultCheckBoxStyle}"
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind c:Stringer.GetString('KB_TerminalText')}" 
+                                      Tag="TerminalCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind c:Stringer.GetString('KB_KDiffText')}" 
+                                      Tag="KDiffCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </StackPanel>
                     </ScrollViewer>
 
