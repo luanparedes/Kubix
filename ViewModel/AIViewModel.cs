@@ -9,11 +9,13 @@ namespace Kubix.ViewModel
 
         public const string STATE_CHOICE_APP = "StateChoiceApp";
         public const string STATE_CHAT_GPT = "StateChatGpt";
+        public const string STATE_DEEPSEEK = "StateDeepseek";
         public const string STATE_COPILOT = "StateCopilot";
         public const string STATE_GEMINI = "StateGemini";
         public const string STATE_META = "StateMeta";
 
         public readonly string ChatGptURL = "https://chatgpt.com/";
+        public readonly string DeepseekURL = "https://chat.deepseek.com/sign_in.com/";
         public readonly string CopilotURL = "https://copilot.microsoft.com/";
         public readonly string GeminiURL = "https://gemini.google.com/app";
         public readonly string MetaURL = "https://meta.ai";
@@ -35,6 +37,11 @@ namespace Kubix.ViewModel
                 case "ChatGptBtn":
                     ActualAIApp = AIApp.ChatGpt;
                     CurrentState = STATE_CHAT_GPT;
+                    VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    break;
+                case "DeepseekBtn":
+                    ActualAIApp = AIApp.Deepseek;
+                    CurrentState = STATE_DEEPSEEK;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
                     break;
                 case "CopilotBtn":
@@ -84,6 +91,7 @@ namespace Kubix.ViewModel
     public enum AIApp
     {
         ChatGpt,
+        Deepseek,
         Copilot,
         Gemini,
         Meta
