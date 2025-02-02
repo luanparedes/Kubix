@@ -8,8 +8,6 @@ using Kubix.Services.Interfaces;
 using Kubix.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
-using System;
 using System.Collections.Generic;
 
 namespace Kubix.ViewModel
@@ -51,7 +49,10 @@ namespace Kubix.ViewModel
         [ObservableProperty]
         private bool isTerminalShowing;
 
-        public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing;
+        [ObservableProperty]
+        private bool isKDiffShowing;
+
+        public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing || IsKDiffShowing;
 
         public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
@@ -88,6 +89,7 @@ namespace Kubix.ViewModel
             IsGoogleShowing = _dataInitial.HasGoogle;
             IsCompilersShowing = _dataInitial.HasCompilers;
             IsTerminalShowing = _dataInitial.HasTerminal;
+            IsKDiffShowing = _dataInitial.HasKDiff;
         }
 
         #endregion
@@ -147,6 +149,9 @@ namespace Kubix.ViewModel
                     break;
                 case "TerminalId":
                     _navigationService.GoToNavigationView(typeof(TerminalPage));
+                    break;
+                case "KDiffId":
+                    _navigationService.GoToNavigationView(typeof(KDiffPage));
                     break;
             }
         }

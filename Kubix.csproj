@@ -55,6 +55,7 @@
     <None Remove="View\GooglePage.xaml" />
     <None Remove="View\HomePage.xaml" />
     <None Remove="View\InitialConfigPage.xaml" />
+    <None Remove="View\KDiffPage.xaml" />
     <None Remove="View\KNotePage.xaml" />
     <None Remove="View\Office365Page.xaml" />
     <None Remove="View\SettingsPage.xaml" />
@@ -76,6 +77,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="DiffPlex.Windows" Version="1.1.0" />
     <PackageReference Include="EPPlus" Version="7.4.2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -136,6 +138,11 @@
     <Content Update="Assets\youtube_feature.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="View\KDiffPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\HomePage.xaml">
