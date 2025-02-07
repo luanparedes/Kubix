@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Kubix (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Kubix (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

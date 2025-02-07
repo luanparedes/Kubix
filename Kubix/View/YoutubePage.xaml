@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Kubix.View.YoutubePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kubix.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required"
+    Background="{ThemeResource PageBackground}">
+
+    <Grid Background="{ThemeResource AppBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <WebView2 Grid.Row="1"
+                  Source="{x:Bind ViewModel.YoutubeURL}"
+                  CoreWebView2Initialized="{x:Bind ViewModel.YoutubeAppWeb_CoreWebView2Initialized}"
+                  NavigationStarting="{x:Bind ViewModel.YoutubeAppWeb_NavigationStarting}"/>
+    </Grid>
+</Page>
