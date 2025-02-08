@@ -3,11 +3,9 @@
     x:Class="Kubix.View.InitialConfigPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Kubix.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="using:Kubix.Helpers"
-    xmlns:converters="Convert"
     mc:Ignorable="d"
     Background="{ThemeResource PageBackground}">
 
@@ -145,16 +143,16 @@
                                       Tag="GoogleCheck"
                                       Style="{StaticResource DefaultCheckBoxStyle}"
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind c:Stringer.GetString('KB_KDiffText')}" 
+                                      Tag="KDiffCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_CompilersText')}" 
                                       Tag="CompilersCheck"
                                       Style="{StaticResource DefaultCheckBoxStyle}"
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_TerminalText')}" 
                                       Tag="TerminalCheck"
-                                      Style="{StaticResource DefaultCheckBoxStyle}"
-                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
-                            <CheckBox Content="{x:Bind c:Stringer.GetString('KB_KDiffText')}" 
-                                      Tag="KDiffCheck"
                                       Style="{StaticResource DefaultCheckBoxStyle}"
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </StackPanel>
