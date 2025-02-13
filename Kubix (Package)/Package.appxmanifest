@@ -10,7 +10,7 @@
   <Identity
   Name="SunnymoonSoftware.KubixSystem"
   Publisher="CN=267D9785-0928-4547-B685-40A9EADDFB64"
-  Version="2.4.1.0" />
+  Version="2.5.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="23c01406-6bba-44e6-81b9-2d706907e156" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
