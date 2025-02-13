@@ -1,0 +1,13 @@
+Release notes v.2.5.0
+
+Features:
+- Packaged project changed architecture.
+
+Improvements:
+- Title bar.
+- Kubix name and version to title bar.
+- Home Page display.
+
+Bug fixes:
+- Invisible title bar conflicting with buttons behind.
+- Weather forecast loading forever fixed.
