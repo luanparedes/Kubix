@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Windows.Storage;
 
 namespace Kubix.Services.Classes
 {
@@ -12,9 +13,27 @@ namespace Kubix.Services.Classes
     {
         #region Fields & Properties
 
-        private string filePath = "D:\\01_Desktop\\Developer\\Softwares\\C#\\Kubix\\Assets\\worldcities.xlsx";
+        private const string EXCEL_NAME = "worldcities.xlsx";
+        private string filePath;
+        #endregion
+
+        #region Constructor
+
+        public ExcelService()
+        {
+            CreateExcelFile();
+        }
 
         #endregion
+
+        #region Methods
+
+        private async void CreateExcelFile()
+        {
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Kubix/Assets/{EXCEL_NAME}"));
+            StorageFile copiedFile = await file.CopyAsync(ApplicationData.Current.LocalFolder, EXCEL_NAME, NameCollisionOption.ReplaceExisting);
+            filePath = copiedFile.Path;
+        }
 
         public List<CityModel> GetAllCities()
         {
@@ -114,5 +133,7 @@ namespace Kubix.Services.Classes
                 return cities.First();
             }
         }
+
+        #endregion
     }
 }
