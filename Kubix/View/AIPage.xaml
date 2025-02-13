@@ -143,7 +143,7 @@
                         Tag="ChatGptBtn"
                         Click="{x:Bind ViewModel.Button_Click}">
                     <Button.Content>
-                        <Image Source="/Assets/chatgpt_logo.png" 
+                        <Image Source="ms-appx///Kubix/Assets/chatgpt_logo.png" 
                                Height="22" 
                                Width="22"
                                HorizontalAlignment="Center"/>
