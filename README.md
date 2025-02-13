@@ -21,8 +21,7 @@ Whether you're binge-watching, listening to your favorite playlists, or handling
 📂 Office Suite integration – Open Word, Excel, and other essential services.
 
 🌍 Google Pages – Access everything you need, from searches to documents, all in one place!
-
-
+=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=
 
 🔧 Technologies Used
 
@@ -31,15 +30,24 @@ C# + Windows App SDK (WinUI 3) – A modern and smooth interface for Windows.
 WebView2 – Optimized experience for online services.
 
 MVVM Pattern – Efficient and scalable code structure.
-
+=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=
 
 🚀 Installation
+
 Download the installer here: https://apps.microsoft.com/detail/9N4N223P47KN. 
+
 Run the file and follow the on-screen instructions. 
+
 Enjoy the power of Kubix! 
+=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=
+
 💡 Why Choose Kubix?
+
 ✅ Everything in one place – no need to open multiple windows.
+
 ✅ Modern design, optimized for Windows 11.
+
 ✅ Lightweight, fast, and intuitive!
+
 
 🔹 Try it now and experience a new way to browse, create, and enjoy with Kubix!
