@@ -23,7 +23,9 @@ Whether you're binge-watching, listening to your favorite playlists, or handling
 🌍 Google Pages – Access everything you need, from searches to documents, all in one place!
 
 
+
 🔧 Technologies Used
+
 C# + Windows App SDK (WinUI 3) – A modern and smooth interface for Windows.
 
 WebView2 – Optimized experience for online services.
