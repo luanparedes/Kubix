@@ -12,7 +12,6 @@
     <UserControl x:Name="PageControl">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 

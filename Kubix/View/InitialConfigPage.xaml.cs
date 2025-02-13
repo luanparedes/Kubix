@@ -1,4 +1,3 @@
-
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Kubix.ViewModel;
 using Microsoft.UI.Xaml.Controls;

@@ -54,6 +54,7 @@ namespace Kubix.ViewModel
 
         public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing || IsKDiffShowing;
 
+        public readonly IAppInfo _appInfo = Ioc.Default.GetService<IAppInfo>();
         public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
         private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
         private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
