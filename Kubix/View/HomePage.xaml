@@ -98,21 +98,21 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
+
     <Grid Padding="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <controls:KClock Grid.Column="0"
+        <StackPanel Orientation="Vertical" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+
+            <controls:KClock Grid.Column="0"
                          Grid.Row="1"/>
-        <CalendarView Grid.Row="2"
+
+            <CalendarView Grid.Row="2"
                       Grid.Column="0"
                       SelectionMode="None"
                       IsGroupLabelVisible="True"
@@ -120,10 +120,16 @@
                       Language="pt"
                       CalendarIdentifier="GregorianCalendar"
                       VerticalAlignment="Bottom"
-                      HorizontalAlignment="Center"/>
+                      HorizontalAlignment="Center"
+                      Margin="0,20,0,0"/>
+        </StackPanel>
 
-        <controls:WeatherForecastControl Grid.Column="1"
-                                         Grid.Row="1"
-                                         Grid.RowSpan="2"/>
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center">
+            
+            <controls:WeatherForecastControl Grid.Column="1"
+                                             Grid.Row="1"
+                                             Grid.RowSpan="2"/>
+        </StackPanel>
     </Grid>
 </Page>
