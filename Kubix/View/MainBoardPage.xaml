@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Kubix.MainBoardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kubix"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:h="using:Kubix.Helpers"
+    xmlns:models="using:Kubix.Model" 
+    xmlns:controls="using:Kubix.Controls"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <h:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Background="{ThemeResource AppBackground}"
+                    Height="32">
+            <TextBlock Text="{x:Bind h:Stringer.GetString('KB_AppNameText')}"
+                       FontFamily="Showcard Gothic"
+                       FontSize="18"
+                       VerticalAlignment="Center"
+                       Margin="15,2,8,0"/>
+            <TextBlock Text="{x:Bind ViewModel._appInfo.AppVersion}"
+                       FontSize="12"
+                       Foreground="{ThemeResource AppMainTexts}"
+                       VerticalAlignment="Center"
+                       Margin="0,7,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch" 
+              Background="{ThemeResource AppBackground}">
+            <NavigationView x:Name="NavigationView"
+                    PaneDisplayMode="Left"
+                    IsBackButtonVisible="Collapsed"
+                    OpenPaneLength="230"
+                    Background="{ThemeResource AppBackground}"
+                    Loaded="{x:Bind ViewModel.NavigationView_Loaded}" IsSettingsVisible="False"
+                    SelectionChanged="{x:Bind ViewModel.NavigationView_SelectionChanged}">
+                <NavigationView.MenuItems>
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_HomeText')}"
+                                         Alias="HomeId"
+                                         Visibility="Visible">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/home_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <NavigationViewItemSeparator />
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_WebBrowserText')}"
+                                         Alias="BrowserId"
+                                         Visibility="{x:Bind ViewModel.IsBrowserShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/globe_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_AIText')}"
+                                         Alias="AiId"
+                                         Visibility="{x:Bind ViewModel.IsAIShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/ai2_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_MusicText')}"
+                                         Alias="MusicId"
+                                         Visibility="{x:Bind ViewModel.IsMusicShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/music_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_YoutubeText')}"
+                                         Alias="YoutubeId"
+                                         Visibility="{x:Bind ViewModel.IsYoutubeShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/youtube_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_StreamingText')}"
+                                         Alias="StreamingId"
+                                         Visibility="{x:Bind ViewModel.IsStreamingShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/streaming_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_SocialMediaText')}"
+                                         Alias="SocialMediaId"
+                                         Visibility="{x:Bind ViewModel.IsSocialMediaShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/socialmedia_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_GoogleText')}"
+                                         Alias="GoogleId"
+                                         Visibility="{x:Bind ViewModel.IsGoogleShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/google_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <NavigationViewItemSeparator/>
+
+                    <NavigationViewItemHeader Content="Tools"
+                                      Margin="0,-8,0,0"
+                                      Visibility="{x:Bind ViewModel.IsToolsShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_Office365Text')}"
+                                         Alias="OfficeId"
+                                         Visibility="{x:Bind ViewModel.IsOffice365Showing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/office_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KNoteText')}"
+                                         Alias="KNoteId"
+                                         Visibility="{x:Bind ViewModel.IsKNoteShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/note_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_KDiffText')}"
+                                         Alias="KDiffId"
+                                         Visibility="{x:Bind ViewModel.IsKDiffShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/kdiff_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="Terminal"
+                                         Alias="TerminalId"
+                                         Visibility="{x:Bind ViewModel.IsTerminalShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/terminal_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_CompilersText')}"
+                                         Alias="CompilersId"
+                                         Visibility="{x:Bind ViewModel.IsCompilersShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/compiler_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+                </NavigationView.MenuItems>
+
+                <NavigationView.FooterMenuItems>
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_SettingsText')}"
+                                         Alias="SettingsId" >
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/settings_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                </NavigationView.FooterMenuItems>
+
+                <Frame x:Name="ContentFrame"/>
+
+            </NavigationView>
+        </Grid>
+    </Grid>
+</Page>
