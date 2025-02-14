@@ -29,6 +29,7 @@ namespace Kubix.Controls
 
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private readonly IExcelService _excelService;
 
         private Control mainControl;
@@ -48,6 +49,7 @@ namespace Kubix.Controls
 
         public WeatherForecastControl()
         {
+            _logger = Ioc.Default.GetService<ILogger>();
             _excelService = Ioc.Default.GetService<IExcelService>();
         }
 
@@ -119,6 +121,11 @@ namespace Kubix.Controls
             CurrentState = WEATHER_STATE;
             loadingWeather.IsActive = false;
             VisualStateManager.GoToState(mainControl, CurrentState, true);
+
+            _logger.InfoLog($"Country: {ActualCity.Country}\n" +
+                            $"City: {ActualCity.City}\n" +
+                            $"Temperature: {ActualCity.Temperature}\n" +
+                            $"Population: {ActualCity.Population}");
         }
 
         private string TextWithoutAccent(string city)
