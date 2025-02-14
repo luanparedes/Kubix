@@ -15,7 +15,7 @@
   <mp:PhoneIdentity PhoneProductId="b27f7daf-9084-4d57-8d14-ef6b6850b331" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Kubix</DisplayName>
+    <DisplayName>Kubix System</DisplayName>
     <PublisherDisplayName>Sunnymoon Software</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
