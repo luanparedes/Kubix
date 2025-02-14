@@ -1,10 +1,13 @@
-﻿using Kubix.Model;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Model;
 using Kubix.Services.Interfaces;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Windows.ApplicationModel;
 using Windows.Storage;
 
 namespace Kubix.Services.Classes
@@ -13,6 +16,7 @@ namespace Kubix.Services.Classes
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private const string EXCEL_NAME = "worldcities.xlsx";
         private string filePath;
         #endregion
@@ -22,6 +26,7 @@ namespace Kubix.Services.Classes
         public ExcelService()
         {
             CreateExcelFile();
+            _logger = Ioc.Default.GetService<ILogger>();
         }
 
         #endregion
@@ -30,9 +35,16 @@ namespace Kubix.Services.Classes
 
         private async void CreateExcelFile()
         {
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
-            StorageFile copiedFile = await file.CopyAsync(ApplicationData.Current.LocalFolder, EXCEL_NAME, NameCollisionOption.ReplaceExisting);
-            filePath = copiedFile.Path;
+            StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
+            StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(EXCEL_NAME, CreationCollisionOption.ReplaceExisting);
+            await sourceFile.CopyAndReplaceAsync(destinationFile);
+
+            string localFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, EXCEL_NAME);
+            StorageFile file = await StorageFile.GetFileFromPathAsync(localFilePath);
+
+            filePath = file.Path;
+
+            _logger.InfoLog($"File copied succeffuly {filePath}");
         }
 
         public List<CityModel> GetAllCities()

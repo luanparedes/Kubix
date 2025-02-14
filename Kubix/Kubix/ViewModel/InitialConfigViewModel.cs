@@ -21,6 +21,7 @@ namespace Kubix.ViewModel
         private Panel panel;
         private CheckBox selectAllCheckbox;
 
+        private readonly ILogger _logger;
         private readonly IDataInitial _dataInitial;
         private readonly INavigationService _navigationService;
 
@@ -57,6 +58,9 @@ namespace Kubix.ViewModel
         {
             _navigationService = Ioc.Default.GetService<INavigationService>();
             _dataInitial = Ioc.Default.GetService<IDataInitial>();
+            _logger = Ioc.Default.GetService<ILogger>();
+
+            _logger.InfoLog("Entrou na página!!!");
         }
 
         #endregion
@@ -118,6 +122,7 @@ namespace Kubix.ViewModel
         public void CheckBox_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             selectAllCheckbox = sender as CheckBox;
+            selectAllCheckbox.Checked += CheckBox_Checked;
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
@@ -128,6 +133,7 @@ namespace Kubix.ViewModel
             {
                 case "ContinueBtn":
                     CurrentState = CHOICES_STATE;
+                    _logger.InfoLog("Saiu do Welcome!");
                     break;
                 case "FinishBtn":
                     _dataInitial.IsFirstTimeOpening = false;
