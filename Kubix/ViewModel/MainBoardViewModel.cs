@@ -67,7 +67,7 @@ namespace Kubix.ViewModel
 
         public MainBoardViewModel()
         {
-            _logger.InfoLog("Entered Constructor ViewModel!");
+            _logger.InfoLog("Entered Constructor MainPage!");
             _dataInitial.UIUpdateChanged += _dataInitial_UIUpdateChanged;
 
             GetChoicesFeatures();
