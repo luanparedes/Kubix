@@ -99,7 +99,9 @@
         </Style>
     </Page.Resources>
 
-    <Grid Padding="12">
+    <Grid Padding="12"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -107,7 +109,8 @@
 
         <StackPanel Orientation="Vertical" 
                     HorizontalAlignment="Center" 
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Margin="30">
 
             <controls:KClock Grid.Column="0"
                          Grid.Row="1"/>
