@@ -12,12 +12,46 @@
 
     <Grid Background="{ThemeResource AppBackground}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BackButton" 
+                    Padding="1"
+                    Width="35" 
+                    CornerRadius="20"
+                    Height="35"
+                    Margin="5,0,20,0"
+                    Tag="BackButton"
+                    IsEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=TwoWay}"
+                    Click="{x:Bind ViewModel.BackButton_Click}">
+                <FontIcon Glyph="&#xE72B;"
+                          FontFamily="Segoe MDL2 Assets" 
+                          HorizontalAlignment="Center" 
+                          FontSize="16"/>
+            </Button>
+            <Button x:Name="ForwardButton" 
+                    
+                    Padding="1"
+                    Width="35" 
+                    CornerRadius="20"
+                    Height="35"
+                    Margin="5,0,20,0"
+                    Tag="BackButton"
+                    IsEnabled="{x:Bind ViewModel.IsForwardEnabled, Mode=TwoWay}"
+                    Click="{x:Bind ViewModel.ForwardButton_Click}">
+                <FontIcon Glyph="&#xE72A;"
+                          FontFamily="Segoe MDL2 Assets" 
+                          HorizontalAlignment="Center" 
+                          FontSize="16"/>
+            </Button>
+        </StackPanel>
         
         <WebView2 Grid.Row="1"
                   Source="{x:Bind ViewModel.YoutubeURL}"
                   CoreWebView2Initialized="{x:Bind ViewModel.YoutubeAppWeb_CoreWebView2Initialized}"
+                  
                   NavigationStarting="{x:Bind ViewModel.YoutubeAppWeb_NavigationStarting}"/>
     </Grid>
 </Page>
