@@ -114,7 +114,6 @@ namespace Kubix.ViewModel
 
                         _process.Start();
                         await GetTerminalOutput(parameter as string);
-
                     });
 
                     VerifyChangeFolderCommand();
@@ -127,7 +126,7 @@ namespace Kubix.ViewModel
                 {
                     IsWaitingFinishCommand = false;
                 }
-
+                
                 TerminalInput = string.Empty;
                 _commandIndex = 0;
 

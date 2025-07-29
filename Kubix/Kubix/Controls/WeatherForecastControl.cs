@@ -106,11 +106,6 @@ namespace Kubix.Controls
             return null;
         }
 
-        private void GetHottestCity()
-        {
-
-        }
-
         private void ShowInfoOnScreen()
         {
             searchBox.Text = string.Empty;
@@ -175,9 +170,11 @@ namespace Kubix.Controls
             ShowInfoOnScreen();
         }
 
-        private void MainControl_Loaded(object sender, RoutedEventArgs e)
+        private async void MainControl_Loaded(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(mainControl, CurrentState, true);
+            _excelService.InitializeExcelFile();
+            await GetUserLocation();
         }
 
         #endregion
@@ -206,7 +203,7 @@ namespace Kubix.Controls
                 searchBox.SuggestionChosen += SearchBox_SuggestionChosen;
             }
 
-            await GetUserLocation();
+            //await GetUserLocation();
         }
 
         #endregion

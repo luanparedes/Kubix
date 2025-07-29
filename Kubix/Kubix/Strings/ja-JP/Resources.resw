@@ -132,6 +132,9 @@
   <data name="KB_ContinueText" xml:space="preserve">
     <value>続く</value>
   </data>
+  <data name="KB_DefaultCommands" xml:space="preserve">
+    <value>標準コマンド</value>
+  </data>
   <data name="KB_FinishText" xml:space="preserve">
     <value>仕上げる</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
+  </data>
+  <data name="KB_LastCommands" xml:space="preserve">
+    <value>最新のコマンド</value>
   </data>
   <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
     <value>すべての機能を利用するには、Google でログインしてください。</value>

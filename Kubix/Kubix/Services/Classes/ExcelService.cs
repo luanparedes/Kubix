@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
@@ -25,7 +26,6 @@ namespace Kubix.Services.Classes
 
         public ExcelService()
         {
-            CreateExcelFile();
             _logger = Ioc.Default.GetService<ILogger>();
         }
 
@@ -33,18 +33,55 @@ namespace Kubix.Services.Classes
 
         #region Methods
 
+        public void InitializeExcelFile()
+        {
+            CreateExcelFile();
+        }
+
+        public async Task CreateExcelFile1()
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile sourceFile = null;
+
+            bool fileExists = false;
+            try
+            {
+                sourceFile = await localFolder.GetFileAsync(EXCEL_NAME);
+                fileExists = true;
+            }
+            catch
+            {
+                fileExists = false;
+            }
+
+            if (!fileExists)
+            {
+                sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
+                await sourceFile.CopyAsync(localFolder, EXCEL_NAME, NameCollisionOption.ReplaceExisting);
+            }
+
+            filePath = sourceFile?.Path;
+        }
+
         private async void CreateExcelFile()
         {
-            StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
-            StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(EXCEL_NAME, CreationCollisionOption.ReplaceExisting);
-            await sourceFile.CopyAndReplaceAsync(destinationFile);
+            try
+            {
+                StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
+                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(EXCEL_NAME, CreationCollisionOption.ReplaceExisting);
+                await sourceFile.CopyAndReplaceAsync(destinationFile);
 
-            string localFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, EXCEL_NAME);
-            StorageFile file = await StorageFile.GetFileFromPathAsync(localFilePath);
+                string localFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, EXCEL_NAME);
+                StorageFile file = await StorageFile.GetFileFromPathAsync(localFilePath);
 
-            filePath = file.Path;
+                filePath = file.Path;
 
-            _logger.InfoLog($"File copied succeffuly {filePath}");
+                _logger.InfoLog($"File copied succeffuly {filePath}");
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog($"Error while creating excel file: {ex.Message}");
+            }
         }
 
         public List<CityModel> GetAllCities()
