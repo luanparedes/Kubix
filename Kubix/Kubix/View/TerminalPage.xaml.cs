@@ -25,6 +25,7 @@ namespace Kubix.View
         {
             this.InitializeComponent();
             ViewModel = Ioc.Default.GetService<TerminalViewModel>();
+            ViewModel.DispatcherQueueVM = DispatcherQueue;
         }
     }
 }

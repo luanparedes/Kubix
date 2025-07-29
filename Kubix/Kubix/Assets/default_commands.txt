@@ -1,0 +1,131 @@
+Get-AppxPackage
+Get-AppxPackage -AllUsers
+Remove-AppxPackage
+Add-AppxPackage
+Get-Package
+Install-Package
+Uninstall-Package
+Update-Package
+Get-WindowsPackage
+Add-WindowsPackage
+Remove-WindowsPackage
+Get-ComputerInfo
+Get-CimInstance -ClassName Win32_OperatingSystem
+Get-CimInstance -ClassName Win32_BIOS
+Get-CimInstance -ClassName Win32_ComputerSystem
+systeminfo
+hostname
+whoami
+Get-Date
+Get-Disk
+Get-Partition
+Get-Volume
+Get-PhysicalDisk
+Initialize-Disk
+New-Partition
+Format-Volume
+Get-Disk | Clear-Disk -RemoveData
+Get-ChildItem
+Set-Location
+Get-Location
+New-Item
+Remove-Item
+Copy-Item
+Move-Item
+Rename-Item
+Test-Path
+Get-LocalUser
+New-LocalUser
+Remove-LocalUser
+Disable-LocalUser
+Enable-LocalUser
+Get-LocalGroup
+Add-LocalGroupMember
+Remove-LocalGroupMember
+Get-LocalGroupMember
+Get-Credential
+ConvertTo-SecureString
+Read-Host -AsSecureString
+Get-ExecutionPolicy
+Set-ExecutionPolicy
+Get-NetIPConfiguration
+Get-NetIPAddress
+Get-NetRoute
+Get-NetAdapter
+Enable-NetAdapter
+Disable-NetAdapter
+Get-DnsClientServerAddress
+Test-Connection
+Resolve-DnsName
+Get-NetTCPConnection
+netstat -ano
+ping google.com
+tracert google.com
+ipconfig /all
+Get-Process
+Stop-Process
+Start-Process
+Get-Service
+Start-Service
+Stop-Service
+Restart-Service
+Get-WmiObject -Class Win32_Service
+Clear-RecycleBin
+cleanmgr
+sfc /scannow
+DISM /Online /Cleanup-Image /RestoreHealth
+chkdsk
+Get-EventLog -LogName Application -Newest 20
+Get-EventLog -LogName System -Newest 20
+Get-WinEvent -LogName Security
+Get-ScheduledTask
+Register-ScheduledTask
+Unregister-ScheduledTask
+Start-ScheduledTask
+Get-WindowsUpdate
+Install-WindowsUpdate
+Get-WUHistory
+Get-NetFirewallRule
+New-NetFirewallRule
+Remove-NetFirewallRule
+Set-NetFirewallProfile
+msconfig
+control
+Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
+Get-WmiObject -Class Win32_Product
+Test-NetConnection
+Get-EventLog
+Get-WinEvent
+Measure-Command { ... }
+Start-Transcript
+Stop-Transcript
+Set-ExecutionPolicy RemoteSigned
+Invoke-Expression
+Invoke-Command
+Start-Job
+Get-Job
+Receive-Job
+Remove-Job
+Install-Module
+Get-Module
+Update-Module
+Import-Module
+Uninstall-Module
+Get-CimInstance -ClassName Win32_Processor
+Get-CimInstance -ClassName Win32_LogicalDisk
+Get-CimInstance -ClassName Win32_PhysicalMemory
+Get-CimInstance -ClassName Win32_VideoController
+Get-Variable
+Set-Variable
+Remove-Variable
+New-Alias
+Get-Alias
+Remove-Alias
+Get-HotFix
+shutdown /r /t 0
+Restart-Computer
+Stop-Computer
+Get-Random
+Start-Sleep -Seconds 5
+Get-Clipboard
+Set-Clipboard "Texto copiado"

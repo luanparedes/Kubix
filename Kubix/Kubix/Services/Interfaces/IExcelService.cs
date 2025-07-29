@@ -9,6 +9,7 @@ namespace Kubix.Services.Interfaces
 {
     public interface IExcelService
     {
+        void InitializeExcelFile();
         public List<CityModel> GetTypedCities(string text);
         public List<CityModel> GetAllCities();
         public CityModel GetCityByPosition(double latitude, double longitude);
