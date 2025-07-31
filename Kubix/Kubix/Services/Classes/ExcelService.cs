@@ -15,10 +15,15 @@ namespace Kubix.Services.Classes
 {
     public class ExcelService : IExcelService
     {
+        #region Constants
+
+        private const string EXCEL_NAME = "worldcities.xlsx";
+
+        #endregion
+
         #region Fields & Properties
 
         private readonly ILogger _logger;
-        private const string EXCEL_NAME = "worldcities.xlsx";
         private string filePath;
         #endregion
 
@@ -33,37 +38,12 @@ namespace Kubix.Services.Classes
 
         #region Methods
 
-        public void InitializeExcelFile()
+        public async void InitializeExcelFile()
         {
-            CreateExcelFile();
+            await CreateExcelFile();
         }
 
-        public async Task CreateExcelFile1()
-        {
-            var localFolder = ApplicationData.Current.LocalFolder;
-            StorageFile sourceFile = null;
-
-            bool fileExists = false;
-            try
-            {
-                sourceFile = await localFolder.GetFileAsync(EXCEL_NAME);
-                fileExists = true;
-            }
-            catch
-            {
-                fileExists = false;
-            }
-
-            if (!fileExists)
-            {
-                sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
-                await sourceFile.CopyAsync(localFolder, EXCEL_NAME, NameCollisionOption.ReplaceExisting);
-            }
-
-            filePath = sourceFile?.Path;
-        }
-
-        private async void CreateExcelFile()
+        private async Task CreateExcelFile()
         {
             try
             {
