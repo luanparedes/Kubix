@@ -38,12 +38,12 @@ namespace Kubix.Services.Classes
 
         #region Methods
 
-        public void InitializeExcelFile()
+        public async void InitializeExcelFile()
         {
-            CreateExcelFile();
+            await CreateExcelFile();
         }
 
-        private async void CreateExcelFile()
+        private async Task CreateExcelFile()
         {
             try
             {

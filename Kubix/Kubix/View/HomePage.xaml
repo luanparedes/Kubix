@@ -104,13 +104,13 @@
           VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
-                    Margin="30">
+                    Margin="10,10,20,10">
 
             <controls:KClock Grid.Column="0"
                          Grid.Row="1"/>

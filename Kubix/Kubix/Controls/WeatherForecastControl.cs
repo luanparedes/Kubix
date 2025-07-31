@@ -108,13 +108,16 @@ namespace Kubix.Controls
 
         private void ShowInfoOnScreen()
         {
-            searchBox.Text = string.Empty;
-            cityText.Text = $"{ActualCity.City}, {ActualCity.Country}";
-            temperatureText.Text = ActualCity.Temperature.ToString() + " º";
-            populationText.Text = Stringer.GetString("KB_HasPopulationText", ActualCity.City, ActualCity.Population);
+            this.DispatcherQueue.TryEnqueue(() =>
+            {
+                searchBox.Text = string.Empty;
+                cityText.Text = $"{ActualCity.City}, {ActualCity.Country}";
+                temperatureText.Text = ActualCity.Temperature.ToString() + " º";
+                populationText.Text = Stringer.GetString("KB_HasPopulationText", ActualCity.City, ActualCity.Population);
+                loadingWeather.IsActive = false;
+            });
 
             CurrentState = WEATHER_STATE;
-            loadingWeather.IsActive = false;
             VisualStateManager.GoToState(mainControl, CurrentState, true);
 
             _logger.InfoLog($"Country: {ActualCity.Country}\n" +
@@ -177,8 +180,9 @@ namespace Kubix.Controls
             await Task.Run(async () =>
             {
                 _excelService.InitializeExcelFile();
-                await GetUserLocation();
             });
+
+            await GetUserLocation();
         }
 
         #endregion
