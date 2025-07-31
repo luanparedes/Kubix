@@ -6,7 +6,10 @@
     xmlns:controls="using:Kubix.Controls"
     xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" 
-    xmlns:models="using:Kubix.Model" xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives" xmlns:diffplex="using:DiffPlex.UI">
+    xmlns:models="using:Kubix.Model" 
+    xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives" 
+    xmlns:diffplex="using:DiffPlex.UI" 
+    xmlns:helpers="using:Kubix.Helpers">
 
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
@@ -2921,4 +2924,125 @@
         </Setter>
     </Style>
 
+    <!-- KTerminal -->
+
+    <Style TargetType="controls:KTerminal">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:KTerminal">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <ProgressRing x:Name="WeatherProgressRing"
+                                          IsActive="{TemplateBinding IsWaitingFinishCommand}"
+                                          Background="{ThemeResource LoadingBackgroundColor}"
+                                          Foreground="{ThemeResource LoadingForegroundColor}"
+                                          Width="100" 
+                                          Height="100"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                            <ScrollViewer x:Name="MainScrollViewer" Grid.Row="0" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          VerticalScrollMode="Auto">
+                                <TextBlock x:Name="OutputTextBlock"                      
+                                           Text="{TemplateBinding TerminalOutput}"
+                                           FontFamily="Consolas"
+                                           TextWrapping="Wrap"
+                                           IsTextSelectionEnabled="True"/>
+                            </ScrollViewer>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="{TemplateBinding CurrentDirectory}"
+                                       FontWeight="Bold"
+                                       Margin="10"
+                                       IsTextSelectionEnabled="True"/>
+
+                            <TextBox x:Name="CommandTextBox"
+                                     Grid.Row="2"
+                                     Text="{TemplateBinding TerminalInput}"
+                                     FontFamily="Consolas"
+                                     PlaceholderText="{TemplateBinding PlaceholderText}"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" 
+                              CornerRadius="18"
+                              Margin="10,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                                  CornerRadius="18"
+                                  Margin="0,0,0,10"
+                                  Background="{ThemeResource SectionPanelBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{TemplateBinding LatestCommandsText}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           FontSize="12"/>
+                                <ListView x:Name="LatestListView"
+                                          Grid.Row="1"
+                                          ItemTemplate="{StaticResource CommandTemplate}"
+                                          ItemContainerStyle="{StaticResource CommandsStyleListView}"/>
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  CornerRadius="18"
+                                  Background="{ThemeResource SectionPanelBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{TemplateBinding DefaultCommandsText}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           FontSize="12"/>
+                                <ListView x:Name="DefaultListView"
+                                          Grid.Row="1"
+                                          ItemTemplate="{StaticResource CommandTemplate}"
+                                          ItemContainerStyle="{StaticResource CommandsStyleListView}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="CommandTemplate">
+        <Grid VerticalAlignment="Center"
+          Height="20" Margin="10,2,10,0">
+            <TextBlock Text="{Binding}"
+                   FontSize="12"
+                   FontFamily="Consolas"
+                   TextTrimming="CharacterEllipsis"/>
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{Binding}"/>
+            </ToolTipService.ToolTip>
+        </Grid>
+    </DataTemplate>
+    
+    <Style x:Key="CommandsStyleListView" TargetType="ListViewItem">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+    </Style>
+    
+    <!-- /// -->
 </ResourceDictionary>

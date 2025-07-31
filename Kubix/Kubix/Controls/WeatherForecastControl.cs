@@ -173,8 +173,12 @@ namespace Kubix.Controls
         private async void MainControl_Loaded(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(mainControl, CurrentState, true);
-            _excelService.InitializeExcelFile();
-            await GetUserLocation();
+
+            await Task.Run(async () =>
+            {
+                _excelService.InitializeExcelFile();
+                await GetUserLocation();
+            });
         }
 
         #endregion
