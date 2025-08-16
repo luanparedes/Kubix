@@ -114,6 +114,7 @@ namespace Kubix.Services.Classes
 
                             if (update.PercentCompleted != download.PercentCompleted)
                             {
+                                update.IsDownloading = false;
                                 _logger.InfoLog($"Download {download.PackageName} {update.PercentCompleted}%");
                                 InvokeEvent(EventEnum.DownloadProgress, download, update);
                             }
@@ -183,9 +184,9 @@ namespace Kubix.Services.Classes
                 }
                 else if (update.State == DownloadState.Cancelled)
                 {
-                    await manager.StopAsync();
                     ResetValues(update);
                     InvokeEvent(EventEnum.DownloadProgress, download, update);
+                    await manager.StopAsync();
                     return;
                 }
 
@@ -201,6 +202,7 @@ namespace Kubix.Services.Classes
             update.BytesDownloaded = update.DownloadSize;
             update.PercentCompleted = 100;
             update.DownloadSpeed = string.Empty;
+            update.IsDownloading = false;
 
             InvokeEvent(EventEnum.DownloadProgress, download, update);
 
@@ -320,6 +322,7 @@ namespace Kubix.Services.Classes
             update.DownloadSize = 0;
             update.DownloadSpeed = string.Empty;
             update.State = DownloadState.Cancelled;
+            update.IsDownloading = false;
         }
 
         private void ActiveActions(DownloadModel download, DownloadModel update)

@@ -28,6 +28,8 @@ namespace Kubix.Model
         [ObservableProperty]
         private bool isNotStartedDownload = true;
         [ObservableProperty]
+        private bool isDownloading = true;
+        [ObservableProperty]
         private string thumbnail;
 
         [ObservableProperty]

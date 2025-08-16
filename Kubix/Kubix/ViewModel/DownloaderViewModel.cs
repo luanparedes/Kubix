@@ -107,6 +107,7 @@ namespace Kubix.ViewModel
                 downloadTuple.Item1.DownloadSize = downloadTuple.Item2.DownloadSize;
                 downloadTuple.Item1.DownloadSpeed = downloadTuple.Item2.DownloadSpeed;
                 downloadTuple.Item1.State = downloadTuple.Item2.State;
+                downloadTuple.Item1.IsDownloading = downloadTuple.Item2.IsDownloading;
 
                 if (downloadTuple.Item1.BytesDownloaded > 0)
                     downloadTuple.Item1.IsNotStartedDownload = false;
