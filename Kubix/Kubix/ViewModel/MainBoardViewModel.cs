@@ -51,6 +51,9 @@ namespace Kubix.ViewModel
 
         [ObservableProperty]
         private bool isKDiffShowing;
+        
+        [ObservableProperty]
+        private bool isDownloaderShowing;
 
         public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing || IsKDiffShowing;
 
@@ -91,6 +94,7 @@ namespace Kubix.ViewModel
             IsCompilersShowing = _dataInitial.HasCompilers;
             IsTerminalShowing = _dataInitial.HasTerminal;
             IsKDiffShowing = _dataInitial.HasKDiff;
+            IsDownloaderShowing = _dataInitial.HasDownloader;
         }
 
         #endregion
@@ -153,6 +157,9 @@ namespace Kubix.ViewModel
                     break;
                 case "KDiffId":
                     _navigationService.GoToNavigationView(typeof(KDiffPage));
+                    break;
+                case "DownloaderId":
+                    _navigationService.GoToNavigationView(typeof(DownloaderPage));
                     break;
             }
         }

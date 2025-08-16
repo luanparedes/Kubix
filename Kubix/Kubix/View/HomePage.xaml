@@ -75,7 +75,7 @@
 
                                     <TextBlock x:Name="TemperatureText"
                                                Grid.Row="1"
-                                               FontFamily="Showcard Gothic"
+                                               FontFamily="{StaticResource ShowcardGothic}"
                                                FontSize="120"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock x:Name="CityText"

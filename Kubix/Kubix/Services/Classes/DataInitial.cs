@@ -188,6 +188,17 @@ namespace Kubix.Services.Classes
             }
         }
 
+        private bool _hasDownloader = true;
+        public bool HasDownloader
+        {
+            get { return _hasDownloader; }
+            set
+            {
+                SetProperty(ref _hasDownloader, value);
+                SaveBool(nameof(HasDownloader), value);
+            }
+        }
+
         #endregion
 
         #region Constructor
@@ -237,6 +248,7 @@ namespace Kubix.Services.Classes
             HasCompilers = RecoverBool(nameof(HasCompilers));
             HasTerminal = RecoverBool(nameof(HasTerminal));
             HasKDiff = RecoverBool(nameof(HasKDiff));
+            HasDownloader = RecoverBool(nameof(HasDownloader));
         }
 
         #endregion

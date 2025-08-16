@@ -11,6 +11,14 @@
     xmlns:diffplex="using:DiffPlex.UI" 
     xmlns:helpers="using:Kubix.Helpers">
 
+    <helpers:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
+    <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <helpers:InverseVisibilityConverter x:Key="InverseVisibilityConverter"/>
+    <helpers:DownloadStateToVisibilityConverter x:Key="DownloadStateToVisibilityConverter"/>
+
+    <FontFamily x:Key="ShowcardGothic">/Assets/Fonts/showg.ttf#Showcard Gothic</FontFamily>
+    <FontFamily x:Key="Consolas">/Assets/Fonts/consola.ttf#Consolas</FontFamily>
+    
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
     </Style>
@@ -2051,7 +2059,7 @@
                         <TextBlock x:Name="ClockRun"
                                    Grid.Column="0" 
                                    FontSize="80"
-                                   FontFamily="Showcard Gothic"
+                                   FontFamily="{StaticResource ShowcardGothic}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </Grid>
@@ -2957,7 +2965,7 @@
                                           VerticalScrollMode="Auto">
                                 <TextBlock x:Name="OutputTextBlock"                      
                                            Text="{TemplateBinding TerminalOutput}"
-                                           FontFamily="Consolas"
+                                           FontFamily="{StaticResource Consolas}"
                                            TextWrapping="Wrap"
                                            IsTextSelectionEnabled="True"/>
                             </ScrollViewer>
@@ -2971,7 +2979,7 @@
                             <TextBox x:Name="CommandTextBox"
                                      Grid.Row="2"
                                      Text="{TemplateBinding TerminalInput}"
-                                     FontFamily="Consolas"
+                                     FontFamily="{StaticResource Consolas}"
                                      PlaceholderText="{TemplateBinding PlaceholderText}"/>
                         </Grid>
 
@@ -3030,7 +3038,7 @@
           Height="20" Margin="10,2,10,0">
             <TextBlock Text="{Binding}"
                    FontSize="12"
-                   FontFamily="Consolas"
+                   FontFamily="{StaticResource Consolas}"
                    TextTrimming="CharacterEllipsis"/>
             <ToolTipService.ToolTip>
                 <ToolTip Content="{Binding}"/>
@@ -3045,4 +3053,121 @@
     </Style>
     
     <!-- /// -->
+
+    <!--#region DownloadService -->
+
+    <DataTemplate x:Key="DownloadModel">
+        <Grid Padding="10"
+              Margin="0,3"
+              MaxHeight="170"
+              Background="{ThemeResource SectionPanelBackground}"
+              CornerRadius="18">
+            <ProgressRing x:Name="ProgressRingDownload"
+                          IsActive="True"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Margin="0,0,20,0"
+                          Width="50"
+                          Height="50"
+                          Background="{ThemeResource LoadingBackgroundColor}"
+                          Foreground="{ThemeResource LoadingForegroundColor}"
+                          Visibility="{Binding IsNotStartedDownload, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="MainPanel"
+                            VerticalAlignment="Center" 
+                            Orientation="Vertical"
+                            Visibility="{Binding ElementName=ProgressRingDownload, Path=Visibility, Converter={StaticResource InverseVisibilityConverter}}">
+                    <TextBlock Text="{Binding PackageName}"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               FontFamily="{StaticResource Consolas}"
+                               TextTrimming="CharacterEllipsis"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,12,0,0">
+                        <TextBlock Text="{Binding BytesDownloaded, Converter={StaticResource DoubleToStringConverter}}"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"/>
+                        <TextBlock Text="/"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"
+                                   Margin="3,0"/>
+                        <TextBlock Text="{Binding DownloadSize, Converter={StaticResource DoubleToStringConverter}}"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"/>
+                    </StackPanel>
+
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="18"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar Margin="10,0" 
+                             Value="{Binding PercentCompleted}"
+                             Width="300"
+                             Foreground="{ThemeResource LoadingForegroundColor}"/>
+                        <TextBlock Grid.Column="1"
+                           Text="{Binding PercentCompleted}"
+                           HorizontalAlignment="Right"/>
+                        <TextBlock Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text=" %"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding DownloadSpeed}"
+                       FontSize="12"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource Consolas}"
+                       TextTrimming="CharacterEllipsis"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="10"
+                                Margin="0,12,0,0">
+                        <Button Padding="0" 
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding State, Converter={StaticResource DownloadStateToVisibilityConverter}}"
+                                Command="{Binding CancelDownload}">
+                            <FontIcon Glyph="&#xF78A;"/>
+                        </Button>
+                        <Button x:Name="PauseButton"
+                                Padding="0"
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding State, Converter={StaticResource DownloadStateToVisibilityConverter}}"
+                                Command="{Binding PauseDownload}">
+                            <FontIcon Glyph="&#xE769;"/>
+                        </Button>
+                        <Button Padding="0"
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding ElementName=PauseButton, Path=Visibility, Converter={StaticResource InverseVisibilityConverter}}"
+                                Command="{Binding PlayDownload}">
+                            <FontIcon Glyph="&#xE768;"/>
+                        </Button>
+                    </StackPanel>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{Binding PackageName}"/>
+                    </ToolTipService.ToolTip>
+                </StackPanel>
+                <Border Grid.Column="1"
+                        CornerRadius="18"
+                        BorderThickness="1"
+                        BorderBrush="{ThemeResource AppMainTexts}"
+                        Visibility="{Binding ElementName=MainPanel, Path=Visibility}">
+                    <Image Source="{Binding Thumbnail}"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <!--#endregion-->
+
 </ResourceDictionary>

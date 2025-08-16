@@ -19,7 +19,7 @@
         <TextBlock Grid.Row="1"
                    Text="Kubix" 
                    FontSize="70" 
-                   FontFamily="Showcard Gothic"
+                   FontFamily="{StaticResource ShowcardGothic}"
                    Foreground="{ThemeResource TitleMainTexts}"
                    HorizontalAlignment="Center"/>
     </StackPanel>

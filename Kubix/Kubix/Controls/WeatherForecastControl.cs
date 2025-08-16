@@ -57,23 +57,33 @@ namespace Kubix.Controls
 
         #region Methods       
 
-        private async Task GetUserLocation()
+        private async Task<CityModel> GetCity(CityModel city = null)
         {
             var accessStatus = await Geolocator.RequestAccessAsync();
 
-            if (accessStatus == GeolocationAccessStatus.Allowed)
+            CityModel resultCity = city;
+
+            await Task.Run(async () =>
             {
-                var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
-                var position = await geolocator.GetGeopositionAsync();
+                if (resultCity == null)
+                {
+                    if (accessStatus == GeolocationAccessStatus.Allowed)
+                    {
 
-                var latitude = position.Coordinate.Point.Position.Latitude;
-                var longitude = position.Coordinate.Point.Position.Longitude;
+                        var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
+                        var position = await geolocator.GetGeopositionAsync();
 
-                ActualCity = _excelService.GetCityByPosition(latitude, longitude);
-                ActualCity.Temperature = (float)await GetCurrentTemperatureAsync(ActualCity.City);
+                        double latitude = position.Coordinate.Point.Position.Latitude;
+                        double longitude = position.Coordinate.Point.Position.Longitude;
 
-                ShowInfoOnScreen();
-            }
+                        resultCity = _excelService.GetCityByPosition(latitude, longitude);
+                    }
+                }
+
+                resultCity.Temperature = (float)await GetCurrentTemperatureAsync(resultCity.City);
+            }).ConfigureAwait(false);
+
+            return resultCity;
         }
 
         public async Task<float?> GetCurrentTemperatureAsync(string city)
@@ -92,7 +102,7 @@ namespace Kubix.Controls
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     var jsonParsed = JObject.Parse(jsonResponse);
-                    
+
                     float temperature = float.Parse(jsonParsed["current"]["temp_c"]?.ToString());
 
                     return temperature;
@@ -167,9 +177,7 @@ namespace Kubix.Controls
             loadingWeather.IsActive = true;
             VisualStateManager.GoToState(mainControl, CurrentState, true);
 
-            ActualCity = args.SelectedItem as CityModel;
-            ActualCity.Temperature = (float)await GetCurrentTemperatureAsync(ActualCity.City);
-
+            ActualCity = await GetCity(args.SelectedItem as CityModel);
             ShowInfoOnScreen();
         }
 
@@ -177,12 +185,13 @@ namespace Kubix.Controls
         {
             VisualStateManager.GoToState(mainControl, CurrentState, true);
 
-            await Task.Run(async () =>
+            await Task.Run(() =>
             {
                 _excelService.InitializeExcelFile();
             });
 
-            await GetUserLocation();
+            ActualCity = await GetCity();
+            ShowInfoOnScreen();
         }
 
         #endregion
