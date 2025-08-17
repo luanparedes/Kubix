@@ -69,9 +69,10 @@ namespace Kubix.Controls
             CreateTab(file);           
         }
 
-        private void SaveFile()
+        private async void SaveFile()
         {
-            ActualTabItem.Header = ActualTabItem.formatControl.SaveFile();
+            StorageFile file = await ActualTabItem.formatControl.SaveFile();
+            ActualTabItem.Header = file?.Name;
             saveButton.IsEnabled = ActualTabItem.formatControl.HasChanges;
         }
 

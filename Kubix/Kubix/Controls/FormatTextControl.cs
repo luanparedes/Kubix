@@ -208,7 +208,8 @@ namespace Kubix.Controls
                 var savePicker = new FileSavePicker();
 
                 savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt", ".rtf" });
+                savePicker.FileTypeChoices.Add("Text File", new List<string>() { ".txt" });
+                savePicker.FileTypeChoices.Add("Text Formated File", new List<string>() { ".rtf" });
                 savePicker.SuggestedFileName = Stringer.GetString("KB_NewDocumentText");
 
                 var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.Instance.MainWindow);

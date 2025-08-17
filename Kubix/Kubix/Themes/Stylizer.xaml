@@ -6,8 +6,19 @@
     xmlns:controls="using:Kubix.Controls"
     xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals" 
-    xmlns:models="using:Kubix.Model" xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives" xmlns:diffplex="using:DiffPlex.UI">
+    xmlns:models="using:Kubix.Model" 
+    xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives" 
+    xmlns:diffplex="using:DiffPlex.UI" 
+    xmlns:helpers="using:Kubix.Helpers">
 
+    <helpers:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
+    <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <helpers:InverseVisibilityConverter x:Key="InverseVisibilityConverter"/>
+    <helpers:DownloadStateToVisibilityConverter x:Key="DownloadStateToVisibilityConverter"/>
+
+    <FontFamily x:Key="ShowcardGothic">/Assets/Fonts/showg.ttf#Showcard Gothic</FontFamily>
+    <FontFamily x:Key="Consolas">/Assets/Fonts/consola.ttf#Consolas</FontFamily>
+    
     <Style x:Key="BasicText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14"/>
     </Style>
@@ -2048,7 +2059,7 @@
                         <TextBlock x:Name="ClockRun"
                                    Grid.Column="0" 
                                    FontSize="80"
-                                   FontFamily="Showcard Gothic"
+                                   FontFamily="{StaticResource ShowcardGothic}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </Grid>
@@ -2920,5 +2931,247 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- KTerminal -->
+
+    <Style TargetType="controls:KTerminal">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:KTerminal">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <ProgressRing x:Name="WeatherProgressRing"
+                                          IsActive="{TemplateBinding IsWaitingFinishCommand}"
+                                          Background="{ThemeResource LoadingBackgroundColor}"
+                                          Foreground="{ThemeResource LoadingForegroundColor}"
+                                          Width="100" 
+                                          Height="100"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+
+                            <ScrollViewer x:Name="MainScrollViewer" Grid.Row="0" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          VerticalScrollMode="Auto">
+                                <TextBlock x:Name="OutputTextBlock"                      
+                                           Text="{TemplateBinding TerminalOutput}"
+                                           FontFamily="{StaticResource Consolas}"
+                                           TextWrapping="Wrap"
+                                           IsTextSelectionEnabled="True"/>
+                            </ScrollViewer>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="{TemplateBinding CurrentDirectory}"
+                                       FontWeight="Bold"
+                                       Margin="10"
+                                       IsTextSelectionEnabled="True"/>
+
+                            <TextBox x:Name="CommandTextBox"
+                                     Grid.Row="2"
+                                     Text="{TemplateBinding TerminalInput}"
+                                     FontFamily="{StaticResource Consolas}"
+                                     PlaceholderText="{TemplateBinding PlaceholderText}"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" 
+                              CornerRadius="18"
+                              Margin="10,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0"
+                                  CornerRadius="18"
+                                  Margin="0,0,0,10"
+                                  Background="{ThemeResource SectionPanelBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{TemplateBinding LatestCommandsText}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           FontSize="12"/>
+                                <ListView x:Name="LatestListView"
+                                          Grid.Row="1"
+                                          ItemTemplate="{StaticResource CommandTemplate}"
+                                          ItemContainerStyle="{StaticResource CommandsStyleListView}"/>
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  CornerRadius="18"
+                                  Background="{ThemeResource SectionPanelBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{TemplateBinding DefaultCommandsText}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           FontSize="12"/>
+                                <ListView x:Name="DefaultListView"
+                                          Grid.Row="1"
+                                          ItemTemplate="{StaticResource CommandTemplate}"
+                                          ItemContainerStyle="{StaticResource CommandsStyleListView}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="CommandTemplate">
+        <Grid VerticalAlignment="Center"
+          Height="20" Margin="10,2,10,0">
+            <TextBlock Text="{Binding}"
+                   FontSize="12"
+                   FontFamily="{StaticResource Consolas}"
+                   TextTrimming="CharacterEllipsis"/>
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{Binding}"/>
+            </ToolTipService.ToolTip>
+        </Grid>
+    </DataTemplate>
+    
+    <Style x:Key="CommandsStyleListView" TargetType="ListViewItem">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+    </Style>
+    
+    <!-- /// -->
+
+    <!--#region DownloadService -->
+
+    <DataTemplate x:Key="DownloadModel">
+        <Grid Padding="10"
+              Margin="0,3"
+              MaxHeight="170"
+              Background="{ThemeResource SectionPanelBackground}"
+              CornerRadius="18">
+            <ProgressRing x:Name="ProgressRingDownload"
+                          IsActive="True"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Margin="0,0,20,0"
+                          Width="50"
+                          Height="50"
+                          Background="{ThemeResource LoadingBackgroundColor}"
+                          Foreground="{ThemeResource LoadingForegroundColor}"
+                          Visibility="{Binding IsNotStartedDownload, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="MainPanel"
+                            VerticalAlignment="Center" 
+                            Orientation="Vertical"
+                            Visibility="{Binding ElementName=ProgressRingDownload, Path=Visibility, Converter={StaticResource InverseVisibilityConverter}}">
+                    <TextBlock Text="{Binding PackageName}"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               FontFamily="{StaticResource Consolas}"
+                               TextTrimming="CharacterEllipsis"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,12,0,0">
+                        <TextBlock Text="{Binding BytesDownloaded, Converter={StaticResource DoubleToStringConverter}}"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"/>
+                        <TextBlock Text="/"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"
+                                   Margin="3,0"/>
+                        <TextBlock Text="{Binding DownloadSize, Converter={StaticResource DoubleToStringConverter}}"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Consolas}"/>
+                    </StackPanel>
+
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="18"/>
+                        </Grid.ColumnDefinitions>
+                        <ProgressBar Margin="10,0" 
+                             Value="{Binding PercentCompleted}"
+                             Width="300"
+                             Foreground="{ThemeResource LoadingForegroundColor}"/>
+                        <TextBlock Grid.Column="1"
+                           Text="{Binding PercentCompleted}"
+                           HorizontalAlignment="Right"/>
+                        <TextBlock Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text=" %"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding DownloadSpeed}"
+                       FontSize="12"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource Consolas}"
+                       TextTrimming="CharacterEllipsis"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="10"
+                                Margin="0,12,0,0"
+                                Visibility="{Binding IsDownloading, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button Padding="0" 
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding State, Converter={StaticResource DownloadStateToVisibilityConverter}}"
+                                Command="{Binding CancelDownload}">
+                            <FontIcon Glyph="&#xF78A;"/>
+                        </Button>
+                        <Button x:Name="PauseButton"
+                                Padding="0"
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding State, Converter={StaticResource DownloadStateToVisibilityConverter}}"
+                                Command="{Binding PauseDownload}">
+                            <FontIcon Glyph="&#xE769;"/>
+                        </Button>
+                        <Button Padding="0"
+                                Width="30"
+                                Height="30"
+                                Visibility="{Binding ElementName=PauseButton, Path=Visibility, Converter={StaticResource InverseVisibilityConverter}}"
+                                Command="{Binding PlayDownload}">
+                            <FontIcon Glyph="&#xE768;"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <Border Grid.Column="1"
+                        Width="170"
+                        Height="100"
+                        CornerRadius="18"
+                        BorderThickness="1"
+                        BorderBrush="{ThemeResource AppMainTexts}"
+                        Visibility="{Binding ElementName=MainPanel, Path=Visibility}">
+                    <Image Source="{Binding Thumbnail}"
+                           Stretch="Fill"/>
+                </Border>
+            </Grid>
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{Binding PackageName}"/>
+            </ToolTipService.ToolTip>
+        </Grid>
+    </DataTemplate>
+
+    <!--#endregion-->
 
 </ResourceDictionary>

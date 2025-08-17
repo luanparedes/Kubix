@@ -132,6 +132,15 @@
   <data name="KB_ContinueText" xml:space="preserve">
     <value>Continuar</value>
   </data>
+  <data name="KB_DefaultCommands" xml:space="preserve">
+    <value>Comandos padrão</value>
+  </data>
+  <data name="KB_DownloaderText" xml:space="preserve">
+    <value>Baixador</value>
+  </data>
+  <data name="KB_DownloadText" xml:space="preserve">
+    <value>Baixar</value>
+  </data>
   <data name="KB_FinishText" xml:space="preserve">
     <value>Finalizar</value>
   </data>
@@ -161,6 +170,9 @@
   </data>
   <data name="KB_KNoteText" xml:space="preserve">
     <value>K-Note</value>
+  </data>
+  <data name="KB_LastCommands" xml:space="preserve">
+    <value>Últimos comandos</value>
   </data>
   <data name="KB_MakeSureGoogleLogin" xml:space="preserve">
     <value>Faça o login no Google para ter todas as funcionalidades.</value>
@@ -198,8 +210,14 @@
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>Selecionar tudo</value>
   </data>
+  <data name="KB_SelectFolderText" xml:space="preserve">
+    <value>Selecionar pasta...</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Configurações</value>
+  </data>
+  <data name="KB_SetUrlPlaceholderText" xml:space="preserve">
+    <value>Definir URL para download...</value>
   </data>
   <data name="KB_SocialMediaText" xml:space="preserve">
     <value>Redes sociais</value>

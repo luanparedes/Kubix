@@ -99,6 +99,7 @@
                                 <RowDefinition Height="30"/>
                                 <RowDefinition Height="30"/>
                                 <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -187,6 +188,13 @@
                               Grid.Column="1"
                               Tag="KDiffCheck"
                               IsChecked="{x:Bind ViewModel._dataInitial.HasKDiff, Mode=TwoWay}"
+                              Style="{StaticResource DefaultCheckBoxStyle}"
+                              Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind h:Stringer.GetString('KB_DownloaderText')}" 
+                              Grid.Row="6"
+                              Grid.Column="0"
+                              Tag="DownloaderCheck"
+                              IsChecked="{x:Bind ViewModel._dataInitial.HasDownloader, Mode=TwoWay}"
                               Style="{StaticResource DefaultCheckBoxStyle}"
                               Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </Grid>

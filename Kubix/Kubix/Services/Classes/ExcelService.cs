@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
@@ -14,10 +15,15 @@ namespace Kubix.Services.Classes
 {
     public class ExcelService : IExcelService
     {
+        #region Constants
+
+        private const string EXCEL_NAME = "worldcities.xlsx";
+
+        #endregion
+
         #region Fields & Properties
 
         private readonly ILogger _logger;
-        private const string EXCEL_NAME = "worldcities.xlsx";
         private string filePath;
         #endregion
 
@@ -25,7 +31,6 @@ namespace Kubix.Services.Classes
 
         public ExcelService()
         {
-            CreateExcelFile();
             _logger = Ioc.Default.GetService<ILogger>();
         }
 
@@ -33,18 +38,30 @@ namespace Kubix.Services.Classes
 
         #region Methods
 
-        private async void CreateExcelFile()
+        public async void InitializeExcelFile()
         {
-            StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
-            StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(EXCEL_NAME, CreationCollisionOption.ReplaceExisting);
-            await sourceFile.CopyAndReplaceAsync(destinationFile);
+            await CreateExcelFile();
+        }
 
-            string localFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, EXCEL_NAME);
-            StorageFile file = await StorageFile.GetFileFromPathAsync(localFilePath);
+        private async Task CreateExcelFile()
+        {
+            try
+            {
+                StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{EXCEL_NAME}"));
+                StorageFile destinationFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(EXCEL_NAME, CreationCollisionOption.ReplaceExisting);
+                await sourceFile.CopyAndReplaceAsync(destinationFile);
 
-            filePath = file.Path;
+                string localFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, EXCEL_NAME);
+                StorageFile file = await StorageFile.GetFileFromPathAsync(localFilePath);
 
-            _logger.InfoLog($"File copied succeffuly {filePath}");
+                filePath = file.Path;
+
+                _logger.InfoLog($"File copied succeffuly {filePath}");
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog($"Error while creating excel file: {ex.Message}");
+            }
         }
 
         public List<CityModel> GetAllCities()

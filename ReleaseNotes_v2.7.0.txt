@@ -1,0 +1,12 @@
+Release notes v.2.7.0
+
+Features:
+- Downloader created to download torrents and youtube videos.
+
+Improvements:
+- Terminal with latest commands.
+- Terminal with default commands.
+
+Bug fixes:
+- Fix weather bug that crashed the UI.
+- Fix Kubix fonts that wasn't showing for all users.
