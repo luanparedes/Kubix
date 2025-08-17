@@ -136,7 +136,10 @@
     <value>Comandos padrão</value>
   </data>
   <data name="KB_DownloaderText" xml:space="preserve">
-    <value>Downloader</value>
+    <value>Baixador</value>
+  </data>
+  <data name="KB_DownloadText" xml:space="preserve">
+    <value>Baixar</value>
   </data>
   <data name="KB_FinishText" xml:space="preserve">
     <value>Finalizar</value>
@@ -207,8 +210,14 @@
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>Selecionar tudo</value>
   </data>
+  <data name="KB_SelectFolderText" xml:space="preserve">
+    <value>Selecionar pasta...</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>Configurações</value>
+  </data>
+  <data name="KB_SetUrlPlaceholderText" xml:space="preserve">
+    <value>Definir URL para download...</value>
   </data>
   <data name="KB_SocialMediaText" xml:space="preserve">
     <value>Redes sociais</value>

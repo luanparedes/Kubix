@@ -138,6 +138,9 @@
   <data name="KB_DownloaderText" xml:space="preserve">
     <value>ダウンローダー</value>
   </data>
+  <data name="KB_DownloadText" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
   <data name="KB_FinishText" xml:space="preserve">
     <value>仕上げる</value>
   </data>
@@ -207,8 +210,14 @@
   <data name="KB_SelectAllText" xml:space="preserve">
     <value>すべて選択</value>
   </data>
+  <data name="KB_SelectFolderText" xml:space="preserve">
+    <value>フォルダーを選択...</value>
+  </data>
   <data name="KB_SettingsText" xml:space="preserve">
     <value>設定</value>
+  </data>
+  <data name="KB_SetUrlPlaceholderText" xml:space="preserve">
+    <value>ダウンロードする URL を設定...</value>
   </data>
   <data name="KB_SocialMediaText" xml:space="preserve">
     <value>ソーシャルメディア</value>

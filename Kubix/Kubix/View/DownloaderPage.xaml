@@ -6,20 +6,22 @@
     xmlns:local="using:Kubix.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:Kubix.Helpers"
     mc:Ignorable="d"
     NavigationCacheMode="Enabled"
     Background="{ThemeResource PageBackground}">
 
     <Grid Padding="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Downloader"
+        <TextBlock Text="{x:Bind helpers:Stringer.GetString('KB_DownloaderText')}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="36"/>
+                   Margin="0,0,0,10"
+                   FontSize="24"/>
         <Grid Grid.Row="1"
               Background="{ThemeResource SectionPanelBackground}"
               CornerRadius="18">
@@ -29,21 +31,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBox Grid.ColumnSpan="3"
                      Text="{x:Bind ViewModel.Url, Mode=TwoWay}"
+                     TextWrapping="Wrap"
+                     MaxHeight="150"
                      HorizontalAlignment="Stretch"
-                     PlaceholderText="Set Url to download..."
+                     PlaceholderText="{x:Bind helpers:Stringer.GetString('KB_SetUrlPlaceholderText')}"
                      Margin="12"/>
             <StackPanel Grid.Column="0"
                         Grid.Row="1"
                         Orientation="Vertical"
                         Spacing="8">
-                <Button Content="Select Folder"
+                <Button Content="{x:Bind helpers:Stringer.GetString('KB_SelectFolderText')}"
                         HorizontalAlignment="Center"
-                        CornerRadius="12"
+                        CornerRadius="8"
                         Margin="0,10"
                         Click="{x:Bind ViewModel.ButtonFolderPicker_Click}"/>
                 <TextBlock Text="{x:Bind ViewModel.DownloadPath, Mode=OneWay}" 
@@ -54,19 +58,20 @@
                         Orientation="Vertical"
                         Margin="0,10">
                 <StackPanel Padding="12">
-                    <Button HorizontalAlignment="Center"
-                        Height="64"
-                        Width="64"
-                        CornerRadius="32"
-                        Click="{x:Bind ViewModel.ButtonDownload_Click}">
-                        <Image Source="ms-appx:///Assets/download_feature.png" 
-                           Height="32" 
-                           Width="32"/>
+                    <Button HorizontalAlignment="Center"       
+                            CornerRadius="8"
+                            Click="{x:Bind ViewModel.ButtonDownload_Click}">
+                        <StackPanel Orientation="Vertical"
+                                    Spacing="6">
+                            <Image Source="ms-appx:///Assets/download_feature.png" 
+                                   Height="26" 
+                                   Width="26"/>
+                            <TextBlock Text="{x:Bind helpers:Stringer.GetString('KB_DownloadText')}" 
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
-                    <TextBlock Text="Download" 
-                           FontSize="12"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

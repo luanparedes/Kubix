@@ -3154,18 +3154,21 @@
                             <FontIcon Glyph="&#xE768;"/>
                         </Button>
                     </StackPanel>
-                    <ToolTipService.ToolTip>
-                        <ToolTip Content="{Binding PackageName}"/>
-                    </ToolTipService.ToolTip>
                 </StackPanel>
                 <Border Grid.Column="1"
+                        Width="170"
+                        Height="100"
                         CornerRadius="18"
                         BorderThickness="1"
                         BorderBrush="{ThemeResource AppMainTexts}"
                         Visibility="{Binding ElementName=MainPanel, Path=Visibility}">
-                    <Image Source="{Binding Thumbnail}"/>
+                    <Image Source="{Binding Thumbnail}"
+                           Stretch="Fill"/>
                 </Border>
             </Grid>
+            <ToolTipService.ToolTip>
+                <ToolTip Content="{Binding PackageName}"/>
+            </ToolTipService.ToolTip>
         </Grid>
     </DataTemplate>
 

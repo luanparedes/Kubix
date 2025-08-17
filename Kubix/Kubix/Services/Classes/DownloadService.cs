@@ -101,8 +101,8 @@ namespace Kubix.Services.Classes
                         {
                             _logger.InfoLog($"Download {download.PackageName} started.");
                             update.State = DownloadState.Downloading;
-                            update.DownloadSize = double.Parse(match.Groups["totalSizeNum"].Value, CultureInfo.InvariantCulture);
                             update.PercentCompleted = (int)double.Parse(match.Groups["percent"].Value, CultureInfo.InvariantCulture);
+                            update.DownloadSize = double.Parse(match.Groups["totalSizeNum"].Value, CultureInfo.InvariantCulture) * 1024 * 1024;
                             update.BytesDownloaded = ((double)update.PercentCompleted / 100) * update.DownloadSize;
                             update.DownloadSpeed = match.Groups["speed"].Value;
 
