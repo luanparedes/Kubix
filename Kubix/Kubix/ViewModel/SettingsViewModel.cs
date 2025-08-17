@@ -64,7 +64,7 @@ namespace Kubix.ViewModel
 
         #region Event Handlers
 
-        public void BackButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        public void BackButton_Click(object sender, RoutedEventArgs e)
         {
             _navigation.BackPrevious();
         }
@@ -110,6 +110,9 @@ namespace Kubix.ViewModel
                     break;
                 case "KDiffCheck":
                     _dataInitial.HasKDiff = checkbox.IsChecked.Value;
+                    break;
+                case "DownloaderCheck":
+                    _dataInitial.HasDownloader = checkbox.IsChecked.Value;
                     break;
             }
 

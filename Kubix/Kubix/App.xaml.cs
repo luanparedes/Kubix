@@ -69,6 +69,7 @@ namespace Kubix
                 .AddSingleton<IThemeService, ThemeService>()
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<IExcelService, ExcelService>()
+                .AddSingleton<IDownloadService, DownloadService>()
                 .AddSingleton<Window>()
                 .AddSingleton<InitialConfigViewModel>()
                 .AddSingleton<HomeViewModel>()
@@ -87,7 +88,8 @@ namespace Kubix
                 .AddSingleton<CompilersViewModel>()
                 .AddSingleton<TerminalViewModel>()
                 .AddSingleton<KDiffViewModel>()
-                .AddTransient<ColorPickerViewModel>();
+                .AddTransient<ColorPickerViewModel>()
+                .AddTransient<DownloaderViewModel>();
 
             Ioc.Default.ConfigureServices(services.BuildServiceProvider());
         }

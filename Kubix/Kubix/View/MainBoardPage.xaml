@@ -27,7 +27,7 @@
                     Background="{ThemeResource AppBackground}"
                     Height="32">
             <TextBlock Text="{x:Bind h:Stringer.GetString('KB_AppNameText')}"
-                       FontFamily="Showcard Gothic"
+                       FontFamily="{StaticResource ShowcardGothic}"
                        FontSize="18"
                        VerticalAlignment="Center"
                        Margin="15,2,8,0"/>
@@ -159,6 +159,14 @@
                                          Visibility="{x:Bind ViewModel.IsCompilersShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <controls:MenuNavigationItem.ItemIcon>
                             <BitmapImage UriSource="ms-appx:///Assets/compiler_feature.png" />
+                        </controls:MenuNavigationItem.ItemIcon>
+                    </controls:MenuNavigationItem>
+
+                    <controls:MenuNavigationItem Feature="{x:Bind h:Stringer.GetString('KB_DownloaderText')}"
+                                                 Alias="DownloaderId"
+                                                 Visibility="{x:Bind ViewModel.IsDownloaderShowing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:MenuNavigationItem.ItemIcon>
+                            <BitmapImage UriSource="ms-appx:///Assets/download_feature.png" />
                         </controls:MenuNavigationItem.ItemIcon>
                     </controls:MenuNavigationItem>
                 </NavigationView.MenuItems>

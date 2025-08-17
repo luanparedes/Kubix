@@ -40,20 +40,20 @@
 
                 <TextBlock Grid.Row="1"
                            Text="{x:Bind c:Stringer.GetString('KB_WelcomeText')}"
-                           FontFamily="Showcard Gothic"
+                           FontFamily="{StaticResource ShowcardGothic}"
                            FontSize="110" 
                            HorizontalAlignment="Center"
                            Foreground="{ThemeResource TitleMainTexts}"/>
                 <TextBlock Grid.Row="2"
                            Text="{x:Bind c:Stringer.GetString('KB_ToText')}" 
-                           FontFamily="Showcard Gothic"
+                           FontFamily="{StaticResource ShowcardGothic}"
                            FontSize="60" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Foreground="{ThemeResource TitleMainTexts}"/>
                 <TextBlock Grid.Row="3"
                            Text="{x:Bind c:Stringer.GetString('KB_AppNameText')}" 
-                           FontFamily="Showcard Gothic"
+                           FontFamily="{StaticResource ShowcardGothic}"
                            FontSize="120" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
@@ -83,7 +83,7 @@
 
                 <TextBlock Grid.Row="0"
                            Text="{x:Bind c:Stringer.GetString('KB_AppNameText')}"
-                           FontFamily="Showcard Gothic"
+                           FontFamily="{StaticResource ShowcardGothic}"
                            FontSize="28"
                            VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1"
@@ -153,6 +153,10 @@
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
                             <CheckBox Content="{x:Bind c:Stringer.GetString('KB_TerminalText')}" 
                                       Tag="TerminalCheck"
+                                      Style="{StaticResource DefaultCheckBoxStyle}"
+                                      Click="{x:Bind ViewModel.CheckBox_Click}"/>
+                            <CheckBox Content="{x:Bind c:Stringer.GetString('KB_DownloaderText')}"
+                                      Tag="DownloaderCheck"
                                       Style="{StaticResource DefaultCheckBoxStyle}"
                                       Click="{x:Bind ViewModel.CheckBox_Click}"/>
                         </StackPanel>

@@ -25,6 +25,7 @@ namespace Kubix.Services.Interfaces
         public bool HasCompilers { get; set; }
         public bool HasTerminal { get; set; }
         public bool HasKDiff { get; set; }
+        public bool HasDownloader { get; set; }
 
         public event EventHandler UIUpdateChanged;
         public void OnUpdateUI();
