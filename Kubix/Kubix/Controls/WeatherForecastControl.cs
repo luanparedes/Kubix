@@ -23,7 +23,7 @@ namespace Kubix.Controls
         private const string WEATHER_STATE = "WeatherState";
 
         private const int MinTextSizeToSearch = 3;
-        private readonly string WeatherApiKey = "b1f1a549064b4081a33152427241611";
+        private readonly string WeatherApiKey = "255519a40d4d423596a174654252008";
 
         #endregion
 
@@ -107,6 +107,16 @@ namespace Kubix.Controls
 
                     return temperature;
                 }
+                else
+                {
+                    string errorMessage = "Cannot connect with Weather api.";
+                    _logger.InfoLog(errorMessage);
+                    throw new WeatherApiException(errorMessage);
+                }
+            }
+            catch (WeatherApiException ex)
+            {
+                return 0.00001f;
             }
             catch (Exception ex)
             {
@@ -224,5 +234,22 @@ namespace Kubix.Controls
         }
 
         #endregion
+    }
+
+    public class WeatherApiException : Exception
+    {
+        public WeatherApiException()
+        {
+        }
+
+        public WeatherApiException(string message)
+            : base(message)
+        {
+        }
+
+        public WeatherApiException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }
