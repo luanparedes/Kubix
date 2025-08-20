@@ -9,4 +9,5 @@ Improvements:
 
 Bug fixes:
 - Fix weather bug that crashed the UI.
+- Fix weather bug that crashes when there is error from api side.
 - Fix Kubix fonts that wasn't showing for all users.

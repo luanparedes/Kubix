@@ -165,9 +165,9 @@ namespace Kubix.Controls
 
         #region Methods
 
-        private void InitializeControl()
+        private async void InitializeControl()
         {
-            CopyDefaultFileIfNotExistsAsync();
+            await CopyDefaultFileIfNotExistsAsync();
             LoadLatestCommandsAsync();
             LoadCommandsAsync();
 
@@ -287,7 +287,7 @@ namespace Kubix.Controls
             return false;
         }
 
-        public async void CopyDefaultFileIfNotExistsAsync()
+        public async Task CopyDefaultFileIfNotExistsAsync()
         {
             var localFolder = ApplicationData.Current.LocalFolder;
 
