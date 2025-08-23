@@ -63,9 +63,14 @@
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                    <Grid Grid.Row="0">
+                                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
                                         <AutoSuggestBox x:Name="SearchCity"
                                                         Grid.Column="0"
                                                         PlaceholderText="{x:Bind helpers:Stringer.GetString('KB_SearchCity')}"
@@ -73,18 +78,46 @@
                                                         CornerRadius="16"/>
                                     </Grid>
 
+                                    <BitmapIcon x:Name="WeatherBitmap" 
+                                                Grid.Row="0"
+                                                Grid.RowSpan="2"
+                                                Height="64"
+                                                Width="64"
+                                                Margin="-20,-20,0,0"/>
                                     <TextBlock x:Name="TemperatureText"
-                                               Grid.Row="1"
+                                               Grid.Row="1" 
+                                               Grid.ColumnSpan="2"
                                                FontFamily="{StaticResource ShowcardGothic}"
                                                FontSize="120"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock x:Name="CityText"
-                                               Grid.Row="2"
+                                               Grid.Row="2" 
+                                               Grid.ColumnSpan="2"
                                                FontFamily="Berlin Sans FB"
                                                FontSize="32"
                                                HorizontalAlignment="Center"/>
+                                    <StackPanel Grid.Row="3" 
+                                                Grid.ColumnSpan="2"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center"
+                                                Margin="0,12"
+                                                Spacing="30"
+                                                Padding="12"
+                                                CornerRadius="12"
+                                                BorderBrush="{ThemeResource White}"
+                                                BorderThickness="1">
+                                        <controls:KClock x:Name="KClock"
+                                                         Clock="City"
+                                                         Style="{StaticResource SmallClockStyle5}"/>
+                                        <TextBlock x:Name="DateText"
+                                                   FontFamily="Berlin Sans FB"
+                                                   FontSize="46"
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                    
                                     <TextBlock x:Name="PopulationText"
-                                               Grid.Row="3"
+                                               Grid.Row="4"
+                                               Grid.ColumnSpan="2"
                                                FontFamily="Berlin Sans FB"
                                                FontSize="18"
                                                HorizontalAlignment="Center"
@@ -113,7 +146,8 @@
                     Margin="10,10,20,10">
 
             <controls:KClock Grid.Column="0"
-                         Grid.Row="1"/>
+                             Grid.Row="1"
+                             Clock="Main"/>
 
             <CalendarView Grid.Row="2"
                       Grid.Column="0"
