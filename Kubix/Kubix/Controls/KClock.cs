@@ -31,15 +31,6 @@ namespace Kubix.Controls
         public static readonly DependencyProperty TimerProperty =
             DependencyProperty.Register(nameof(Timer), typeof(DispatcherTimer), typeof(KClock), new PropertyMetadata(new DispatcherTimer()));
 
-        //public TimeSpan ElapsedTime
-        //{
-        //    get { return (TimeSpan)GetValue(ElapsedTimeProperty); }
-        //    set { SetValue(ElapsedTimeProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty ElapsedTimeProperty =
-        //    DependencyProperty.Register(nameof(ElapsedTime), typeof(TimeSpan), typeof(KClock), new PropertyMetadata(null));
-
         public ClockType Clock
         {
             get { return (ClockType)GetValue(ClockProperty); }
@@ -68,8 +59,6 @@ namespace Kubix.Controls
             {
                 StopTimer();
             }
-
-            //ElapsedTime = TimeSpan.ParseExact(completeTime, @"hh\:mm\:ss", null);
 
             StartTimer();
         }
@@ -105,7 +94,6 @@ namespace Kubix.Controls
             string minute = DateTime.Now.ToString("mm");
             string completeTime = $"{hour}:{minute}";
 
-            //ElapsedTime = ElapsedTime.Add(TimeSpan.FromSeconds(1));
             _clockText.Text = completeTime;
         }
 
