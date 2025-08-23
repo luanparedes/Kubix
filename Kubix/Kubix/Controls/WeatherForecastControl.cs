@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Windows.Media.Core;
 
 namespace Kubix.Controls
 {
@@ -36,8 +37,11 @@ namespace Kubix.Controls
         private AutoSuggestBox searchBox;
         private TextBlock temperatureText;
         private TextBlock cityText;
+        private KClock kClock;
+        private TextBlock dateText;
         private TextBlock populationText;
         private ProgressRing loadingWeather;
+        private BitmapIcon weatherBitmap;
 
         public string CurrentState { get; set; } = LOADING_STATE;
 
@@ -57,40 +61,28 @@ namespace Kubix.Controls
 
         #region Methods       
 
-        private async Task<CityModel> GetCity(CityModel city = null)
+        private async Task<CityModel> GetCityInfoAsync(CityModel cityModel = null)
         {
-            var accessStatus = await Geolocator.RequestAccessAsync();
-
-            CityModel resultCity = city;
-
-            await Task.Run(async () =>
+            if (cityModel == null)
             {
-                if (resultCity == null)
+                var accessStatus = await Geolocator.RequestAccessAsync();
+
+                if (accessStatus == GeolocationAccessStatus.Allowed)
                 {
-                    if (accessStatus == GeolocationAccessStatus.Allowed)
-                    {
 
-                        var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
-                        var position = await geolocator.GetGeopositionAsync();
+                    var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
+                    var position = await geolocator.GetGeopositionAsync();
 
-                        double latitude = position.Coordinate.Point.Position.Latitude;
-                        double longitude = position.Coordinate.Point.Position.Longitude;
+                    double latitude = position.Coordinate.Point.Position.Latitude;
+                    double longitude = position.Coordinate.Point.Position.Longitude;
 
-                        resultCity = _excelService.GetCityByPosition(latitude, longitude);
-                    }
+                    cityModel = _excelService.GetCityByPosition(latitude, longitude);
                 }
+            }
 
-                resultCity.Temperature = (float)await GetCurrentTemperatureAsync(resultCity.City);
-            }).ConfigureAwait(false);
+            cityModel.City = TextWithoutAccent(cityModel.City);
 
-            return resultCity;
-        }
-
-        public async Task<float?> GetCurrentTemperatureAsync(string city)
-        {
-            city = TextWithoutAccent(city);
-
-            string url = $"https://api.weatherapi.com/v1/current.json?key={WeatherApiKey}&q={city}&aqi=no";
+            string url = $"https://api.weatherapi.com/v1/current.json?key={WeatherApiKey}&q={cityModel.City}&aqi=no";
 
             using HttpClient client = new HttpClient();
 
@@ -101,29 +93,55 @@ namespace Kubix.Controls
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    var jsonParsed = JObject.Parse(jsonResponse);
+                    JObject jsonParsed = JObject.Parse(jsonResponse);
 
-                    float temperature = float.Parse(jsonParsed["current"]["temp_c"]?.ToString());
-
-                    return temperature;
-                }
-                else
-                {
-                    string errorMessage = "Cannot connect with Weather api.";
-                    _logger.InfoLog(errorMessage);
-                    throw new WeatherApiException(errorMessage);
+                    cityModel.Temperature = await GetCurrentTemperatureAsync(jsonParsed);
+                    cityModel.ActualTime = await GetCurrentTimeAsync(jsonParsed);
+                    cityModel.ActualDate = await GetCurrentDateAsync(jsonParsed);
+                    cityModel.WeatherIcon = await GetWeatherIcon(jsonParsed);
                 }
             }
             catch (WeatherApiException ex)
             {
-                return 0.00001f;
+                _logger.ErrorLog($"Error fetching city info: {ex.Message}");
+                return null;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                _logger.ErrorLog($"Unexpected error: {ex.Message}");
             }
 
-            return null;
+            return cityModel;
+        }
+
+        private async Task<float> GetCurrentTemperatureAsync(JObject jsonParsed)
+        {
+            return float.Parse(jsonParsed["current"]["temp_c"]?.ToString());
+        }
+
+        private async Task<string> GetCurrentTimeAsync(JObject jsonParsed)
+        {
+            string time = jsonParsed["location"]["localtime"]?.ToString();
+            DateTime dateTime = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            
+            return dateTime.ToString("HH:mm");
+        }
+
+        private async Task<string> GetCurrentDateAsync(JObject jsonParsed)
+        {
+            string time = jsonParsed["location"]["localtime"]?.ToString();
+            DateTime dateTime = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            
+            return dateTime.ToString("dd/MM/yyyy");
+        }
+
+        private async Task<BitmapIcon> GetWeatherIcon(JObject jsonParsed)
+        {
+            BitmapIcon bitmap = new BitmapIcon();
+            string source = "http:" + jsonParsed["current"]["condition"]["icon"]?.ToString();
+            bitmap.UriSource = new Uri(source);
+
+            return bitmap;
         }
 
         private void ShowInfoOnScreen()
@@ -132,7 +150,9 @@ namespace Kubix.Controls
             {
                 searchBox.Text = string.Empty;
                 cityText.Text = $"{ActualCity.City}, {ActualCity.Country}";
+                dateText.Text = $"{ActualCity.ActualDate}";
                 temperatureText.Text = ActualCity.Temperature.ToString() + " º";
+                weatherBitmap.UriSource = ActualCity.WeatherIcon.UriSource;
                 populationText.Text = Stringer.GetString("KB_HasPopulationText", ActualCity.City, ActualCity.Population);
                 loadingWeather.IsActive = false;
             });
@@ -187,7 +207,8 @@ namespace Kubix.Controls
             loadingWeather.IsActive = true;
             VisualStateManager.GoToState(mainControl, CurrentState, true);
 
-            ActualCity = await GetCity(args.SelectedItem as CityModel);
+            ActualCity = await GetCityInfoAsync(args.SelectedItem as CityModel);
+            kClock.ModelCity = ActualCity;
             ShowInfoOnScreen();
         }
 
@@ -200,7 +221,8 @@ namespace Kubix.Controls
                 _excelService.InitializeExcelFile();
             });
 
-            ActualCity = await GetCity();
+            ActualCity = await GetCityInfoAsync();
+            kClock.ModelCity = ActualCity;
             ShowInfoOnScreen();
         }
 
@@ -216,8 +238,11 @@ namespace Kubix.Controls
             searchBox = GetTemplateChild("SearchCity") as AutoSuggestBox;
             temperatureText = GetTemplateChild("TemperatureText") as TextBlock;
             cityText = GetTemplateChild("CityText") as TextBlock;
+            kClock = GetTemplateChild("KClock") as KClock;
+            dateText = GetTemplateChild("DateText") as TextBlock;
             populationText = GetTemplateChild("PopulationText") as TextBlock;
             loadingWeather = GetTemplateChild("WeatherProgressRing") as ProgressRing;
+            weatherBitmap = GetTemplateChild("WeatherBitmap") as BitmapIcon;
 
             if (mainControl != null)
             {
@@ -229,27 +254,23 @@ namespace Kubix.Controls
                 searchBox.TextChanged += SearchBox_TextChanged;
                 searchBox.SuggestionChosen += SearchBox_SuggestionChosen;
             }
-
-            //await GetUserLocation();
         }
 
         #endregion
     }
 
+    #region WeatherApiException
+
     public class WeatherApiException : Exception
     {
-        public WeatherApiException()
-        {
-        }
+        public WeatherApiException() {}
 
         public WeatherApiException(string message)
-            : base(message)
-        {
-        }
+            : base(message) {}
 
         public WeatherApiException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+            : base(message, innerException) {}
     }
+
+    #endregion
 }

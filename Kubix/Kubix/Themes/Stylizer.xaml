@@ -2068,6 +2068,20 @@
         </Setter>
     </Style>
 
+    <Style x:Key="SmallClockStyle5" TargetType="controls:KClock">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:KClock">
+                    <TextBlock x:Name="ClockRun"
+                               Text="{Binding CityModel.ActualTime}"
+                               FontFamily="Berlin Sans FB"
+                               FontSize="46"
+                               HorizontalAlignment="Center"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="CalendarView">
         <Setter Property="BlackoutStrikethroughBrush" Value="{ThemeResource CalendarViewBlackoutStrikethroughBrush}" />
         <Setter Property="SelectedHoverBorderBrush" Value="{ThemeResource CalendarViewSelectedHoverBorderBrush}" />

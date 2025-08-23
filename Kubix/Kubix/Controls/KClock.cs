@@ -1,9 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Kubix.Model;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Kubix.Controls
@@ -13,7 +12,42 @@ namespace Kubix.Controls
         #region Fields & Properties
 
         private TextBlock _clockText;
-        private DispatcherTimer _timer;
+
+        public CityModel ModelCity
+        {
+            get { return (CityModel)GetValue(CityModelProperty); }
+            set { SetValue(CityModelProperty, value); }
+        }
+
+        public static readonly DependencyProperty CityModelProperty =
+            DependencyProperty.Register(nameof(ModelCity), typeof(CityModel), typeof(KClock), new PropertyMetadata(null, OnCityModelChanged));
+
+        public DispatcherTimer Timer
+        {
+            get { return (DispatcherTimer)GetValue(TimerProperty); }
+            set { SetValue(TimerProperty, value); }
+        }
+
+        public static readonly DependencyProperty TimerProperty =
+            DependencyProperty.Register(nameof(Timer), typeof(DispatcherTimer), typeof(KClock), new PropertyMetadata(new DispatcherTimer()));
+
+        //public TimeSpan ElapsedTime
+        //{
+        //    get { return (TimeSpan)GetValue(ElapsedTimeProperty); }
+        //    set { SetValue(ElapsedTimeProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty ElapsedTimeProperty =
+        //    DependencyProperty.Register(nameof(ElapsedTime), typeof(TimeSpan), typeof(KClock), new PropertyMetadata(null));
+
+        public ClockType Clock
+        {
+            get { return (ClockType)GetValue(ClockProperty); }
+            set { SetValue(ClockProperty, value); }
+        }
+
+        public static readonly DependencyProperty ClockProperty =
+            DependencyProperty.Register(nameof(Clock), typeof(ClockType), typeof(KClock), new PropertyMetadata(ClockType.Main));
 
         #endregion
 
@@ -21,7 +55,7 @@ namespace Kubix.Controls
 
         public KClock()
         {
-            StartClock();
+            Loaded += KClock_Loaded;
         }
 
         #endregion
@@ -30,19 +64,61 @@ namespace Kubix.Controls
 
         private void StartClock()
         {
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
+            if (Timer != null)
+            {
+                StopTimer();
+            }
+
+            //ElapsedTime = TimeSpan.ParseExact(completeTime, @"hh\:mm\:ss", null);
+
+            StartTimer();
+        }
+
+        private void StartTimer()
+        {
+            Timer.Interval = TimeSpan.FromSeconds(1);
+            Timer.Tick += Timer_Tick;
+            Timer.Start();
+        }
+
+        private void StopTimer()
+        {
+            Timer.Tick -= Timer_Tick;
+            Timer.Stop();
         }
 
         #endregion
 
         #region Event Handlers
 
+        private void KClock_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Clock == ClockType.Main)
+            {
+                StartClock();
+            }
+        }
+
         private void Timer_Tick(object sender, object e)
         {
-            _clockText.Text = DateTime.Now.ToString("H:mm");
+            string hour = Clock == ClockType.Main ? DateTime.Now.ToString("hh") : ModelCity.ActualTime.Split(':')[0];
+            string minute = DateTime.Now.ToString("mm");
+            string completeTime = $"{hour}:{minute}";
+
+            //ElapsedTime = ElapsedTime.Add(TimeSpan.FromSeconds(1));
+            _clockText.Text = completeTime;
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        private static void OnCityModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is KClock clock)
+            {
+                clock.StartClock();
+            }
         }
 
         #endregion
@@ -57,5 +133,11 @@ namespace Kubix.Controls
         }
 
         #endregion
+    }
+
+    public enum ClockType
+    {
+        Main,
+        City
     }
 }

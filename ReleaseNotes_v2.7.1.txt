@@ -1,0 +1,11 @@
+Release notes v.2.7.1
+
+Features:
+
+Improvements:
+- Weather forecast now shows date and time from city.
+- Weather forecast now show weather icon.
+- Youtube music added to Music page apps.
+
+Bug fixes:
+- Wrong version number showing.

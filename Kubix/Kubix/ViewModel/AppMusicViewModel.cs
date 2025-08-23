@@ -10,9 +10,11 @@ namespace Kubix.ViewModel
         #region Constants
 
         public const string STATE_CHOICE_APP = "ChoiceAppState";
+        public const string STATE_YOUTUBEMUSIC_APP = "YoutubeMusicAppState";
         public const string STATE_SPOTIFY_APP = "SpotifyAppState";
         public const string STATE_DEEZER_APP = "DeezerAppState";
 
+        public readonly string YoutubeMusicURL = "https://music.youtube.com/";
         public readonly string SpotifyURL = "https://www.spotify.com";
         public readonly string DeezerURL = "https://www.deezer.com";
 
@@ -48,6 +50,11 @@ namespace Kubix.ViewModel
 
             switch (button.Tag)
             {
+                case "YoutubeMusicBtn":
+                    ActualMusicApp = MusicApp.YoutubeMusic;
+                    CurrentState = STATE_YOUTUBEMUSIC_APP;
+                    webView.Source = new Uri(YoutubeMusicURL);
+                    break;
                 case "SpotifyBtn":
                     ActualMusicApp = MusicApp.Spotify;
                     CurrentState = STATE_SPOTIFY_APP;
@@ -90,6 +97,7 @@ namespace Kubix.ViewModel
 
     public enum MusicApp
     {
+        YoutubeMusic,
         Spotify,
         Deezer
     }
