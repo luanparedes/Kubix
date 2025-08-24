@@ -90,7 +90,7 @@ namespace Kubix.Controls
 
         private void Timer_Tick(object sender, object e)
         {
-            string hour = Clock == ClockType.Main ? DateTime.Now.ToString("hh") : ModelCity.ActualTime.Split(':')[0];
+            string hour = Clock == ClockType.Main ? DateTime.Now.ToString("HH") : ModelCity.ActualTime.Split(':')[0];
             string minute = DateTime.Now.ToString("mm");
             string completeTime = $"{hour}:{minute}";
 

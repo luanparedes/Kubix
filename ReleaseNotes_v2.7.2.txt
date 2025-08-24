@@ -1,0 +1,8 @@
+Release notes v.2.7.2
+
+Features:
+
+Improvements:
+
+Bug fixes:
+[Hotfix] Change hour to 24h format.
