@@ -929,11 +929,11 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ColorPicker">
+                <ControlTemplate TargetType="controls:ColorPickerControl">
                     <Grid Background="{TemplateBinding Background}">
 
                         <Grid.Resources>
-                            <Style x:Key="ColorPickerSliderStyle" TargetType="controls:ColorPickerControl">
+                            <Style x:Key="ColorPickerSliderStyle" TargetType="ColorPickerSlider">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Slider">
