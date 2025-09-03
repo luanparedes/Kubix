@@ -12,9 +12,9 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
-        public FormatTextControl formatControl;
         private Button closeButton;
 
+        public FormatTextControl FormatControl { get; set; }
         public StorageFile TabFile { get; set; }
 
         public event EventHandler HasChangesChanged;
@@ -27,7 +27,7 @@ namespace Kubix.Controls
 
         public CustomTabViewItem(CreateFileEnum file, string header = null, string text = "")
         {
-            formatControl = new FormatTextControl(file, text);
+            FormatControl = new FormatTextControl(file, text);
 
             switch (file)
             {
@@ -39,9 +39,9 @@ namespace Kubix.Controls
                     break;
             }
 
-            formatControl.InitialText = text;
+            FormatControl.InitialText = text;
 
-            Content = formatControl;
+            Content = FormatControl;
         }
 
         #endregion
@@ -50,14 +50,14 @@ namespace Kubix.Controls
 
         private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (formatControl.HasChanges)
+            if (FormatControl.HasChanges)
             {
                 CustomDialog dialog = new CustomDialog();
                 var response = await dialog.ShowSaveDialog();
 
                 if (response == ContentDialogResult.Primary)
                 {
-                    await formatControl.SaveFile();
+                    await FormatControl.SaveFile();
                 }
             }
 

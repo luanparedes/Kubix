@@ -1,0 +1,15 @@
+Release notes v.2.7.3
+
+Features:
+
+Improvements:
+KNote ColorPicker.
+Change ColorPicker shape.
+ColorPicker button with new states.
+
+Bug fixes:
+[Hotfix] KNote ColorPicker was broken in release mode. Now it opens on right side and not in another window like before.
+Fix KNote save enabled.
+Fix KNote overwrite.
+Fix hour update.
+Fix date update.
