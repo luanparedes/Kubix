@@ -12,15 +12,16 @@ namespace Kubix.Controls
         #region Fields & Properties
 
         private TextBlock _clockText;
+        public event EventHandler<bool> DayChanged;
 
-        public CityModel ModelCity
+        public string ActualTime
         {
-            get { return (CityModel)GetValue(CityModelProperty); }
-            set { SetValue(CityModelProperty, value); }
+            get { return (string)GetValue(ActualTimeProperty); }
+            set { SetValue(ActualTimeProperty, value); }
         }
 
-        public static readonly DependencyProperty CityModelProperty =
-            DependencyProperty.Register(nameof(ModelCity), typeof(CityModel), typeof(KClock), new PropertyMetadata(null, OnCityModelChanged));
+        public static readonly DependencyProperty ActualTimeProperty =
+            DependencyProperty.Register(nameof(ActualTime), typeof(string), typeof(KClock), new PropertyMetadata("00:00"));
 
         public DispatcherTimer Timer
         {
@@ -76,37 +77,47 @@ namespace Kubix.Controls
             Timer.Stop();
         }
 
+        private bool IsDayChanged(string completeHour)
+        {
+            return completeHour.Equals("00:00:00");
+        }
+
+        private bool IsHourChanged(string minute, string second)
+        {
+            return minute.Equals("00") && second.Equals("00");
+        }
+
         #endregion
 
         #region Event Handlers
 
         private void KClock_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Clock == ClockType.Main)
-            {
-                StartClock();
-            }
+            StartClock();
         }
 
         private void Timer_Tick(object sender, object e)
         {
-            string hour = Clock == ClockType.Main ? DateTime.Now.ToString("HH") : ModelCity.ActualTime.Split(':')[0];
+            string hour = Clock == ClockType.Main ? DateTime.Now.ToString("HH") : ActualTime.Split(':')[0];
             string minute = DateTime.Now.ToString("mm");
+            string second = DateTime.Now.ToString("ss");
+            string timeWithSeconds = $"{hour}:{minute}:{second}";
             string completeTime = $"{hour}:{minute}";
 
-            _clockText.Text = completeTime;
-        }
-
-        #endregion
-
-        #region Callbacks
-
-        private static void OnCityModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is KClock clock)
+            if (IsHourChanged(minute, second))
             {
-                clock.StartClock();
+                DateTime newHour = DateTime.Parse(timeWithSeconds);
+                newHour = newHour.AddHours(1);
+                completeTime = newHour.ToString("HH:mm");
+                timeWithSeconds = newHour.ToString("HH:mm:ss");
             }
+
+            if (IsDayChanged(timeWithSeconds))
+            {
+                DayChanged?.Invoke(this, true);
+            }
+
+            _clockText.Text = ActualTime = completeTime;
         }
 
         #endregion

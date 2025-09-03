@@ -38,7 +38,7 @@ namespace Kubix.Services.Classes
 
         #region Methods
 
-        public async void InitializeExcelFile()
+        public async Task InitializeExcelFile()
         {
             await CreateExcelFile();
         }
@@ -129,7 +129,7 @@ namespace Kubix.Services.Classes
             }
         }
 
-        public CityModel GetCityByPosition(double latitude, double longitude)
+        public Task<CityModel> GetCityByPosition(double latitude, double longitude)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -159,7 +159,7 @@ namespace Kubix.Services.Classes
                     }
                 }
 
-                return cities.First();
+                return Task.FromResult(cities.First());
             }
         }
 

@@ -7,12 +7,13 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media;
 using System;
-using Windows.Storage.Pickers;
-using Windows.Storage;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 
 namespace Kubix.Controls
 {
@@ -20,31 +21,59 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
-        private RichEditBox editBox;
         private ComboBox fontFamilyComboBox;
         private ComboBox fontSizeComboBox;
-        private Button kForegroundButton;
+        private ToggleButton kForegroundButton;
         private ToggleButton kBoldButton;
         private ToggleButton kItalicButton;
         private ToggleButton kUnderlineButton;
         private ToggleButton kStrikethroughButton;
-
         private CreateFileEnum fileEnum;
-        private string ActualText;
+        private bool _hasFormatChange = false;
 
         public event EventHandler<string> KTextChanged;
-        public event EventHandler<bool> KBoldChanged;
-        public event EventHandler<bool> KItalicChanged;
-        public event EventHandler<bool> KUnderlineChanged;
-        public event EventHandler<bool> KStrikethroughChanged;
+        public event EventHandler<bool> HasChanged;
+        public event EventHandler<bool> KColorPickerOpenChanged;
 
-        public bool HasChanges => !IsInitialText();
+        public string ActualTextDocument;
         public string InitialText { get; set; } = string.Empty;
-        public StorageFile TabFile { get; set; }
+        public string FileType { get; set; }
+
+        private bool _hasChanges = false;
+        public bool HasChanges
+        { 
+            get { return _hasChanges; }
+            set
+            {
+                if (_hasChanges != value)
+                {
+                    _hasChanges = value;
+                    HasChanged?.Invoke(this, value);
+                }
+            }
+        }
 
         #endregion
 
         #region Dependency Properties
+
+        public RichEditBox EditBox
+        {
+            get { return (RichEditBox)GetValue(RichDocumentProperty); }
+            set { SetValue(RichDocumentProperty, value); }
+        }
+
+        public static readonly DependencyProperty RichDocumentProperty =
+            DependencyProperty.Register(nameof(EditBox), typeof(RichEditBox), typeof(FormatTextControl), new PropertyMetadata(null));
+
+        public StorageFile TabFile
+        {
+            get { return (StorageFile)GetValue(TabFileProperty); }
+            set { SetValue(TabFileProperty, value); }
+        }
+
+        public static readonly DependencyProperty TabFileProperty =
+            DependencyProperty.Register(nameof(TabFile), typeof(StorageFile), typeof(FormatTextControl), new PropertyMetadata(null));
 
         public FontFamily KFontFamily
         {
@@ -71,7 +100,7 @@ namespace Kubix.Controls
         }
 
         public static readonly DependencyProperty KForegroundProperty =
-            DependencyProperty.Register(nameof(KForeground), typeof(SolidColorBrush), typeof(FormatTextControl), new PropertyMetadata(new SolidColorBrush(Colors.AliceBlue)));
+            DependencyProperty.Register(nameof(KForeground), typeof(SolidColorBrush), typeof(FormatTextControl), new PropertyMetadata(new SolidColorBrush(Colors.AliceBlue), OnKForegroundChanged));
 
         public bool KBold
         {
@@ -118,7 +147,7 @@ namespace Kubix.Controls
             Loaded += FormatTextControl_Loaded;
 
             this.fileEnum = fileEnum;
-            this.ActualText = text;
+            this.ActualTextDocument = text;
         }
 
         private void FormatTextControl_Loaded(object sender, RoutedEventArgs e)
@@ -129,6 +158,7 @@ namespace Kubix.Controls
 
             this.kForegroundButton.Background = KForeground;
 
+            HasChanges = false;
             Loaded -= FormatTextControl_Loaded;
         }
 
@@ -138,15 +168,15 @@ namespace Kubix.Controls
 
         private void CreateNote()
         {
-            if (editBox != null)
+            if (EditBox != null)
             {
                 switch (fileEnum)
                 {
                     case CreateFileEnum.NewFile:
-                        editBox.Document.GetText(TextGetOptions.None, out ActualText);
+                        EditBox.Document.GetText(TextGetOptions.None, out ActualTextDocument);
                         break;
                     case CreateFileEnum.OpenFile:
-                        editBox.Document.SetText(TextSetOptions.None, ActualText);
+                        EditBox.Document.SetText(TextSetOptions.None, ActualTextDocument);
                         break;
                 }
             }
@@ -163,24 +193,7 @@ namespace Kubix.Controls
             WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hwnd);
 
             StorageFile file = await openPicker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                switch (file.FileType)
-                {
-                    case ".txt":
-                        string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-                        editBox.Document.SetText(TextSetOptions.None, text);
-                        break;
-
-                    case ".rtf":
-                        using (var stream = await file.OpenAsync(FileAccessMode.Read))
-                        {
-                            editBox.Document.LoadFromStream(TextSetOptions.FormatRtf, stream);
-                        }
-                        break;
-                }
-            }
+            HasChanges = false;
 
             return file;
         }
@@ -194,10 +207,10 @@ namespace Kubix.Controls
                 switch (TabFile.FileType)
                 {
                     case ".txt":
-                        editBox.Document.GetText(TextGetOptions.None, out text);
+                        EditBox.Document.GetText(TextGetOptions.None, out text);
                         break;
                     case ".rtf":
-                        editBox.Document.GetText(TextGetOptions.FormatRtf, out text);
+                        EditBox.Document.GetText(TextGetOptions.FormatRtf, out text);
                         break;
                 }
 
@@ -222,10 +235,10 @@ namespace Kubix.Controls
                     switch (TabFile.FileType)
                     {
                         case ".txt":
-                            editBox.Document.GetText(TextGetOptions.None, out text);
+                            EditBox.Document.GetText(TextGetOptions.None, out text);
                             break;
                         case ".rtf":
-                            editBox.Document.GetText(TextGetOptions.FormatRtf, out text);
+                            EditBox.Document.GetText(TextGetOptions.FormatRtf, out text);
                             break;
                     }
 
@@ -236,21 +249,30 @@ namespace Kubix.Controls
             if (TabFile == null)
                 return TabFile;
 
-            InitialText = editBox.Document.ToString();
+            _hasFormatChange = false;
+            InitialText = EditBox.Document.ToString();
 
             return TabFile;
         }
 
-        private bool IsInitialText()
+        private async Task<bool> IsInitialText()
         {
-            if (editBox != null)
+            if (EditBox != null)
             {
                 string initialText = InitialText;
                 string text;
-                editBox.Document.GetText(TextGetOptions.None, out text);
 
-                initialText = initialText.Replace("\r", "").Trim();
-                text = text.Replace("\r", "").Trim();
+                EditBox.Document.GetText(TextGetOptions.None, out text);
+
+                if (FileType == ".rtf")
+                {
+                    initialText = await ConvertRtfStringToPlainText(InitialText);
+                }
+
+                initialText = initialText.Replace("\r", "");
+                initialText = initialText.Replace("\n", "");
+                text = text.Replace("\r", "");
+                text = text.Replace("\n", "");
 
                 return initialText.Equals(text);
             }
@@ -258,18 +280,39 @@ namespace Kubix.Controls
             return false;
         }
 
-        private void InitializeColorPickerWindow()
+        private async Task<string> ConvertRtfStringToPlainText(string rtfContent)
         {
-            var colorPickerWindow = new ColorPickerWindow();
-            colorPickerWindow.Activate();
+            if (string.IsNullOrEmpty(rtfContent))
+            {
+                return string.Empty;
+            }
 
-            colorPickerWindow.ViewModel.KColorChanged += ViewModel_KColorChanged;
+            var tempRichEditBox = new RichEditBox();
+            var richTextDocument = tempRichEditBox.Document;
+
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                using (var dataWriter = new DataWriter(stream))
+                {
+                    dataWriter.WriteString(rtfContent);
+                    await dataWriter.StoreAsync();
+                    await dataWriter.FlushAsync();
+                    stream.Seek(0);
+
+                    richTextDocument.LoadFromStream(TextSetOptions.FormatRtf, stream);
+                }
+            }
+
+            string plainText;
+            richTextDocument.GetText(TextGetOptions.None, out plainText);
+
+            return plainText;
         }
 
         private void InitializeFormat(int count = 100)
         {
-            var format = editBox.Document.Selection;
-            var selectedText = editBox.Document.GetRange(0, count);
+            var format = EditBox.Document.Selection;
+            var selectedText = EditBox.Document.GetRange(0, count);
 
             selectedText.CharacterFormat.Name = KFontFamily.Source;
             selectedText.CharacterFormat.Size = KFontSize;
@@ -279,7 +322,9 @@ namespace Kubix.Controls
             selectedText.CharacterFormat.Underline = KUnderline ? UnderlineType.Single : UnderlineType.None;
             selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
 
-            editBox.Document.Selection.SetRange(0, count);
+            EditBox.Document.Selection.SetRange(0, count);
+
+            HasChanges = false;
         }
 
         private void ShowInitialValues()
@@ -299,7 +344,7 @@ namespace Kubix.Controls
 
         private void FormatText(ToggleButton sender)
         {
-            var selectedText = editBox.Document.Selection;
+            var selectedText = EditBox.Document.Selection;
 
             if (selectedText != null)
             {
@@ -322,23 +367,25 @@ namespace Kubix.Controls
                         selectedText.CharacterFormat.Strikethrough = KStrikethrough ? FormatEffect.On : FormatEffect.Off;
                         break;
                 }
+
+                _hasFormatChange = true;
             }
         }
 
         private List<ComboBoxItem> LoadFonts()
         {
             InstalledFontCollection fonts = new InstalledFontCollection();
-            
+
             List<ComboBoxItem> comboItems = new List<ComboBoxItem>();
-            
+
             var fontNames = fonts.Families
                          .Select(f => f.Name)
                          .OrderBy(name => name)
                          .ToList();
 
-            foreach(var font in fontNames )
+            foreach (var font in fontNames)
             {
-                comboItems.Add(new ComboBoxItem() { Content = font});
+                comboItems.Add(new ComboBoxItem() { Content = font });
             }
 
             return comboItems;
@@ -353,11 +400,14 @@ namespace Kubix.Controls
             string fontName = (string)(e.AddedItems[0] as ComboBoxItem).Content;
             KFontFamily = new FontFamily(fontName);
 
-            var selectedText = editBox.Document.Selection;
+            var selectedText = EditBox.Document.Selection;
 
             if (!selectedText.Equals(""))
             {
                 selectedText.CharacterFormat.Name = KFontFamily.Source;
+
+                if (selectedText.Text.Count() > 0)
+                    HasChanges = true;
             }
         }
 
@@ -366,15 +416,18 @@ namespace Kubix.Controls
             string fontSize = (string)(e.AddedItems[0] as ComboBoxItem).Content;
             KFontSize = int.Parse(fontSize);
 
-            var selectedText = editBox.Document.Selection;
+            var selectedText = EditBox.Document.Selection;
 
             if (!selectedText.Equals(""))
+            {
                 selectedText.CharacterFormat.Size = KFontSize;
+                HasChanges = true;
+            }
         }
 
         private void KForeground_Click(object sender, RoutedEventArgs e)
         {
-            InitializeColorPickerWindow();
+            KColorPickerOpenChanged?.Invoke(kForegroundButton, (bool)kForegroundButton.IsChecked);
         }
 
         private void ToogleBtn_Click(object sender, RoutedEventArgs e)
@@ -382,24 +435,19 @@ namespace Kubix.Controls
             FormatText(sender as ToggleButton);
         }
 
-        private void ViewModel_KColorChanged(object sender, ColorChangedEventArgs e)
+        private async void EditBox_TextChanged(object sender, RoutedEventArgs e)
         {
-            kForegroundButton.Background = new SolidColorBrush(e.NewColor);
-            KForeground = new SolidColorBrush(e.NewColor);
+            if (!await IsInitialText() || _hasFormatChange)
+                HasChanges = true;
+            else
+                HasChanges = false;
 
-            var selectedText = editBox.Document.Selection;
-
-            selectedText.CharacterFormat.ForegroundColor = KForeground.Color;
-        }
-
-        private void EditBox_TextChanged(object sender, RoutedEventArgs e)
-        {
-            KTextChanged?.Invoke(this, ActualText);
+            KTextChanged?.Invoke(this, ActualTextDocument);
         }
 
         private void EditBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            ITextSelection selectedText = editBox.Document.Selection;
+            ITextSelection selectedText = EditBox.Document.Selection;
 
             if (selectedText != null)
             {
@@ -412,6 +460,18 @@ namespace Kubix.Controls
             }
         }
 
+        private static void OnKForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is FormatTextControl format)
+            {
+                format.kForegroundButton.Background = format.KForeground;
+                var selectedText = format.EditBox.Document.Selection;
+
+                selectedText.CharacterFormat.ForegroundColor = format.KForeground.Color;
+
+            }
+        }
+
         #endregion
 
         #region OnApplyTemplate
@@ -420,19 +480,19 @@ namespace Kubix.Controls
         {
             base.OnApplyTemplate();
 
-            editBox = GetTemplateChild("EditBox") as RichEditBox;
+            EditBox = GetTemplateChild("EditBox") as RichEditBox;
             fontFamilyComboBox = GetTemplateChild("KComboBox") as ComboBox;
             fontSizeComboBox = GetTemplateChild("KFontSize") as ComboBox;
-            kForegroundButton = GetTemplateChild("KForeground") as Button;
+            kForegroundButton = GetTemplateChild("KForeground") as ToggleButton;
             kBoldButton = GetTemplateChild("KBold") as ToggleButton;
             kItalicButton = GetTemplateChild("KItalic") as ToggleButton;
             kUnderlineButton = GetTemplateChild("KUnderline") as ToggleButton;
             kStrikethroughButton = GetTemplateChild("KStrikethrough") as ToggleButton;
 
-            if (editBox != null)
+            if (EditBox != null)
             {
-                editBox.TextChanged += EditBox_TextChanged;
-                editBox.SelectionChanged += EditBox_SelectionChanged;
+                EditBox.TextChanged += EditBox_TextChanged;
+                EditBox.SelectionChanged += EditBox_SelectionChanged;
             }
 
             if (fontFamilyComboBox != null)

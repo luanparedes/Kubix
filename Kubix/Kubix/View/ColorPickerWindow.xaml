@@ -12,6 +12,6 @@
     <Grid>
         <controls:ColorPickerControl x:Name="KColorPicker"
                                      Grid.Row="1"
-                                     Loaded="{x:Bind ViewModel.KColorPicker_Loaded}"/>
+                                     Loaded="KColorPicker_Loaded"/>
     </Grid>
 </Window>
