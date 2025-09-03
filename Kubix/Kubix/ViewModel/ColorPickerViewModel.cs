@@ -25,11 +25,9 @@ namespace Kubix.ViewModel
 
         #region Event Handlers
 
-        public void KColorPicker_Loaded(object sender, RoutedEventArgs e)
+        public void KColorPicker_Loaded(ColorPickerControl colorPicker, RoutedEventArgs e)
         {
-            colorPicker = sender as ColorPickerControl;
             colorPicker.ColorChanged += ColorPicker_ColorChanged;
-            colorPicker.KClosePicker += ColorPicker_KClosePicker;
         }
 
         private void ColorPicker_KClosePicker(object sender, EventArgs e)

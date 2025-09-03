@@ -76,7 +76,7 @@ namespace Kubix.Controls
                     double latitude = position.Coordinate.Point.Position.Latitude;
                     double longitude = position.Coordinate.Point.Position.Longitude;
 
-                    cityModel = _excelService.GetCityByPosition(latitude, longitude);
+                    cityModel = await _excelService.GetCityByPosition(latitude, longitude);
                 }
             }
 
@@ -208,7 +208,7 @@ namespace Kubix.Controls
             VisualStateManager.GoToState(mainControl, CurrentState, true);
 
             ActualCity = await GetCityInfoAsync(args.SelectedItem as CityModel);
-            kClock.ModelCity = ActualCity;
+            kClock.ActualTime = ActualCity.ActualTime;
             ShowInfoOnScreen();
         }
 
@@ -222,8 +222,16 @@ namespace Kubix.Controls
             });
 
             ActualCity = await GetCityInfoAsync();
-            kClock.ModelCity = ActualCity;
+            kClock.ActualTime = ActualCity.ActualTime;
             ShowInfoOnScreen();
+        }
+
+        private void KClock_DayChanged(object sender, bool e)
+        {
+            DateTime date = DateTime.Parse(ActualCity.ActualDate);
+            date = date.AddDays(1);
+            ActualCity.ActualDate = date.ToString("d");
+            dateText.Text = ActualCity.ActualDate;
         }
 
         #endregion
@@ -253,6 +261,11 @@ namespace Kubix.Controls
             {
                 searchBox.TextChanged += SearchBox_TextChanged;
                 searchBox.SuggestionChosen += SearchBox_SuggestionChosen;
+            }
+
+            if (kClock != null)
+            {
+                kClock.DayChanged += KClock_DayChanged; ;
             }
         }
 
