@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Kubix.Model;
 using Kubix.Services.Interfaces;
-using Microsoft.VisualBasic;
 using MonoTorrent;
 using MonoTorrent.Client;
 using System;
@@ -18,9 +17,6 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage;
-using YoutubeExplode;
-using YoutubeExplode.Videos;
-using YoutubeExplode.Videos.Streams;
 using Path = System.IO.Path;
 
 namespace Kubix.Services.Classes
@@ -47,6 +43,7 @@ namespace Kubix.Services.Classes
             TorrentManager _manager = await _engine.AddAsync(MagnetLink.Parse(download.Url.OriginalString), download.DownloadPath);
             _downloads.TryAdd(GetTorrentHash(download.Url.OriginalString), _manager);
 
+            _logger.InfoLog($"Initiating torrent download: {download.PackageName}");
             await _manager.StartAsync();
             _ = MonitorProgressAsync(_manager, download);
         }
@@ -57,6 +54,7 @@ namespace Kubix.Services.Classes
 
             if (!File.Exists(ytdlpPath))
             {
+                _logger.ErrorLog("yt-dlp.exe não encontrado!");
                 throw new FileNotFoundException("yt-dlp.exe não encontrado!", ytdlpPath);
             }
 
@@ -65,6 +63,7 @@ namespace Kubix.Services.Classes
             string packageThumbnail = videoInfo["thumbnail"];
 
             var formatCode = await GetBestCombinedFormat(download.Url.AbsoluteUri);
+            _logger.InfoLog($"Best format code for {packageName} is {formatCode}");
 
             if (formatCode != null)
             {
@@ -130,6 +129,7 @@ namespace Kubix.Services.Classes
 
                 if (process.ExitCode != 0)
                 {
+                    _logger.ErrorLog($"yt-dlp failed with exit code {process.ExitCode}");
                     throw new Exception($"yt-dlp failed with code {process.ExitCode}");
                 }
             }
@@ -151,6 +151,7 @@ namespace Kubix.Services.Classes
                 },
             }.ToSettings();
 
+            _logger.InfoLog("Starting torrent client engine.");
             _engine = new ClientEngine(settings);
         }
 
@@ -166,24 +167,28 @@ namespace Kubix.Services.Classes
             {
                 if (manager.State == TorrentState.Downloading)
                 {
+                    _logger.InfoLog($"Downloading torrent: {download.PackageName}");
                     Torrent torrent = await GetTorrentInfo(download);
                     update.DownloadSize = torrent.Size;
                 }
 
                 if (update.State == DownloadState.ContinueDownloading)
                 {
+                    _logger.InfoLog($"Resuming download: {download.PackageName}");
                     await manager.StartAsync();
                     update.State = DownloadState.Downloading;
                     InvokeEvent(EventEnum.DownloadProgress, download, update);
                 }
                 else if (update.State == DownloadState.PrePaused)
                 {
+                    _logger.InfoLog($"Pausing download: {download.PackageName}");
                     await manager.PauseAsync();
                     update.State = DownloadState.Paused;
                     InvokeEvent(EventEnum.DownloadProgress, download, update);
                 }
                 else if (update.State == DownloadState.Cancelled)
                 {
+                    _logger.InfoLog($"Cancelling download: {download.PackageName}");
                     ResetValues(update);
                     InvokeEvent(EventEnum.DownloadProgress, download, update);
                     await manager.StopAsync();
@@ -217,6 +222,7 @@ namespace Kubix.Services.Classes
             if (torrentFile == null)
                 return null;
 
+            _logger.InfoLog($"Loading torrent info from file: {torrentFile}");
             Torrent torrent = Torrent.Load(torrentFile);
 
             return torrent;
@@ -227,6 +233,7 @@ namespace Kubix.Services.Classes
             var magnet = MagnetLink.Parse(magnetLinkString);
             string infoHash = magnet.InfoHashes.V1OrV2.ToHex();
 
+            _logger.InfoLog($"Extracted info hash: {infoHash} from magnet link.");
             return infoHash;
         }
         private async Task<string?> GetBestCombinedFormat(string videoUrl)
@@ -267,6 +274,7 @@ namespace Kubix.Services.Classes
                 .OrderByDescending(f => int.Parse(f.resolution.Split('x')[1]))
                 .First();
 
+            _logger.InfoLog($"Best combined format found: Code {best.code}, Resolution {best.resolution}");
             return best.code;
         }
 
@@ -312,6 +320,7 @@ namespace Kubix.Services.Classes
                 jsonData["thumbnail"] = json.GetProperty("thumbnail").GetString();
             }
 
+            _logger.InfoLog($"Extracted video info: Title - {jsonData["title"]}, Thumbnail - {jsonData["thumbnail"]}");
             return jsonData;
         }
 

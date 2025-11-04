@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Trivial.Geography;
 using Windows.Devices.Geolocation;
 using Windows.Media.Core;
 
@@ -69,9 +70,11 @@ namespace Kubix.Controls
 
                 if (accessStatus == GeolocationAccessStatus.Allowed)
                 {
+                    _logger.InfoLog("Access to location allowed.");
 
                     var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
                     var position = await geolocator.GetGeopositionAsync();
+                    _logger.InfoLog("Position obtained from geolocator.");
 
                     double latitude = position.Coordinate.Point.Position.Latitude;
                     double longitude = position.Coordinate.Point.Position.Longitude;
@@ -81,6 +84,7 @@ namespace Kubix.Controls
             }
 
             cityModel.City = TextWithoutAccent(cityModel.City);
+            _logger.InfoLog($"Detected location from {cityModel.City}: Lat {cityModel.Latitude}, Lon {cityModel.Longitude}");
 
             string url = $"https://api.weatherapi.com/v1/current.json?key={WeatherApiKey}&q={cityModel.City}&aqi=no";
 
@@ -88,10 +92,12 @@ namespace Kubix.Controls
 
             try
             {
+                _logger.InfoLog($"Trying to access Weather api...");
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
+                    _logger.InfoLog($"Weather api accessed successfully.");
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     JObject jsonParsed = JObject.Parse(jsonResponse);
 
@@ -99,6 +105,8 @@ namespace Kubix.Controls
                     cityModel.ActualTime = await GetCurrentTimeAsync(jsonParsed);
                     cityModel.ActualDate = await GetCurrentDateAsync(jsonParsed);
                     cityModel.WeatherIcon = await GetWeatherIcon(jsonParsed);
+
+                    _logger.InfoLog($"City info fetched successfully.");
                 }
             }
             catch (WeatherApiException ex)
@@ -209,6 +217,8 @@ namespace Kubix.Controls
 
             ActualCity = await GetCityInfoAsync(args.SelectedItem as CityModel);
             kClock.ActualTime = ActualCity.ActualTime;
+
+            _logger.InfoLog($"City selected: {ActualCity.City}");
             ShowInfoOnScreen();
         }
 

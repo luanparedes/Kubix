@@ -11,10 +11,16 @@ namespace Kubix.Services.Classes
     {
         private Frame _frame;
         private Frame _navigationViewFrame;
+        private readonly ILogger _logger;
 
         public bool CanGoBack => _frame?.CanGoBack ?? false;
 
         public bool CanGoForward => _frame?.CanGoForward ?? false;
+
+        public NavigationService(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public void SetFrame(Frame frame, FrameTypeEnum frameType)
         {
@@ -22,9 +28,11 @@ namespace Kubix.Services.Classes
             {
                 case FrameTypeEnum.MainFrame:
                     _frame = frame;
+                    _logger.InfoLog($"Main frame set for navigation service {frame.Name}.");
                     break;
                 case FrameTypeEnum.NavigationViewFrame:
                     _navigationViewFrame = frame;
+                    _logger.InfoLog($"Navigation view frame set for navigation service {frame.Name}.");
                     break;
             }
         }
@@ -59,7 +67,7 @@ namespace Kubix.Services.Classes
             }
             catch (NullReferenceException ex)
             {
-                Debug.WriteLine($"Error on navigating: {ex.Message}");
+                _logger.ErrorLog($"Error on navigating: {ex.Message}");
             }
         }
 
@@ -71,7 +79,7 @@ namespace Kubix.Services.Classes
             }
             catch (NullReferenceException ex)
             {
-                Debug.WriteLine($"Error on navigating view: {ex.Message}");
+                _logger.ErrorLog($"Error on navigating navigation view: {ex.Message}");
             }
         }
     }
