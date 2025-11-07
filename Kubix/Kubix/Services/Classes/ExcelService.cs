@@ -161,7 +161,6 @@ namespace Kubix.Services.Classes
                     }
                 }
 
-                _logger.InfoLog($"City found by position: {Task.FromResult(cities.First())}");
                 return Task.FromResult(cities.First());
             }
         }
