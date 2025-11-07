@@ -125,10 +125,12 @@ namespace Kubix.Controls
 
         #endregion
 
+        #region Constructor
         public KTerminal()
         {
             _logger = Ioc.Default.GetService<ILogger>();
         }
+        #endregion
 
         #region OnApplyTemplate
 
@@ -230,7 +232,9 @@ namespace Kubix.Controls
             IsWaitingFinishCommand = false;
             TerminalInput = string.Empty;
             _commandIndex = 0;
-            _scrollViewer.ChangeView(0, _scrollViewer.ScrollableHeight, null);    
+            _scrollViewer.ChangeView(0, _scrollViewer.ScrollableHeight, null);  
+            
+            _logger.InfoLog("Terminal command execution completed.");
         }
 
         private void GetTerminalOutput(string result, string error, string command)
@@ -282,11 +286,13 @@ namespace Kubix.Controls
                         TerminalOutput += $"\nThe system cannot find the path specified: {newPath}";
                     }
 
+                    _logger.InfoLog($"Changed terminal directory to: {CurrentDirectory}");
                     return true;
                 }
                 catch (Exception ex)
                 {
                     TerminalOutput += $"\nError changing directory: {ex.Message}";
+                    _logger.ErrorLog($"Error changing directory to '{newPath}': {ex.Message}");
                     return false;
                 }
             }

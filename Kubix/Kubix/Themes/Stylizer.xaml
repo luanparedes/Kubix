@@ -273,6 +273,7 @@
                                                IsSplitView="True"
                                                IgnoreWhiteSpace="False"
                                                IsCaseSensitive="True"
+                                               IsTextSelectionEnabled="True"
                                                />
                     </Grid>
                 </ControlTemplate>

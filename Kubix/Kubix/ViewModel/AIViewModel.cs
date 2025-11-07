@@ -1,5 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using Kubix.Services.Interfaces;
+using Microsoft.Web.WebView2.Core;
 
 namespace Kubix.ViewModel
 {
@@ -22,11 +24,27 @@ namespace Kubix.ViewModel
 
         #endregion
 
-        private Control pageControl;
+        #region Fields and Properties
 
+        private readonly ILogger _logger;
+        private Control pageControl;
         AIApp ActualAIApp;
 
         private string CurrentState { get; set; } = STATE_CHOICE_APP;
+
+        #endregion
+
+        #region Constructor
+
+        public AIViewModel(ILogger logger)
+        {
+            _logger = logger;
+            _logger.InfoLog("AIViewModel initialized.");
+        }
+
+        #endregion
+
+        #region Event Handlers
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -38,30 +56,36 @@ namespace Kubix.ViewModel
                     ActualAIApp = AIApp.ChatGpt;
                     CurrentState = STATE_CHAT_GPT;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Switched to ChatGPT view.");
                     break;
                 case "DeepseekBtn":
                     ActualAIApp = AIApp.Deepseek;
                     CurrentState = STATE_DEEPSEEK;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Switched to Deepseek view.");
                     break;
                 case "CopilotBtn":
                     ActualAIApp = AIApp.Copilot;
                     CurrentState = STATE_COPILOT;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Switched to Copilot view.");
                     break;
                 case "GeminiBtn":
                     ActualAIApp = AIApp.Gemini;
                     CurrentState = STATE_GEMINI;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Switched to Gemini view.");
                     break;
                 case "MetaBtn":
                     ActualAIApp = AIApp.Meta;
                     CurrentState = STATE_META;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Switched to Meta view.");
                     break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Returned to AI app choice view.");
                     break;
             }
         }
@@ -74,11 +98,18 @@ namespace Kubix.ViewModel
 
         public void AIAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
-            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+            CoreWebView2Settings settings = sender.CoreWebView2.Settings;
 
-            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            settings.IsScriptEnabled = true;
+            settings.AreHostObjectsAllowed = false;
+
+            _logger.InfoLog("WebView2 AIView CoreWebView2 initialized with configuration:");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsWebMessageEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreDefaultScriptDialogsEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsScriptEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreHostObjectsAllowed}");
         }
 
         public void AIAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
@@ -86,6 +117,8 @@ namespace Kubix.ViewModel
             if (!args.Uri.StartsWith("https://"))
                 args.Cancel = true;
         }
+
+        #endregion
     }
 
     public enum AIApp

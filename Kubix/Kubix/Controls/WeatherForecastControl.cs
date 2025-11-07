@@ -64,34 +64,34 @@ namespace Kubix.Controls
 
         private async Task<CityModel> GetCityInfoAsync(CityModel cityModel = null)
         {
-            if (cityModel == null)
-            {
-                var accessStatus = await Geolocator.RequestAccessAsync();
-
-                if (accessStatus == GeolocationAccessStatus.Allowed)
-                {
-                    _logger.InfoLog("Access to location allowed.");
-
-                    var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
-                    var position = await geolocator.GetGeopositionAsync();
-                    _logger.InfoLog("Position obtained from geolocator.");
-
-                    double latitude = position.Coordinate.Point.Position.Latitude;
-                    double longitude = position.Coordinate.Point.Position.Longitude;
-
-                    cityModel = await _excelService.GetCityByPosition(latitude, longitude);
-                }
-            }
-
-            cityModel.City = TextWithoutAccent(cityModel.City);
-            _logger.InfoLog($"Detected location from {cityModel.City}: Lat {cityModel.Latitude}, Lon {cityModel.Longitude}");
-
-            string url = $"https://api.weatherapi.com/v1/current.json?key={WeatherApiKey}&q={cityModel.City}&aqi=no";
-
-            using HttpClient client = new HttpClient();
-
             try
             {
+                if (cityModel == null)
+                {
+                    var accessStatus = await Geolocator.RequestAccessAsync();
+
+                    if (accessStatus == GeolocationAccessStatus.Allowed)
+                    {
+                        _logger.InfoLog("Access to location allowed.");
+
+                        var geolocator = new Geolocator { DesiredAccuracyInMeters = 50 };
+                        var position = await geolocator.GetGeopositionAsync();
+                        _logger.InfoLog("Position obtained from geolocator.");
+
+                        double latitude = position.Coordinate.Point.Position.Latitude;
+                        double longitude = position.Coordinate.Point.Position.Longitude;
+
+                        cityModel = await _excelService.GetCityByPosition(latitude, longitude);
+                    }
+                }
+
+                cityModel.City = TextWithoutAccent(cityModel.City);
+                _logger.InfoLog($"Detected location from {cityModel.City}: Lat {cityModel.Latitude}, Lon {cityModel.Longitude}");
+
+                string url = $"https://api.weatherapi.com/v1/current.json?key={WeatherApiKey}&q={cityModel.City}&aqi=no";
+
+                using HttpClient client = new HttpClient();
+
                 _logger.InfoLog($"Trying to access Weather api...");
                 HttpResponseMessage response = await client.GetAsync(url);
 
@@ -131,7 +131,7 @@ namespace Kubix.Controls
         {
             string time = jsonParsed["location"]["localtime"]?.ToString();
             DateTime dateTime = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-            
+
             return dateTime.ToString("HH:mm");
         }
 
@@ -139,7 +139,7 @@ namespace Kubix.Controls
         {
             string time = jsonParsed["location"]["localtime"]?.ToString();
             DateTime dateTime = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-            
+
             return dateTime.ToString("dd/MM/yyyy");
         }
 
@@ -286,13 +286,13 @@ namespace Kubix.Controls
 
     public class WeatherApiException : Exception
     {
-        public WeatherApiException() {}
+        public WeatherApiException() { }
 
         public WeatherApiException(string message)
-            : base(message) {}
+            : base(message) { }
 
         public WeatherApiException(string message, Exception innerException)
-            : base(message, innerException) {}
+            : base(message, innerException) { }
     }
 
     #endregion

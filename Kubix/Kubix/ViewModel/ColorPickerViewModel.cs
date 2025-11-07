@@ -6,6 +6,7 @@ using Kubix.View;
 using Kubix.Controls;
 using System;
 using Microsoft.UI.Xaml.Controls;
+using Kubix.Services.Interfaces;
 
 namespace Kubix.ViewModel
 {
@@ -13,6 +14,7 @@ namespace Kubix.ViewModel
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private ColorPickerControl colorPicker;
         private ColorPickerWindow colorPickerWindow;
         private AppWindow appWindow;
@@ -21,6 +23,14 @@ namespace Kubix.ViewModel
 
         public event EventHandler<ColorChangedEventArgs> KColorChanged;
 
+        #endregion
+
+        #region Constructor
+        public ColorPickerViewModel(ILogger logger)
+        {
+            _logger = logger;
+            logger.InfoLog("ColorPickerViewModel initialized.");
+        }
         #endregion
 
         #region Event Handlers
@@ -32,11 +42,13 @@ namespace Kubix.ViewModel
 
         private void ColorPicker_KClosePicker(object sender, EventArgs e)
         {
+            _logger.InfoLog("Color Picker closed.");
             colorPickerWindow.Close();
         }
 
         private void ColorPicker_ColorChanged(ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args)
         {
+            _logger.InfoLog($"Color changed to: {args.NewColor}");
             KColorChanged?.Invoke(colorPicker, args);
         }
 
@@ -51,11 +63,13 @@ namespace Kubix.ViewModel
                 Initialize();
                 SetWindowSize(550, 800);
                 CenterWindow();
+                _logger.InfoLog("Color Picker window activated and centered.");
             }
         }
 
         public void ColorPickerWindow_Closed(object sender, WindowEventArgs args)
         {
+            _logger.InfoLog("Color Picker window closed.");
             appWindow = null;
         }
 
@@ -68,7 +82,7 @@ namespace Kubix.ViewModel
             var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(colorPickerWindow);
             var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
             appWindow = AppWindow.GetFromWindowId(windowId);
-
+            _logger.InfoLog("Color Picker window initialized.");
         }
 
         private void SetWindowSize(int width, int height)

@@ -1,4 +1,6 @@
-﻿using DiffPlex.UI;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using DiffPlex.UI;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -9,6 +11,7 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private RichEditBox _leftBox;
         private RichEditBox _rightBox;
         private DiffTextView _diffTextView;
@@ -32,6 +35,14 @@ namespace Kubix.Controls
             DependencyProperty.Register(nameof(RightText), typeof(string), typeof(KDiff), new PropertyMetadata(string.Empty, RightTextChanged));
 
 
+        #endregion
+
+        #region Constructor
+        public KDiff()
+        {
+            _logger = Ioc.Default.GetService<ILogger>();
+            this.DefaultStyleKey = typeof(KDiff);
+        }
         #endregion
 
         #region Event Handlers

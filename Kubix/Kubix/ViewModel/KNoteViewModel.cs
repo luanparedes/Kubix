@@ -1,15 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.Generic;
-using Windows.Storage;
-using Windows.Storage.Pickers;
+using Kubix.Services.Interfaces;
 
 namespace Kubix.ViewModel
 {
     public class KNoteViewModel : ObservableObject
     {
+        #region Fields & Properties
+        private readonly ILogger _logger;
+        #endregion
 
+        #region Constructor
+
+        public KNoteViewModel(ILogger logger)
+        {
+            _logger = logger;
+            _logger.InfoLog("KNoteViewModel initialized.");
+        }
+
+        #endregion
     }
 }

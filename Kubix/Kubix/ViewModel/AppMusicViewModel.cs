@@ -1,7 +1,9 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 using System;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Kubix.ViewModel
 {
@@ -22,6 +24,7 @@ namespace Kubix.ViewModel
 
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private Control pageControl;
         private WebView2 webView;
 
@@ -29,6 +32,14 @@ namespace Kubix.ViewModel
 
         public string CurrentState { get; set; } = STATE_CHOICE_APP;
 
+        #endregion
+
+        #region Constructor
+        public AppMusicViewModel(ILogger logger)
+        {
+            _logger = logger;
+            _logger.InfoLog("AppMusicViewModel initialized.");
+        }
         #endregion
 
         #region Event Handlers
@@ -54,20 +65,24 @@ namespace Kubix.ViewModel
                     ActualMusicApp = MusicApp.YoutubeMusic;
                     CurrentState = STATE_YOUTUBEMUSIC_APP;
                     webView.Source = new Uri(YoutubeMusicURL);
+                    _logger.InfoLog("Navigating to YouTube Music.");
                     break;
                 case "SpotifyBtn":
                     ActualMusicApp = MusicApp.Spotify;
                     CurrentState = STATE_SPOTIFY_APP;
                     webView.Source = new Uri(SpotifyURL);
+                    _logger.InfoLog("Navigating to Spotify.");
                     break;
                 case "DeezerBtn":
                     ActualMusicApp = MusicApp.Deezer;
                     CurrentState = STATE_DEEZER_APP;
                     webView.Source = new Uri(DeezerURL);
+                    _logger.InfoLog("Navigating to Deezer.");
                     break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Returning to app choice.");
                     break;
             }
         }
@@ -79,11 +94,18 @@ namespace Kubix.ViewModel
 
         public void AppMusicAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
-            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
+            CoreWebView2Settings settings = sender.CoreWebView2.Settings;
 
-            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            settings.IsScriptEnabled = true;
+            settings.AreHostObjectsAllowed = false;
+
+            _logger.InfoLog("WebView2 AppMusic CoreWebView2 initialized with configuration:");
+            _logger.InfoLog($"WebView2 AppMusic initialized with custom settings:{settings.IsWebMessageEnabled}");
+            _logger.InfoLog($"WebView2 AppMusic initialized with custom settings:{settings.AreDefaultScriptDialogsEnabled}");
+            _logger.InfoLog($"WebView2 AppMusic initialized with custom settings:{settings.IsScriptEnabled}");
+            _logger.InfoLog($"WebView2 AppMusic initialized with custom settings:{settings.AreHostObjectsAllowed}");
         }
 
         public void AppMusicAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)

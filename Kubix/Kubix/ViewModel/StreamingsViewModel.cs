@@ -1,5 +1,7 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,7 @@ namespace Kubix.ViewModel
 
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private Control pageControl;
         private WebView2 webView;
 
@@ -34,6 +37,14 @@ namespace Kubix.ViewModel
 
         private string CurrentState { get; set; } = STATE_CHOICE_APP;
 
+        #endregion
+
+        #region Constructor
+        public StreamingsViewModel(ILogger logger)
+        {
+            _logger = logger;
+            _logger.InfoLog("StreamingsViewModel initialized");
+        }
         #endregion
 
         #region Event Handlers
@@ -59,25 +70,30 @@ namespace Kubix.ViewModel
                     ActualStreamingApp = StreamingApp.Netflix;
                     CurrentState = STATE_NETFLIX;
                     webView.Source = new Uri(NetflixURL);
+                    _logger.InfoLog("Navigating to Netflix");
                     break;
                 case "MaxBtn":
                     ActualStreamingApp = StreamingApp.Max;
                     CurrentState = STATE_MAX;
                     webView.Source = new Uri(MaxURL);
+                    _logger.InfoLog("Navigating to Max");
                     break;
                 case "DisneyBtn":
                     ActualStreamingApp = StreamingApp.Disney;
                     CurrentState = STATE_DISNEY;
                     webView.Source = new Uri(DisneyURL);
+                    _logger.InfoLog("Navigating to Disney+");
                     break;
                 case "PrimeVideoBtn":
                     ActualStreamingApp = StreamingApp.PrimeVideo;
                     CurrentState = STATE_PRIME_VIDEO;
                     webView.Source = new Uri(PrimeVideoURL);
+                    _logger.InfoLog("Navigating to Prime Video");
                     break;
                 case "BackButton":
                     CurrentState = STATE_CHOICE_APP;
                     VisualStateManager.GoToState(pageControl, CurrentState, true);
+                    _logger.InfoLog("Returning to streaming app choice");
                     break;
             }
         }
@@ -89,11 +105,18 @@ namespace Kubix.ViewModel
 
         public void StreamingsAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
-            webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
+            CoreWebView2Settings settings = sender.CoreWebView2.Settings;
 
-            webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            settings.IsScriptEnabled = true;
+            settings.AreHostObjectsAllowed = false;
+
+            _logger.InfoLog("WebView2 AIView CoreWebView2 initialized with configuration:");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsWebMessageEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreDefaultScriptDialogsEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsScriptEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreHostObjectsAllowed}");
         }
 
         public void StreamingsAppWeb_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
