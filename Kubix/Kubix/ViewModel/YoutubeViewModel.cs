@@ -1,11 +1,15 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 
 namespace Kubix.ViewModel
 {
     public partial class YoutubeViewModel : ObservableObject
     {
+        #region Fields & Properties
+        private readonly ILogger _logger;
         public string YoutubeURL = "https://youtube.com";
         private WebView2 _webView;
 
@@ -13,15 +17,31 @@ namespace Kubix.ViewModel
         private bool isBackEnabled = false;
         [ObservableProperty]
         private bool isForwardEnabled = false;
+        #endregion
 
+        #region Constructor
+        public YoutubeViewModel(ILogger logger)
+        {
+            _logger = logger;
+            _logger.InfoLog("YoutubeViewModel initialized.");
+        }
+        #endregion
+
+        #region Event Handlers
         public void YoutubeAppWeb_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            _webView = sender as WebView2;
+            CoreWebView2Settings settings = sender.CoreWebView2.Settings;
 
-            _webView.CoreWebView2.Settings.IsWebMessageEnabled = false;
-            _webView.CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            _webView.CoreWebView2.Settings.IsScriptEnabled = true; // Só ative se precisar de scripts
-            _webView.CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            settings.IsScriptEnabled = true;
+            settings.AreHostObjectsAllowed = false;
+
+            _logger.InfoLog("WebView2 AIView CoreWebView2 initialized with configuration:");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsWebMessageEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreDefaultScriptDialogsEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsScriptEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreHostObjectsAllowed}");
             _webView.CoreWebView2.SourceChanged += CoreWebView2_SourceChanged;
         }
 
@@ -35,6 +55,7 @@ namespace Kubix.ViewModel
         {
             if (_webView.CanGoBack)
             {
+                _logger.InfoLog("Navigating back in WebView2 history.");
                 _webView.GoBack();         
             }
         }
@@ -43,6 +64,7 @@ namespace Kubix.ViewModel
         {
             if (_webView.CanGoForward)
             {
+                _logger.InfoLog("Navigating forward in WebView2 history.");
                 _webView.GoForward();
             }
         }
@@ -51,6 +73,9 @@ namespace Kubix.ViewModel
         {
             IsBackEnabled = _webView.CanGoBack;
             IsForwardEnabled = _webView.CanGoForward;
+            _logger.InfoLog($"WebView2 navigate to {sender.Source}");
         }
+
+        #endregion
     }
 }

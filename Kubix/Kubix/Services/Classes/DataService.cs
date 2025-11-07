@@ -12,10 +12,12 @@ namespace Kubix.Services.Classes
         private const string CommandsTable = "Commands";
         private readonly string Database = "Kubix.db";
 
+        private readonly ILogger _logger;
         private readonly IAppInfo _appInfo;
 
         public DataService()
         {
+            _logger = Ioc.Default.GetService<ILogger>();
             _appInfo = Ioc.Default.GetService<IAppInfo>();
         }
 
@@ -29,6 +31,7 @@ namespace Kubix.Services.Classes
             using (var connection = new SqliteConnection($"Data Source={dbPath}"))
             {
                 connection.Open();
+                _logger.InfoLog($"Creating database at {dbPath} for {_appInfo.AppName} v{_appInfo.AppVersion}");
             }
         }
 

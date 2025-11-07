@@ -1,4 +1,7 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Services.Interfaces;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 using System;
 using System.Linq;
 using Windows.Globalization;
@@ -16,6 +19,7 @@ namespace Kubix.Controls
 
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private TabView customTabView;
         private TextBox searchTextBox;
         private Button searchButton;
@@ -28,7 +32,7 @@ namespace Kubix.Controls
 
         public KBrowser() 
         {
-            
+            _logger = Ioc.Default.GetService<ILogger>();
         }
 
         #endregion
@@ -49,24 +53,34 @@ namespace Kubix.Controls
             customTabView.TabItems.Add(newTabItem);
             customTabView.SelectedItem = newTabItem;
             ActualTabItem = newTabItem;
+
+            _logger.InfoLog($"New tab created with URL: {website}");
         }
 
         private async void KBrowser_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             string currentLanguage = ApplicationLanguages.Languages.FirstOrDefault() ?? "en-US";
             await (ActualTabItem.Content as WebView2).CoreWebView2.ExecuteScriptAsync($"document.documentElement.lang = '{currentLanguage}';");
+            _logger.InfoLog($"Navigation completed to URL: {(ActualTabItem.Content as WebView2).Source}");
         }
 
         public void KBrowser_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
         {
-            (sender as WebView2).CoreWebView2.Settings.IsWebMessageEnabled = false;
-            (sender as WebView2).CoreWebView2.Settings.AreDefaultScriptDialogsEnabled = false;
-            (sender as WebView2).CoreWebView2.Settings.IsScriptEnabled = true;
+            CoreWebView2Settings settings = sender.CoreWebView2.Settings;
 
-            (sender as WebView2).CoreWebView2.Settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            settings.IsScriptEnabled = true;
+            settings.AreHostObjectsAllowed = false;
+
+            _logger.InfoLog("WebView2 AIView CoreWebView2 initialized with configuration:");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsWebMessageEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreDefaultScriptDialogsEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.IsScriptEnabled}");
+            _logger.InfoLog($"WebView2 AIView initialized with custom settings:{settings.AreHostObjectsAllowed}");
         }
 
-        public void KBrowser_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        public void KBrowser_NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
             if (!args.Uri.StartsWith("https://"))
                 args.Cancel = true;
@@ -76,6 +90,7 @@ namespace Kubix.Controls
         {
             (ActualTabItem.Content as WebView2).Source = new Uri($"http://{website}");
             ActualTabItem.Header = (ActualTabItem.Content as WebView2).Source.Host;
+            _logger.InfoLog($"Navigating to URL: {website}");
         }
 
         #endregion
@@ -103,6 +118,7 @@ namespace Kubix.Controls
             {
                 ActualTabItem = customTabView.SelectedItem as BrowserTabViewItem;
                 searchTextBox.Text = (ActualTabItem.Content as WebView2).Source.Host;
+                _logger.InfoLog($"Switched to tab with URL: {(ActualTabItem.Content as WebView2).Source}");
             }
         }
 

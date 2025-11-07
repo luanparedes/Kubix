@@ -1,4 +1,6 @@
-﻿using Kubix.Helpers;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Helpers;
+using Kubix.Services.Interfaces;
 using Kubix.View;
 using Microsoft.UI;
 using Microsoft.UI.Text;
@@ -21,6 +23,7 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private ComboBox fontFamilyComboBox;
         private ComboBox fontSizeComboBox;
         private ToggleButton kForegroundButton;
@@ -145,6 +148,7 @@ namespace Kubix.Controls
         public FormatTextControl(CreateFileEnum fileEnum, string text)
         {
             Loaded += FormatTextControl_Loaded;
+            _logger = Ioc.Default.GetService<ILogger>();
 
             this.fileEnum = fileEnum;
             this.ActualTextDocument = text;
@@ -174,9 +178,11 @@ namespace Kubix.Controls
                 {
                     case CreateFileEnum.NewFile:
                         EditBox.Document.GetText(TextGetOptions.None, out ActualTextDocument);
+                        _logger.InfoLog("New document created.");
                         break;
                     case CreateFileEnum.OpenFile:
                         EditBox.Document.SetText(TextSetOptions.None, ActualTextDocument);
+                        _logger.InfoLog("Document opened.");
                         break;
                 }
             }
@@ -195,6 +201,7 @@ namespace Kubix.Controls
             StorageFile file = await openPicker.PickSingleFileAsync();
             HasChanges = false;
 
+            _logger.InfoLog($"File {file.Name} opened via OpenFilePicker.");
             return file;
         }
 
@@ -252,6 +259,7 @@ namespace Kubix.Controls
             _hasFormatChange = false;
             InitialText = EditBox.Document.ToString();
 
+            _logger.InfoLog($"File {TabFile.Name} saved.");
             return TabFile;
         }
 
@@ -374,18 +382,27 @@ namespace Kubix.Controls
 
         private List<ComboBoxItem> LoadFonts()
         {
-            InstalledFontCollection fonts = new InstalledFontCollection();
-
             List<ComboBoxItem> comboItems = new List<ComboBoxItem>();
 
-            var fontNames = fonts.Families
-                         .Select(f => f.Name)
-                         .OrderBy(name => name)
-                         .ToList();
-
-            foreach (var font in fontNames)
+            try
             {
-                comboItems.Add(new ComboBoxItem() { Content = font });
+                InstalledFontCollection fonts = new InstalledFontCollection();
+
+                var fontNames = fonts.Families
+                             .Select(f => f.Name)
+                             .OrderBy(name => name)
+                             .ToList();
+
+                foreach (var font in fontNames)
+                {
+                    comboItems.Add(new ComboBoxItem() { Content = font });
+                }
+
+                _logger.InfoLog("Fonts loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.ErrorLog($"Error loading fonts.\n{ex}");
             }
 
             return comboItems;

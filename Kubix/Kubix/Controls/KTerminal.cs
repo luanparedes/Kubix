@@ -28,6 +28,7 @@ namespace Kubix.Controls
 
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private IDataService _dataService;
 
         private ScrollViewer _scrollViewer;
@@ -124,6 +125,13 @@ namespace Kubix.Controls
 
         #endregion
 
+        #region Constructor
+        public KTerminal()
+        {
+            _logger = Ioc.Default.GetService<ILogger>();
+        }
+        #endregion
+
         #region OnApplyTemplate
 
         protected override void OnApplyTemplate()
@@ -211,19 +219,22 @@ namespace Kubix.Controls
                                 VerifyChangeFolderCommand();
                                 GetTerminalOutput(output, error, command);
                             });
+                            _logger.InfoLog($"Command '{command}' executed.");
                         }
                     }
                 }
                 catch (Exception e)
                 {
-
+                    _logger.ErrorLog($"Error executing command '{command}': {e.Message}");
                 }
             });
 
             IsWaitingFinishCommand = false;
             TerminalInput = string.Empty;
             _commandIndex = 0;
-            _scrollViewer.ChangeView(0, _scrollViewer.ScrollableHeight, null);    
+            _scrollViewer.ChangeView(0, _scrollViewer.ScrollableHeight, null);  
+            
+            _logger.InfoLog("Terminal command execution completed.");
         }
 
         private void GetTerminalOutput(string result, string error, string command)
@@ -275,11 +286,13 @@ namespace Kubix.Controls
                         TerminalOutput += $"\nThe system cannot find the path specified: {newPath}";
                     }
 
+                    _logger.InfoLog($"Changed terminal directory to: {CurrentDirectory}");
                     return true;
                 }
                 catch (Exception ex)
                 {
                     TerminalOutput += $"\nError changing directory: {ex.Message}";
+                    _logger.ErrorLog($"Error changing directory to '{newPath}': {ex.Message}");
                     return false;
                 }
             }
@@ -294,16 +307,19 @@ namespace Kubix.Controls
             bool fileExists = false;
             try
             {
+                _logger.InfoLog("Checking if default commands file exists.");
                 await localFolder.GetFileAsync(COMMANDS_FILE);
                 fileExists = true;
             }
             catch
             {
+                _logger.InfoLog("Default commands file does not exist. Creating a new one.");
                 fileExists = false;
             }
 
             if (!fileExists)
             {
+                _logger.InfoLog("Copying default commands file to local folder.");
                 StorageFile sourceFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{COMMANDS_FILE}"));
                 await sourceFile.CopyAsync(localFolder, COMMANDS_FILE, NameCollisionOption.ReplaceExisting);
             }
@@ -321,6 +337,8 @@ namespace Kubix.Controls
 
             foreach (var item in sorted)
                 DefaultCommands.Add(item);
+
+            _logger.InfoLog("Default commands loaded successfully.");
         }
 
         private void LoadLatestCommandsAsync()
@@ -334,6 +352,8 @@ namespace Kubix.Controls
                     LastCommands.Add(command);
                 }
             });
+
+            _logger.InfoLog("Latest commands loaded successfully.");
         }
 
         #endregion
@@ -383,6 +403,7 @@ namespace Kubix.Controls
             if (e.AddedItems[0] is string command)
             {
                 TerminalInput = command;
+                _logger.InfoLog($"Command '{command}' selected from list.");
             }
         }
 

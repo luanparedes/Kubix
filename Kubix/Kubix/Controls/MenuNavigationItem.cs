@@ -32,20 +32,5 @@ namespace Kubix.Controls
 
         public static readonly DependencyProperty AliasProperty =
             DependencyProperty.Register(nameof(Alias), typeof(string), typeof(MenuNavigationItem), new PropertyMetadata(string.Empty));
-
-        //public Visibility ItemVisibility
-        //{
-        //    get { return (Visibility)GetValue(ItemVisibilityProperty); }
-        //    set { SetValue(ItemVisibilityProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty ItemVisibilityProperty =
-        //    DependencyProperty.Register(nameof(ItemVisibility), typeof(Visibility), typeof(MenuNavigationItem), new PropertyMetadata(Visibility.Visible));
-
-
-        //public string FeatureName { get; set; }
-        //public BitmapImage FeatureIcon { get; set; }
-        //public string FeatureAlias { get; set; }
-        //public bool FeatureVisibility { get; set; }
     }
 }

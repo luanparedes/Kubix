@@ -1,4 +1,6 @@
-﻿using Kubix.Model;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kubix.Model;
+using Kubix.Services.Interfaces;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -11,6 +13,7 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private TextBlock _clockText;
         public event EventHandler<bool> DayChanged;
 
@@ -48,6 +51,7 @@ namespace Kubix.Controls
         public KClock()
         {
             Loaded += KClock_Loaded;
+            _logger = Ioc.Default.GetService<ILogger>();
         }
 
         #endregion
@@ -61,6 +65,7 @@ namespace Kubix.Controls
                 StopTimer();
             }
 
+            _logger.InfoLog("KClock: Starting clock.");
             StartTimer();
         }
 
@@ -68,6 +73,8 @@ namespace Kubix.Controls
         {
             Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Tick += Timer_Tick;
+
+            _logger.InfoLog("KClock: Timer started.");
             Timer.Start();
         }
 
@@ -75,6 +82,7 @@ namespace Kubix.Controls
         {
             Timer.Tick -= Timer_Tick;
             Timer.Stop();
+            _logger.InfoLog("KClock: Timer stopped.");
         }
 
         private bool IsDayChanged(string completeHour)
@@ -114,6 +122,7 @@ namespace Kubix.Controls
 
             if (IsDayChanged(timeWithSeconds))
             {
+                _logger.InfoLog("KClock: Day has changed.");
                 DayChanged?.Invoke(this, true);
             }
 

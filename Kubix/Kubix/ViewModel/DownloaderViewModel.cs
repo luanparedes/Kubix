@@ -19,6 +19,8 @@ namespace Kubix.ViewModel
 
         #region Observable Properties
 
+        private readonly ILogger _logger;
+
         [ObservableProperty]
         private ObservableCollection<DownloadModel> downloadItems = new ObservableCollection<DownloadModel>();
         [ObservableProperty]
@@ -30,13 +32,15 @@ namespace Kubix.ViewModel
 
         #region Constructor
 
-        public DownloaderViewModel(IDownloadService downloadService)
+        public DownloaderViewModel(IDownloadService downloadService, ILogger logger)
         {
             _downloadService = downloadService;
             _downloadService.DownloadProgressChangedEvent += _downloadService_DownloadProgressChangedEvent;
             _downloadService.ConfigureCommandsChangedEvent += _downloadService_ConfigureCommandsEvent;
 
             Directory.CreateDirectory(DownloadPath);
+            _logger = logger;
+            _logger.InfoLog("DownloaderViewModel initialized.");
         }
 
         #endregion
@@ -127,6 +131,7 @@ namespace Kubix.ViewModel
                 SuggestedStartLocation = PickerLocationId.Downloads,
                 FileTypeFilter = {"*"}
             };
+            _logger.InfoLog($"Opening folder picker dialog.{(await folderPicker.PickSingleFolderAsync()).Path}");
 
             var hwnd = WindowNative.GetWindowHandle(App.Instance.MainWindow);
             InitializeWithWindow.Initialize(folderPicker, hwnd);

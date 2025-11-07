@@ -57,10 +57,10 @@ namespace Kubix.ViewModel
 
         public bool IsToolsShowing => IsKNoteShowing || IsOffice365Showing || IsTerminalShowing || IsCompilersShowing || IsKDiffShowing;
 
-        public readonly IAppInfo _appInfo = Ioc.Default.GetService<IAppInfo>();
-        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
-        private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
-        private readonly ILogger _logger = Ioc.Default.GetService<ILogger>();
+        public readonly IAppInfo _appInfo;
+        public readonly IDataInitial _dataInitial;
+        private readonly INavigationService _navigationService;
+        private readonly ILogger _logger;
 
         public List<FeatureModel> FeaturesList;
 
@@ -68,9 +68,14 @@ namespace Kubix.ViewModel
 
         #region Contructor
 
-        public MainBoardViewModel()
+        public MainBoardViewModel(IAppInfo appInfo, IDataInitial dataInitial, INavigationService navigation, ILogger logger)
         {
-            _logger.InfoLog("Entered Constructor MainPage!");
+            _appInfo = appInfo;
+            _dataInitial = dataInitial;
+            _navigationService = navigation;
+            _logger = logger;
+
+            _logger.InfoLog("MainViewModel initialized.");
             _dataInitial.UIUpdateChanged += _dataInitial_UIUpdateChanged;
 
             GetChoicesFeatures();

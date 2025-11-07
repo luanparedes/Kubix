@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kubix.Services.Interfaces
 {
-    interface INavigationService
+    public interface INavigationService
     {
         bool CanGoBack { get; }
         bool CanGoForward { get; }

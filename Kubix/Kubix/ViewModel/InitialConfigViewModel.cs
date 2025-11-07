@@ -54,13 +54,12 @@ namespace Kubix.ViewModel
 
         #region Constructor
 
-        public InitialConfigViewModel()
+        public InitialConfigViewModel(INavigationService navigationService, IDataInitial dataInitial, ILogger logger)
         {
-            _navigationService = Ioc.Default.GetService<INavigationService>();
-            _dataInitial = Ioc.Default.GetService<IDataInitial>();
-            _logger = Ioc.Default.GetService<ILogger>();
-
-            _logger.InfoLog("Entrou na página!!!");
+            _navigationService = navigationService;
+            _dataInitial = dataInitial;
+            _logger = logger;
+            _logger.InfoLog("InitialConfigViewModel initialized.");
         }
 
         #endregion
@@ -133,11 +132,12 @@ namespace Kubix.ViewModel
             {
                 case "ContinueBtn":
                     CurrentState = CHOICES_STATE;
-                    _logger.InfoLog("Saiu do Welcome!");
+                    _logger.InfoLog("Switched to Choices state in Initial Configuration.");
                     break;
                 case "FinishBtn":
                     _dataInitial.IsFirstTimeOpening = false;
                     _navigationService.BackToBoard();
+                    _logger.InfoLog("Finished Initial Configuration and navigated to Board.");
                     break;
             }
         }
@@ -150,39 +150,51 @@ namespace Kubix.ViewModel
             {
                 case "WebCheck":
                     _dataInitial.HasWebBrowser = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Web Browser selection changed: {_dataInitial.HasWebBrowser}");
                     break;
                 case "AICheck":
                     _dataInitial.HasAI = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"AI selection changed: {_dataInitial.HasAI}");
                     break;
                 case "MusicCheck":
                     _dataInitial.HasMusic = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Music selection changed: {_dataInitial.HasMusic}");
                     break;
                 case "YoutubeCheck":
                     _dataInitial.HasYoutube = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"YouTube selection changed: {_dataInitial.HasYoutube}");
                     break;
                 case "StreamingCheck":
                     _dataInitial.HasStreaming = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Streaming selection changed: {_dataInitial.HasStreaming}");
                     break;
                 case "SocialMediaCheck":
                     _dataInitial.HasSocialMedia = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Social Media selection changed: {_dataInitial.HasSocialMedia}");
                     break;
                 case "KNoteCheck":
                     _dataInitial.HasKNote = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"KNote selection changed: {_dataInitial.HasKNote}");
                     break;
                 case "OfficeCheck":
                     _dataInitial.HasOffice = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Office selection changed: {_dataInitial.HasOffice}");
                     break;
                 case "GoogleCheck":
                     _dataInitial.HasGoogle = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Google selection changed: {_dataInitial.HasGoogle}");
                     break;
                 case "CompilersCheck":
                     _dataInitial.HasCompilers = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Compilers selection changed: {_dataInitial.HasCompilers}");
                     break;
                 case "TerminalCheck":
                     _dataInitial.HasTerminal = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Terminal selection changed: {_dataInitial.HasTerminal}");
                     break;
                 case "KDiffCheck":
                     _dataInitial.HasKDiff = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"KDiff selection changed: {_dataInitial.HasKDiff}");
                     break;
             }
 

@@ -7,11 +7,25 @@ namespace Kubix.ViewModel
 {
     public class UserInfoViewModel : ObservableObject
     {
-        private readonly INavigationService _navigationService = Ioc.Default.GetService<INavigationService>();
+        #region Fields & Properties
+        private readonly INavigationService _navigationService;
+        private readonly ILogger _logger;
+        #endregion
 
+        #region Constructor
+        public UserInfoViewModel(INavigationService navigation, ILogger logger)
+        {
+            _navigationService = navigation;
+            _logger = logger;
+            _logger.InfoLog("UserInfoViewModel initialized.");
+        }
+        #endregion
+
+        #region Event Handlers
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             _navigationService.BackPrevious();
         }
+        #endregion
     }
 }

@@ -92,6 +92,7 @@ namespace Kubix.Services.Classes
 
                 }
 
+                _logger.InfoLog($"Total cities loaded: {cities.Count}");
                 return cities;
             }
         }
@@ -125,6 +126,7 @@ namespace Kubix.Services.Classes
                     }
                 }
 
+                _logger.InfoLog($"Total typed cities loaded: {cities.Count}");
                 return cities;
             }
         }

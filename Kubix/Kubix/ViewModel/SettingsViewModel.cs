@@ -13,10 +13,11 @@ namespace Kubix.ViewModel
     {
         #region Fields & Properties
 
-        public readonly IDataInitial _dataInitial = Ioc.Default.GetService<IDataInitial>();
-        public readonly IAppInfo _appInfo = Ioc.Default.GetService<IAppInfo>();
-        private readonly INavigationService _navigation = Ioc.Default.GetService<INavigationService>();
-        private readonly IThemeService _themeService = Ioc.Default.GetService<IThemeService>();
+        public readonly IDataInitial _dataInitial;
+        public readonly IAppInfo _appInfo;
+        private readonly INavigationService _navigation;
+        private readonly IThemeService _themeService;
+        private readonly ILogger _logger;
 
         private ElementTheme _themeElement = ElementTheme.Dark;
         public ElementTheme ThemeElement
@@ -29,6 +30,18 @@ namespace Kubix.ViewModel
             }
         }
 
+        #endregion
+
+        #region Constructor
+        public SettingsViewModel(IDataInitial dataInitial, IAppInfo appInfo, INavigationService navigation, IThemeService themeService, ILogger logger)
+        {
+            _dataInitial = dataInitial;
+            _appInfo = appInfo;
+            _navigation = navigation;
+            _themeService = themeService;
+            _logger = logger;
+            _logger.InfoLog("SettingsViewModel initialized.");
+        }
         #endregion
 
         #region Commands
@@ -46,16 +59,19 @@ namespace Kubix.ViewModel
                     _dataInitial.IsDarkThemeChecked = true;
                     _dataInitial.IsLightThemeChecked = false;
                     _dataInitial.IsDefaultThemeChecked = false;
+                    _logger.InfoLog("Theme changed to Dark.");
                     break;
                 case ElementTheme.Light:
                     _dataInitial.IsDarkThemeChecked = false;
                     _dataInitial.IsLightThemeChecked = true;
                     _dataInitial.IsDefaultThemeChecked = false;
+                    _logger.InfoLog("Theme changed to Light.");
                     break;
                 case ElementTheme.Default:
                     _dataInitial.IsDarkThemeChecked = false;
                     _dataInitial.IsLightThemeChecked = false;
                     _dataInitial.IsDefaultThemeChecked = true;
+                    _logger.InfoLog("Theme changed to Default from system.");
                     break;
             }
         }
@@ -77,42 +93,55 @@ namespace Kubix.ViewModel
             {
                 case "WebCheck":
                     _dataInitial.HasWebBrowser = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Web Browser setting changed to {_dataInitial.HasWebBrowser}.");
                     break;
                 case "AICheck":
                     _dataInitial.HasAI = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"AI setting changed to {_dataInitial.HasAI}.");
                     break;
                 case "MusicCheck":
                     _dataInitial.HasMusic = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Music setting changed to {_dataInitial.HasMusic}.");
                     break;
                 case "YoutubeCheck":
                     _dataInitial.HasYoutube = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"YouTube setting changed to {_dataInitial.HasYoutube}.");
                     break;
                 case "StreamingCheck":
                     _dataInitial.HasStreaming = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Streaming setting changed to {_dataInitial.HasStreaming}.");
                     break;
                 case "SocialMediaCheck":
                     _dataInitial.HasSocialMedia = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Social Media setting changed to {_dataInitial.HasSocialMedia}.");
                     break;
                 case "KNoteCheck":
                     _dataInitial.HasKNote = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"KNote setting changed to {_dataInitial.HasKNote}.");
                     break;
                 case "OfficeCheck":
                     _dataInitial.HasOffice = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Office setting changed to {_dataInitial.HasOffice}.");
                     break;
                 case "GoogleCheck":
                     _dataInitial.HasGoogle = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Google setting changed to {_dataInitial.HasGoogle}.");
                     break;
                 case "CompilersCheck":
                     _dataInitial.HasCompilers = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Compilers setting changed to {_dataInitial.HasCompilers}.");
                     break;
                 case "TerminalCheck":
                     _dataInitial.HasTerminal = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Terminal setting changed to {_dataInitial.HasTerminal}.");
                     break;
                 case "KDiffCheck":
                     _dataInitial.HasKDiff = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"KDiff setting changed to {_dataInitial.HasKDiff}.");
                     break;
                 case "DownloaderCheck":
                     _dataInitial.HasDownloader = checkbox.IsChecked.Value;
+                    _logger.InfoLog($"Downloader setting changed to {_dataInitial.HasDownloader}.");
                     break;
             }
 

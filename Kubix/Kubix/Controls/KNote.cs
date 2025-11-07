@@ -11,6 +11,8 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Kubix.Services.Interfaces;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace Kubix.Controls
 {
@@ -18,6 +20,7 @@ namespace Kubix.Controls
     {
         #region Fields & Properties
 
+        private readonly ILogger _logger;
         private TabView customTabView;
         private Button openButton;
         private Button saveButton;
@@ -31,6 +34,7 @@ namespace Kubix.Controls
 
         public KNote()
         {
+            _logger = Ioc.Default.GetService<ILogger>();
             KeyUp += KNote_KeyUp;
             Loaded += KNote_Loaded;
         }
@@ -85,6 +89,7 @@ namespace Kubix.Controls
                         break;
                 }
             }
+            _logger.InfoLog($"New tab created with file {customTabView.SelectedItem}.");
         }
 
         private void ActivateEvents(CustomTabViewItem newTabItem)
@@ -99,7 +104,10 @@ namespace Kubix.Controls
             StorageFile file = await ActualTabItem.FormatControl.OpenFile();
 
             if (file != null)
+            {
                 CreateTab(file);
+                _logger.InfoLog($"File {file.Name} opened in new tab.");
+            }
         }
 
         private async void SaveFile()
@@ -112,6 +120,8 @@ namespace Kubix.Controls
             ActualTabItem.FormatControl.InitialText = text;
             ActualTabItem.FormatControl.HasChanges = false;
             saveButton.IsEnabled = ActualTabItem.FormatControl.HasChanges;
+
+            _logger.InfoLog($"File {file.Name} saved.");
         }
 
         #endregion
@@ -137,6 +147,7 @@ namespace Kubix.Controls
             {
                 ActualTabItem = customTabView.SelectedItem as CustomTabViewItem;
                 saveButton.IsEnabled = ActualTabItem.FormatControl.HasChanges;
+                _logger.InfoLog($"Switched to tab {customTabView.SelectedItem}.");
             }
         }
 
